@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nixi - A Hybrid Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+            --code-bg: #1a202c;
+            --code-text: #e2e8f0;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Code Examples Section */
+        .code-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .code-examples {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .code-example {
+            background: var(--bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .code-content {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Installation Section */
+        .installation {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .installation h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .install-steps {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .install-step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .step-code {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0 1rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #ff79c6; }
+        .function { color: #50fa7b; }
+        .string { color: #f1fa8c; }
+        .comment { color: #6272a4; font-style: italic; }
+        .number { color: #bd93f9; }
+        .component { color: #8be9fd; }
+        .operator { color: #ff79c6; }
+        .property { color: #f8f8f2; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🚀 Nixi</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#documentation">Documentation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Nixi Programming Language</h1>
+            <p>A hybrid programming language combining Nix-like functional syntax, Bash-like built-in functions, and React.js-like GUI components with CSS styling.</p>
+            <div class="cta-buttons">
+                <a href="#installation" class="btn btn-primary">
+                    <span>🚀</span> Get Started
+                </a>
+                <a href="#examples" class="btn btn-secondary">
+                    <span>📚</span> View Examples
+                </a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>🌟 Language Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Nix-like Syntax</h3>
+                    <p>Functional programming with let expressions, pure functions, and immutable data structures inspired by the Nix language.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Bash-like Functions</h3>
+                    <p>Built-in functions for system operations like <code>ls</code>, <code>cd</code>, <code>echo</code>, and file manipulation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>React-like Components</h3>
+                    <p>Component-based GUI architecture with HTML-like elements such as <code>div</code>, <code>button</code>, <code>h1</code>, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>CSS Styling</h3>
+                    <p>Declarative styling system with full CSS support, including hover effects, transitions, and responsive design.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>HTML Generation</h3>
+                    <p>Compile your Nixi applications to standalone HTML files with embedded CSS and JavaScript.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Editor Support</h3>
+                    <p>Built-in syntax highlighting, indentation, and file detection for Neovim and other editors.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="examples" class="code-section">
+            <h2>📝 Code Examples</h2>
+            <div class="code-examples">
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">Hello World</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Simple Hello World in Nixi</span>
+<span class="keyword">let</span>
+  app = <span class="component">div</span> { 
+    <span class="property">class</span>: <span class="string">"container"</span>; 
+    <span class="property">text</span>: <span class="string">"Hello Nixi World!"</span> 
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"hello.html"</span>, <span class="string">"Hello World App"</span>)</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">Math Operations</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Basic arithmetic with built-in functions</span>
+<span class="keyword">let</span>
+  x = <span class="number">42</span>;
+  y = <span class="number">23</span>;
+  sum = <span class="function">add</span>(x, y);
+  message = <span class="string">"The sum is: "</span> <span class="operator">+</span> sum;
+  
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"container"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Math Demo"</span> };
+      <span class="component">p</span> { <span class="property">text</span>: message }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"math.html"</span>, <span class="string">"Math Demo"</span>)</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">GUI Components with Styling</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Define styles first</span>
+<span class="keyword">style</span> <span class="string">"app"</span> {
+  <span class="property">max-width</span>: <span class="string">"600px"</span>;
+  <span class="property">margin</span>: <span class="string">"0 auto"</span>;
+  <span class="property">padding</span>: <span class="string">"20px"</span>;
+  <span class="property">font-family</span>: <span class="string">"Arial, sans-serif"</span>;
+}
+
+<span class="keyword">style</span> <span class="string">"btn"</span> {
+  <span class="property">background</span>: <span class="string">"#007bff"</span>;
+  <span class="property">color</span>: <span class="string">"white"</span>;
+  <span class="property">border</span>: <span class="string">"none"</span>;
+  <span class="property">padding</span>: <span class="string">"10px 20px"</span>;
+  <span class="property">border-radius</span>: <span class="string">"5px"</span>;
+  <span class="property">cursor</span>: <span class="string">"pointer"</span>;
+}
+
+<span class="comment"># Main application</span>
+<span class="keyword">let</span>
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"app"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Styled App"</span> };
+      <span class="component">button</span> {
+        <span class="property">class</span>: <span class="string">"btn"</span>;
+        <span class="property">text</span>: <span class="string">"Click Me!"</span>;
+        <span class="property">onClick</span>: <span class="function">echo</span> <span class="string">"Button clicked!"</span>
+      }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"styled.html"</span>, <span class="string">"Styled App"</span>)</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">Dashboard Example</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Professional dashboard with statistics</span>
+<span class="keyword">let</span>
+  appName = <span class="string">"Nixi Dashboard"</span>;
+  version = <span class="string">"v1.0.0"</span>;
+  
+  <span class="comment"># Statistics cards</span>
+  usersStat = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"stat-card"</span>;
+    <span class="property">children</span>: [
+      <span class="component">div</span> { <span class="property">class</span>: <span class="string">"stat-number"</span>; <span class="property">text</span>: <span class="string">"1,234"</span> };
+      <span class="component">div</span> { <span class="property">class</span>: <span class="string">"stat-label"</span>; <span class="property">text</span>: <span class="string">"Total Users"</span> }
+    ]
+  };
+  
+  <span class="comment"># Dashboard header</span>
+  Header = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"dashboard-header"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: appName };
+      <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Functional Programming Dashboard "</span> <span class="operator">+</span> version }
+    ]
+  };
+  
+  <span class="comment"># Complete dashboard</span>
+  Dashboard = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"dashboard"</span>;
+    <span class="property">children</span>: [ Header; usersStat ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(Dashboard, <span class="string">"dashboard.html"</span>, <span class="string">"Nixi Dashboard"</span>)</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="installation" class="installation">
+            <h2>🚀 Installation</h2>
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone the Repository</h3>
+                        <p>Get the latest version of Nixi from the repository.</p>
+                        <div class="step-code">git clone https://github.com/your-username/nixi.git
+cd nixi</div>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Dependencies</h3>
+                        <p>Nixi requires Node.js to run. Install the required packages.</p>
+                        <div class="step-code">npm install</div>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Run Your First Program</h3>
+                        <p>Execute a Nixi file using the CLI.</p>
+                        <div class="step-code">node src/cli.js examples/simple-gui.nixi</div>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Install Editor Support</h3>
+                        <p>Add syntax highlighting for Neovim.</p>
+                        <div class="step-code">./install-neovim.sh</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <strong>Nixi Programming Language</strong><br>
+                    <span style="color: var(--text-light);">Functional • Component-based • Modern</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="https://github.com/your-username/nixi">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-example').querySelector('.code-content pre');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(72, 187, 120, 0.3)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255, 255, 255, 0.2)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+            });
+        }
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards and code examples
+        document.querySelectorAll('.feature-card, .code-example, .install-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
