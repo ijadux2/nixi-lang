@@ -26,7 +26,7 @@ node src/cli.js config/simple-working.nixi
 
 ## 📖 Documentation
 
-Visit our comprehensive website at [index.html](./index.html) for:
+Visit our comprehensive website at [nixi](https://nixi-phi.vercel.app/) for:
 - Interactive examples
 - Installation guide
 - Language reference
