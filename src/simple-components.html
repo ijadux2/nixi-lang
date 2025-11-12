@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Nixi Demo</title>
+    <title>Simple Component Demo</title>
     <style>
         
       * {
@@ -62,11 +62,25 @@
         margin-bottom: 20px;
       }
     
-        
+        .card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+}
+.btn {
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
     </style>
 </head>
 <body>
-    
+    <div class="app"><h1 text="Simple Component Demo">Simple Component Demo</h1><div class="card"><h3 text="Feature 1">Feature 1</h3><p text="This is the first feature card">This is the first feature card</p></div><div class="card"><h3 text="Feature 2">Feature 2</h3><p text="This is the second feature card">This is the second feature card</p></div><button class="btn" text="Click Me">Click Me</button></div>
     <script>
         
       function handleClick(elementId) {

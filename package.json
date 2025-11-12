@@ -2,21 +2,21 @@
   "name": "nixi",
   "version": "1.0.0",
   "description": "A hybrid programming language with Nix syntax, Bash functions, and React-like GUI",
-  "main": "src/cli.js",
+  "main": "src/compiler.js",
   "bin": {
-    "nixi": "./src/cli.js"
+    "nixi": "./src/compiler.js"
   },
   "scripts": {
-    "start": "node src/cli.js",
+    "start": "node src/compiler.js",
     "test": "node tests/test.js",
-    "dev": "node --watch src/cli.js",
+    "dev": "node --watch src/compiler.js",
     "install:windows": "install-windows.bat",
     "install:macos": "./install-macos.sh",
     "install:linux": "./install-linux.sh",
-    "example:gui": "node src/cli.js examples/simple-gui.nixi",
-    "example:config": "node src/cli.js config/simple-working.nixi",
-    "example:math": "node src/cli.js config/math-demo.nixi",
-    "example:dashboard": "node src/cli.js config/dashboard.nixi",
+    "example:gui": "node src/compiler.js examples/simple-gui.nixi",
+    "example:config": "node src/compiler.js config/simple-working.nixi",
+    "example:math": "node src/compiler.js config/math-demo.nixi",
+    "example:dashboard": "node src/compiler.js config/dashboard.nixi",
     "setup:editor": "./install-neovim.sh"
   },
   "keywords": ["programming-language", "nix", "bash", "gui", "react"],

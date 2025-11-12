@@ -1,0 +1,66 @@
+# Simple Advanced Features Example
+# Demonstrates basic objects and functions
+
+let
+  # Simple object operations
+  user1 = { name: "Alice"; score: 95 };
+  user2 = { name: "Bob"; score: 87 };
+  
+  # Basic calculations
+  totalScore = add(user1.score, user2.score);
+  averageScore = divide(totalScore, 2);
+  
+  # Simple components
+  UserCard1 = div {
+    class: "user-card";
+    children: [
+      h3 { text: user1.name };
+      p { text: "Score: " + user1.score }
+    ]
+  };
+  
+  UserCard2 = div {
+    class: "user-card";
+    children: [
+      h3 { text: user2.name };
+      p { text: "Score: " + user2.score }
+    ]
+  };
+  
+  # Main application
+  app = div {
+    class: "advanced-demo";
+    children: [
+      h1 { text: "🚀 Advanced Features Demo" };
+      
+      h2 { text: "📊 Statistics" };
+      div {
+        class: "stats-grid";
+        children: [
+          div {
+            class: "stat-card";
+            children: [
+              p { text: "Total Score: " + totalScore };
+              p { text: "Average Score: " + averageScore }
+            ]
+          }
+        ]
+      };
+      
+      h2 { text: "👥 Users" };
+      div {
+        class: "users-grid";
+        children: [
+          UserCard1;
+          UserCard2
+        ]
+      }
+    ]
+  };
+  
+  # Basic styling (using style syntax, not addStyle)
+  # Note: These style statements should be outside the let expression
+  # For now, we'll skip complex styling in this example
+  
+in
+  saveHTML(app, "advanced-demo.html", "Advanced Features Demo")

@@ -1,0 +1,56 @@
+# Simple Component Example
+# Basic component usage without complex features
+
+# Add some basic styling (outside let expression)
+style ".card" {
+  border: "1px solid #ccc";
+  padding: "20px";
+  margin: "10px";
+  border-radius: "8px"
+};
+
+style ".btn" {
+  background: "#007bff";
+  color: "white";
+  padding: "10px 20px";
+  border: "none";
+  border-radius: "4px";
+  cursor: "pointer"
+};
+
+let
+  # Simple card structure
+  card1 = div {
+    class: "card";
+    children: [
+      h3 { text: "Feature 1" };
+      p { text: "This is the first feature card" }
+    ]
+  };
+  
+  card2 = div {
+    class: "card";
+    children: [
+      h3 { text: "Feature 2" };
+      p { text: "This is the second feature card" }
+    ]
+  };
+  
+  button1 = button {
+    class: "btn";
+    text: "Click Me";
+    onClick: echo "Button clicked!"
+  };
+  
+  app = div {
+    class: "app";
+    children: [
+      h1 { text: "Simple Component Demo" };
+      card1;
+      card2;
+      button1
+    ]
+  };
+  
+in
+  saveHTML(app, "simple-components.html", "Simple Component Demo")

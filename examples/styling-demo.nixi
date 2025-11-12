@@ -1,0 +1,95 @@
+# Styling and CSS Example
+# Demonstrates styling capabilities
+
+# Define global styles
+style ".container" {
+  max-width: "800px";
+  margin: "0 auto";
+  background: "white";
+  padding: "30px";
+  border-radius: "15px";
+  box-shadow: "0 10px 30px rgba(0,0,0,0.2)"
+};
+
+style ".card" {
+  background: "#f8f9fa";
+  border: "1px solid #e9ecef";
+  border-radius: "10px";
+  padding: "20px";
+  margin: "15px 0"
+};
+
+style ".btn" {
+  padding: "12px 24px";
+  border: "none";
+  border-radius: "6px";
+  cursor: "pointer";
+  font-size: "16px";
+  font-weight: "bold";
+  margin: "5px"
+};
+
+style ".btn-primary" {
+  background: "#007bff";
+  color: "white"
+};
+
+style ".btn-success" {
+  background: "#28a745";
+  color: "white"
+};
+
+style ".header" {
+  text-align: "center";
+  margin-bottom: "30px";
+  color: "#333"
+};
+
+let
+  app = div {
+    class: "container";
+    children: [
+      div {
+        class: "header";
+        children: [
+          h1 { text: "🎨 Styling Demo" };
+          p { text: "Advanced CSS styling with Nixi" }
+        ]
+      };
+      
+      div {
+        class: "card";
+        children: [
+          h3 { text: "🚀 Performance" };
+          p { text: "Optimized rendering and efficient styling system" }
+        ]
+      };
+      
+      div {
+        class: "card";
+        children: [
+          h3 { text: "🎯 Flexibility" };
+          p { text: "Dynamic styling with CSS-like approach" }
+        ]
+      };
+      
+      div {
+        style: "text-align: center; margin-top: 30px";
+        children: [
+          button {
+            class: "btn btn-primary";
+            text: "Primary Action";
+            onClick: echo "Primary button clicked!"
+          };
+          
+          button {
+            class: "btn btn-success";
+            text: "Success Action";
+            onClick: echo "Success button clicked!"
+          }
+        ]
+      }
+    ]
+  };
+in
+  saveHTML(app, "styling-demo.html", "Advanced Styling Demo")

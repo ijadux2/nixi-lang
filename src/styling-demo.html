@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Nixi Demo</title>
+    <title>Advanced Styling Demo</title>
     <style>
         
       * {
@@ -62,11 +62,48 @@
         margin-bottom: 20px;
       }
     
-        
+        .container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px 0;
+}
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px;
+}
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
     </style>
 </head>
 <body>
-    
+    <div class="container"><div class="header"><h1 text="🎨 Styling Demo">🎨 Styling Demo</h1><p text="Advanced CSS styling with Nixi">Advanced CSS styling with Nixi</p></div><div class="card"><h3 text="🚀 Performance">🚀 Performance</h3><p text="Optimized rendering and efficient styling system">Optimized rendering and efficient styling system</p></div><div class="card"><h3 text="🎯 Flexibility">🎯 Flexibility</h3><p text="Dynamic styling with CSS-like approach">Dynamic styling with CSS-like approach</p></div><div style="text-align: center; margin-top: 30px"><button class="btn btn-primary" text="Primary Action">Primary Action</button><button class="btn btn-success" text="Success Action">Success Action</button></div></div>
     <script>
         
       function handleClick(elementId) {

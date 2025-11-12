@@ -1,0 +1,44 @@
+# Simple Component Definition Example
+# Demonstrates basic reusable components
+
+component Card = { title, content }:
+  div {
+    class: "card";
+    children: [
+      h3 { class: "card-title"; text: title };
+      p { class: "card-content"; text: content }
+    ]
+  };
+
+component Button = { text, onClick }:
+  button {
+    class: "btn btn-primary";
+    onClick: onClick;
+    text: text
+  };
+
+component App = {}:
+  div {
+    class: "app";
+    children: [
+      h1 { text: "Component Demo" };
+      
+      Card { 
+        title: "Welcome"; 
+        content: "This demonstrates reusable components"
+      };
+      
+      Card { 
+        title: "Interactive Elements"; 
+        content: "Click the button below"
+      };
+      
+      Button { 
+        text: "Click me!"; 
+        onClick: () => echo "Button clicked!"
+      }
+    ]
+  };
+
+in
+  saveHTML(App {}, "component-demo.html", "Component Definition Demo")
