@@ -10,15 +10,25 @@ Nixi is a programming language that combines:
 
 ### Installation
 
+#### 🚀 Quick Install (Recommended)
+```bash
+# One-line installation for any platform
+curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/quick-install.sh | bash
+```
+
+#### 📋 Platform-Specific Installation
 Choose your operating system:
 
 #### Windows
 ```batch
-# Download and run the Windows installer
+# Option 1: One-line installation (run in Command Prompt or PowerShell)
+powershell -Command "iwr -outf install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat; ./install-windows.bat"
+
+# Option 2: Step-by-step installation
 curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
 install-windows.bat
 
-# Or manual installation:
+# Option 3: Manual installation
 git clone https://github.com/ijadux2/nixi.git
 cd nixi
 npm install
@@ -26,12 +36,15 @@ npm install
 
 #### macOS
 ```bash
-# Download and run the macOS installer
+# Option 1: One-line installation (copy and paste this entire command)
+curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh | bash
+
+# Option 2: Step-by-step installation
 curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
 chmod +x install-macos.sh
 ./install-macos.sh
 
-# Or manual installation:
+# Option 3: Manual installation
 git clone https://github.com/ijadux2/nixi.git
 cd nixi
 npm install
@@ -39,12 +52,15 @@ npm install
 
 #### Linux
 ```bash
-# Download and run the Linux installer
+# Option 1: One-line installation (copy and paste this entire command)
+curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh | bash
+
+# Option 2: Step-by-step installation
 curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
 chmod +x install-linux.sh
 ./install-linux.sh
 
-# Or manual installation:
+# Option 3: Manual installation
 git clone https://github.com/ijadux2/nixi.git
 cd nixi
 npm install

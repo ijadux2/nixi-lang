@@ -1490,7 +1490,11 @@
                     <div class="step-content">
                         <h3>Windows Installation</h3>
                         <p>Download and run the automated installer for Windows.</p>
-                        <div class="step-code">curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
+                        <div class="step-code"># One-line installation:
+powershell -Command "iwr -outf install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat; ./install-windows.bat"
+
+# Or step-by-step:
+curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
 install-windows.bat</div>
                         <p><strong>Prerequisites:</strong> Node.js (from nodejs.org) and Git (from git-scm.com)</p>
                     </div>
@@ -1501,7 +1505,11 @@ install-windows.bat</div>
                     <div class="step-content">
                         <h3>macOS Installation</h3>
                         <p>Download and run the automated installer for macOS.</p>
-                        <div class="step-code">curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
+                        <div class="step-code"># One-line installation:
+curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh | bash
+
+# Or step-by-step:
+curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
 chmod +x install-macos.sh
 ./install-macos.sh</div>
                         <p><strong>Prerequisites:</strong> Node.js (brew install node or from nodejs.org) and Git</p>
@@ -1513,7 +1521,11 @@ chmod +x install-macos.sh
                     <div class="step-content">
                         <h3>Linux Installation</h3>
                         <p>Download and run the automated installer for Linux distributions.</p>
-                        <div class="step-code">curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
+                        <div class="step-code"># One-line installation:
+curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh | bash
+
+# Or step-by-step:
+curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
 chmod +x install-linux.sh
 ./install-linux.sh</div>
                         <p><strong>Prerequisites:</strong> Node.js (apt install nodejs npm, dnf install nodejs npm, etc.) and Git</p>
