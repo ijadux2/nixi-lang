@@ -1483,41 +1483,70 @@
 
         <section id="installation" class="installation">
             <h2>🚀 Installation</h2>
+            
             <div class="install-steps">
                 <div class="install-step">
-                    <div class="step-number">1</div>
+                    <div class="step-number">🪟</div>
                     <div class="step-content">
-                        <h3>Clone the Repository</h3>
-                        <p>Get the latest version of Nixi from the repository.</p>
-                        <div class="step-code">git clone https://github.com/ijadux2/nixi.git &&
-cd nixi</div>
+                        <h3>Windows Installation</h3>
+                        <p>Download and run the automated installer for Windows.</p>
+                        <div class="step-code">curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
+install-windows.bat</div>
+                        <p><strong>Prerequisites:</strong> Node.js (from nodejs.org) and Git (from git-scm.com)</p>
                     </div>
                 </div>
                 
                 <div class="install-step">
-                    <div class="step-number">2</div>
+                    <div class="step-number">🍎</div>
                     <div class="step-content">
-                        <h3>Install Dependencies</h3>
-                        <p>Nixi requires Node.js to run. Install the required packages.</p>
-                        <div class="step-code">npm install</div>
+                        <h3>macOS Installation</h3>
+                        <p>Download and run the automated installer for macOS.</p>
+                        <div class="step-code">curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
+chmod +x install-macos.sh
+./install-macos.sh</div>
+                        <p><strong>Prerequisites:</strong> Node.js (brew install node or from nodejs.org) and Git</p>
                     </div>
                 </div>
                 
                 <div class="install-step">
-                    <div class="step-number">3</div>
+                    <div class="step-number">🐧</div>
                     <div class="step-content">
-                        <h3>Run Your First Program</h3>
-                        <p>Execute a Nixi file using the CLI.</p>
-                        <div class="step-code">node src/cli.js examples/simple-gui.nixi</div>
+                        <h3>Linux Installation</h3>
+                        <p>Download and run the automated installer for Linux distributions.</p>
+                        <div class="step-code">curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
+chmod +x install-linux.sh
+./install-linux.sh</div>
+                        <p><strong>Prerequisites:</strong> Node.js (apt install nodejs npm, dnf install nodejs npm, etc.) and Git</p>
                     </div>
                 </div>
                 
                 <div class="install-step">
-                    <div class="step-number">4</div>
+                    <div class="step-number">⚙️</div>
                     <div class="step-content">
-                        <h3>Install Editor Support</h3>
-                        <p>Add syntax highlighting for Neovim.</p>
-                        <div class="step-code">./install-neovim.sh</div>
+                        <h3>Manual Installation</h3>
+                        <p>Install manually on any platform with Node.js and Git.</p>
+                        <div class="step-code">git clone https://github.com/ijadux2/nixi.git
+cd nixi
+npm install</div>
+                        <p><strong>Test:</strong> node src/cli.js examples/simple-gui.nixi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--surface1); border-radius: 15px;">
+                <h3 style="color: var(--text-dark); margin-bottom: 1rem;">🎯 Quick Start After Installation</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px;">
+                        <strong style="color: var(--mauve);">Run a GUI example:</strong>
+                        <code style="color: var(--code-text);">node src/cli.js examples/simple-gui.nixi</code>
+                    </div>
+                    <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px;">
+                        <strong style="color: var(--mauve);">Run a config example:</strong>
+                        <code style="color: var(--code-text);">node src/cli.js config/simple-working.nixi</code>
+                    </div>
+                    <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px;">
+                        <strong style="color: var(--mauve);">Install editor support:</strong>
+                        <code style="color: var(--code-text);">./install-neovim.sh</code>
                     </div>
                 </div>
             </div>

@@ -9,10 +9,64 @@ Nixi is a programming language that combines:
 ## 🚀 Quick Start
 
 ### Installation
-```bash
+
+Choose your operating system:
+
+#### Windows
+```batch
+# Download and run the Windows installer
+curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
+install-windows.bat
+
+# Or manual installation:
 git clone https://github.com/ijadux2/nixi.git
 cd nixi
 npm install
+```
+
+#### macOS
+```bash
+# Download and run the macOS installer
+curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
+chmod +x install-macos.sh
+./install-macos.sh
+
+# Or manual installation:
+git clone https://github.com/ijadux2/nixi.git
+cd nixi
+npm install
+```
+
+#### Linux
+```bash
+# Download and run the Linux installer
+curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
+chmod +x install-linux.sh
+./install-linux.sh
+
+# Or manual installation:
+git clone https://github.com/ijadux2/nixi.git
+cd nixi
+npm install
+```
+
+#### Prerequisites
+- **Node.js** (version 14 or higher)
+- **Git** for cloning the repository
+- **npm** (comes with Node.js)
+
+#### Adding Nixi to PATH (Optional)
+After installation, you can add Nixi to your system PATH for easier access:
+
+**Windows (Command Prompt):**
+```batch
+setx PATH "%PATH%;C:\path\to\nixi"
+```
+
+**macOS/Linux (bash/zsh):**
+```bash
+echo 'export PATH="$PATH:/path/to/nixi"' >> ~/.bashrc  # or ~/.zshrc
+source ~/.bashrc  # or source ~/.zshrc
 ```
 
 ### Running Nixi Programs

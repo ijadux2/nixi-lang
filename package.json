@@ -9,7 +9,15 @@
   "scripts": {
     "start": "node src/cli.js",
     "test": "node tests/test.js",
-    "dev": "node --watch src/cli.js"
+    "dev": "node --watch src/cli.js",
+    "install:windows": "install-windows.bat",
+    "install:macos": "./install-macos.sh",
+    "install:linux": "./install-linux.sh",
+    "example:gui": "node src/cli.js examples/simple-gui.nixi",
+    "example:config": "node src/cli.js config/simple-working.nixi",
+    "example:math": "node src/cli.js config/math-demo.nixi",
+    "example:dashboard": "node src/cli.js config/dashboard.nixi",
+    "setup:editor": "./install-neovim.sh"
   },
   "keywords": ["programming-language", "nix", "bash", "gui", "react"],
   "author": "Kumar Vaibhav",
