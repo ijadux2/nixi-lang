@@ -143,8 +143,8 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
@@ -217,7 +217,7 @@
 
         .features h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 3rem;
             color: var(--text-dark);
         }
@@ -289,7 +289,7 @@
 
         .code-section h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 3rem;
             color: var(--text-dark);
         }
@@ -362,7 +362,7 @@
 
         .installation h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 3rem;
             color: var(--text-dark);
         }
@@ -1751,7 +1751,9 @@ nixi --compile examples/simple-components.nixi</pre>
                 <div class="install-step">
                     <div class="step-number">🪟</div>
                     <div class="step-content">
-                        <h3>Windows Installation</h3>
+                        <h3>Windows</h3>
+                        
+                        <h4>🚀 Auto-Install</h4>
                         <p>Download and run the automated installer for Windows.</p>
                         <div class="step-code"># One-line installation:
 powershell -Command "iwr -outf install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat; ./install-windows.bat"
@@ -1759,6 +1761,13 @@ powershell -Command "iwr -outf install-windows.bat https://raw.githubusercontent
 # Or step-by-step:
 curl -o install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat
 install-windows.bat</div>
+                        
+                        <h4>⚙️ Manual Install</h4>
+                        <p>Install manually on Windows with Node.js and Git.</p>
+                        <div class="step-code">git clone https://github.com/ijadux2/nixi.git
+cd nixi
+npm install</div>
+                        
                         <p><strong>Prerequisites:</strong> Node.js (from nodejs.org) and Git (from git-scm.com)</p>
                     </div>
                 </div>
@@ -1766,7 +1775,9 @@ install-windows.bat</div>
                 <div class="install-step">
                     <div class="step-number">🍎</div>
                     <div class="step-content">
-                        <h3>macOS Installation</h3>
+                        <h3>macOS</h3>
+                        
+                        <h4>🚀 Auto-Install</h4>
                         <p>Download and run the automated installer for macOS.</p>
                         <div class="step-code"># One-line installation:
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh | bash
@@ -1775,6 +1786,13 @@ curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh 
 curl -o install-macos.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh
 chmod +x install-macos.sh
 ./install-macos.sh</div>
+                        
+                        <h4>⚙️ Manual Install</h4>
+                        <p>Install manually on macOS with Node.js and Git.</p>
+                        <div class="step-code">git clone https://github.com/ijadux2/nixi.git
+cd nixi
+npm install</div>
+                        
                         <p><strong>Prerequisites:</strong> Node.js (brew install node or from nodejs.org) and Git</p>
                     </div>
                 </div>
@@ -1782,7 +1800,9 @@ chmod +x install-macos.sh
                 <div class="install-step">
                     <div class="step-number">🐧</div>
                     <div class="step-content">
-                        <h3>Linux Installation</h3>
+                        <h3>Linux</h3>
+                        
+                        <h4>🚀 Auto-Install</h4>
                         <p>Download and run the automated installer for Linux distributions.</p>
                         <div class="step-code"># One-line installation:
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh | bash
@@ -1791,19 +1811,14 @@ curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh 
 curl -o install-linux.sh https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh
 chmod +x install-linux.sh
 ./install-linux.sh</div>
-                        <p><strong>Prerequisites:</strong> Node.js (apt install nodejs npm, dnf install nodejs npm, etc.) and Git</p>
-                    </div>
-                </div>
-                
-                <div class="install-step">
-                    <div class="step-number">⚙️</div>
-                    <div class="step-content">
-                        <h3>Manual Installation</h3>
-                        <p>Install manually on any platform with Node.js and Git.</p>
+                        
+                        <h4>⚙️ Manual Install</h4>
+                        <p>Install manually on Linux with Node.js and Git.</p>
                         <div class="step-code">git clone https://github.com/ijadux2/nixi.git
 cd nixi
 npm install</div>
-                        <p><strong>Test:</strong> node src/cli.js examples/simple-gui.nixi</p>
+                        
+                        <p><strong>Prerequisites:</strong> Node.js (apt install nodejs npm, dnf install nodejs npm, etc.) and Git</p>
                     </div>
                 </div>
             </div>
