@@ -496,6 +496,7 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#language-reference">Language Reference</a></li>
                 <li><a href="#examples">Examples</a></li>
+                <li><a href="#html-css-js-support">HTML/CSS/JS Support</a></li>
                 <li><a href="#compiler-usage">Compiler Usage</a></li>
                 <li><a href="#testing-results">Testing Results</a></li>
                 <li><a href="#documentation">Documentation</a></li>
@@ -538,9 +539,19 @@
                     <p>Component-based GUI architecture with HTML-like elements such as <code>div</code>, <code>button</code>, <code>h1</code>, and more.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎭</div>
+                    <div class="feature-icon">🎨</div>
                     <h3>CSS Styling</h3>
                     <p>Declarative styling system with full CSS support, including hover effects, transitions, and responsive design.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>HTML Support</h3>
+                    <p>Direct HTML tag embedding and generation with full HTML5 support, including semantic elements and attributes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>JavaScript Integration</h3>
+                    <p>Seamless JavaScript code execution, DOM manipulation, and web API integration within Nixi programs.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚙️</div>
@@ -985,6 +996,469 @@
   emailValid = validateEmail <span class="string">"user@example.com"</span>;
 <span class="keyword">in</span>
   <span class="function">echo</span> <span class="string">"Error handling demo completed"</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="html-css-js-support" class="code-section">
+            <h2>🌐 HTML, CSS & JavaScript Support</h2>
+            
+            <div class="code-examples">
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">HTML Tag Embedding</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Direct HTML embedding in Nixi</span>
+<span class="keyword">let</span>
+  page = <span class="component">html</span> {
+    <span class="component">head</span> {
+      <span class="component">title</span> <span class="string">"Nixi HTML Demo"</span>;
+      <span class="component">meta</span> { <span class="property">charset</span>: <span class="string">"UTF-8"</span> };
+      <span class="component">link</span> { 
+        <span class="property">rel</span>: <span class="string">"stylesheet"</span>;
+        <span class="property">href</span>: <span class="string">"styles.css"</span>
+      }
+    };
+    <span class="component">body</span> {
+      <span class="component">header</span> {
+        <span class="component">nav</span> {
+          <span class="component">ul</span> {
+            <span class="property">class</span>: <span class="string">"nav-menu"</span>;
+            <span class="property">children</span>: [
+              <span class="component">li</span> { <span class="component">a</span> { <span class="property">href</span>: <span class="string">"#home"</span>; <span class="property">text</span>: <span class="string">"Home"</span> } };
+              <span class="component">li</span> { <span class="component">a</span> { <span class="property">href</span>: <span class="string">"#about"</span>; <span class="property">text</span>: <span class="string">"About"</span> } };
+              <span class="component">li</span> { <span class="component">a</span> { <span class="property">href</span>: <span class="string">"#contact"</span>; <span class="property">text</span>: <span class="string">"Contact"</span> } }
+            ]
+          }
+        }
+      };
+      <span class="component">main</span> {
+        <span class="component">section</span> {
+          <span class="property">class</span>: <span class="string">"hero"</span>;
+          <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Welcome to Nixi HTML"</span> };
+          <span class="component">p</span> { 
+            <span class="property">text</span>: <span class="string">"Full HTML5 support embedded directly in Nixi code"</span>;
+            <span class="property">class</span>: <span class="string">"subtitle"</span>
+          };
+          <span class="component">button</span> {
+            <span class="property">class</span>: <span class="string">"cta-button"</span>;
+            <span class="property">text</span>: <span class="string">"Get Started"</span>;
+            <span class="property">onclick</span>: <span class="string">"alert('Hello from Nixi HTML!')"</span>
+          }
+        }
+      };
+      <span class="component">footer</span> {
+        <span class="property">class</span>: <span class="string">"page-footer"</span>;
+        <span class="component">p</span> { <span class="property">text</span>: <span class="string">"© 2024 Nixi Programming Language"</span> }
+      }
+    }
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(page, <span class="string">"html-demo.html"</span>, <span class="string">"HTML Demo"</span>)</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">Advanced CSS Integration</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># CSS with advanced features</span>
+<span class="keyword">css</span> <span class="string">".hero-section"</span> {
+  <span class="property">background</span>: <span class="string">"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"</span>;
+  <span class="property">padding</span>: <span class="string">"4rem 2rem"</span>;
+  <span class="property">text-align</span>: <span class="string">"center"</span>;
+  <span class="property">color</span>: <span class="string">"white"</span>;
+  <span class="property">border-radius</span>: <span class="string">"15px"</span>;
+  <span class="property">box-shadow</span>: <span class="string">"0 20px 40px rgba(0, 0, 0, 0.1)"</span>;
+  <span class="property">transition</span>: <span class="string">"transform 0.3s ease"</span>
+}
+
+<span class="keyword">css</span> <span class="string">".hero-section:hover"</span> {
+  <span class="property">transform</span>: <span class="string">"translateY(-5px)"</span>;
+  <span class="property">box-shadow</span>: <span class="string">"0 25px 50px rgba(0, 0, 0, 0.15)"</span>
+}
+
+<span class="comment"># Media queries for responsive design</span>
+<span class="keyword">css</span> <span class="string">"@media (max-width: 768px)"</span> {
+  <span class="property">hero-section</span>: {
+    <span class="property">padding</span>: <span class="string">"2rem 1rem"</span>;
+    <span class="property">font-size</span>: <span class="string">"0.9em"</span>
+  }
+}
+
+<span class="comment"># CSS Grid and Flexbox</span>
+<span class="keyword">css</span> <span class="string">".grid-container"</span> {
+  <span class="property">display</span>: <span class="string">"grid"</span>;
+  <span class="property">grid-template-columns</span>: <span class="string">"repeat(auto-fit, minmax(300px, 1fr))"</span>;
+  <span class="property">gap</span>: <span class="string">"2rem"</span>;
+  <span class="property">padding</span>: <span class="string">"2rem"</span>
+}
+
+<span class="keyword">css</span> <span class="string">".flex-card"</span> {
+  <span class="property">display</span>: <span class="string">"flex"</span>;
+  <span class="property">flex-direction</span>: <span class="string">"column"</span>;
+  <span class="property">justify-content</span>: <span class="string">"space-between"</span>;
+  <span class="property">background</span>: <span class="string">"white"</span>;
+  <span class="property">border-radius</span>: <span class="string">"10px"</span>;
+  <span class="property">padding</span>: <span class="string">"1.5rem"</span>;
+  <span class="property">box-shadow</span>: <span class="string">"0 4px 6px rgba(0, 0, 0, 0.1)"</span>;
+  <span class="property">transition</span>: <span class="string">"all 0.3s ease"</span>
+}
+
+<span class="comment"># Animations</span>
+<span class="keyword">css</span> <span class="string">"@keyframes fadeInUp"</span> {
+  <span class="property">from</span>: {
+    <span class="property">opacity</span>: <span class="string">"0"</span>;
+    <span class="property">transform</span>: <span class="string">"translateY(30px)"</span>
+  };
+  <span class="property">to</span>: {
+    <span class="property">opacity</span>: <span class="string">"1"</span>;
+    <span class="property">transform</span>: <span class="string">"translateY(0)"</span>
+  }
+}
+
+<span class="keyword">css</span> <span class="string">".animate-fade-in"</span> {
+  <span class="property">animation</span>: <span class="string">"fadeInUp 0.6s ease-out"</span>
+}</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">JavaScript Integration</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># JavaScript code execution and DOM manipulation</span>
+<span class="keyword">let</span>
+  <span class="comment"># Define JavaScript functions</span>
+  jsCode = <span class="string">"
+    // Interactive counter function
+    function createCounter(initialValue = 0) {
+      let count = initialValue;
+      
+      return {
+        increment: () => ++count,
+        decrement: () => --count,
+        getValue: () => count,
+        reset: () => count = initialValue
+      };
+    }
+    
+    // DOM utility functions
+    function createElement(tag, attributes = {}, children = []) {
+      const element = document.createElement(tag);
+      
+      Object.entries(attributes).forEach(([key, value]) => {
+        if (key === 'className') {
+          element.className = value;
+        } else if (key === 'textContent') {
+          element.textContent = value;
+        } else {
+          element.setAttribute(key, value);
+        }
+      });
+      
+      children.forEach(child => {
+        if (typeof child === 'string') {
+          element.appendChild(document.createTextNode(child));
+        } else {
+          element.appendChild(child);
+        }
+      });
+      
+      return element;
+    }
+    
+    // Event handling utility
+    function addEventListeners(element, events) {
+      Object.entries(events).forEach(([event, handler]) => {
+        element.addEventListener(event, handler);
+      });
+    }
+    
+    // Initialize app
+    const app = {
+      counter: createCounter(0),
+      init: function() {
+        const container = document.getElementById('interactive-demo');
+        if (!container) return;
+        
+        const counterDisplay = createElement('div', {
+          className: 'counter-display',
+          textContent: 'Count: ' + this.counter.getValue()
+        });
+        
+        const incrementBtn = createElement('button', {
+          className: 'btn btn-primary',
+          textContent: 'Increment'
+        });
+        
+        const decrementBtn = createElement('button', {
+          className: 'btn btn-secondary', 
+          textContent: 'Decrement'
+        });
+        
+        const resetBtn = createElement('button', {
+          className: 'btn btn-warning',
+          textContent: 'Reset'
+        });
+        
+        addEventListeners(incrementBtn, {
+          click: () => {
+            this.counter.increment();
+            counterDisplay.textContent = 'Count: ' + this.counter.getValue();
+          }
+        });
+        
+        addEventListeners(decrementBtn, {
+          click: () => {
+            this.counter.decrement();
+            counterDisplay.textContent = 'Count: ' + this.counter.getValue();
+          }
+        });
+        
+        addEventListeners(resetBtn, {
+          click: () => {
+            this.counter.reset();
+            counterDisplay.textContent = 'Count: ' + this.counter.getValue();
+          }
+        });
+        
+        container.appendChild(counterDisplay);
+        container.appendChild(incrementBtn);
+        container.appendChild(decrementBtn);
+        container.appendChild(resetBtn);
+      }
+    };
+    
+    // Auto-initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => app.init());
+    } else {
+      app.init();
+    }
+  "</span>;
+  
+  <span class="comment"># Execute JavaScript code</span>
+  _ = <span class="function">js</span>(jsCode);
+  
+  <span class="comment"># JavaScript evaluation examples</span>
+  mathResult = <span class="function">js</span> <span class="string">"Math.sqrt(144) + Math.pow(2, 4)"</span>;  <span class="comment"># 12 + 16 = 28</span>
+  arrayResult = <span class="function">js</span> <span class="string">"[1, 2, 3, 4, 5].reduce((a, b) => a + b, 0)"</span>;  <span class="comment"># 15</span>
+  
+  <span class="comment"># DOM manipulation with Nixi</span>
+  createInteractiveDemo = <span class="function">tag</span> <span class="string">"div"</span> {
+    <span class="property">id</span>: <span class="string">"interactive-demo"</span>;
+    <span class="property">class</span>: <span class="string">"interactive-section"</span>
+  } [];
+  
+  <span class="comment"># Event handling</span>
+  setupClickHandler = <span class="keyword">let</span>
+    button = <span class="function">querySelector</span> <span class="string">"#demo-button"</span>;
+    handler = <span class="function">js</span> <span class="string">"(event) => console.log('Button clicked!', event)"</span>;
+  <span class="keyword">in</span>
+    <span class="function">addEventListener</span> button <span class="string">"click"</span> handler;
+    
+  <span class="comment"># Fetch API example</span>
+  fetchData = <span class="function">js</span> <span class="string">"
+    fetch('https://api.github.com/repos/ijadux2/nixi')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Nixi repo data:', data);
+        return data.stargazers_count;
+      })
+      .catch(error => console.error('Error:', error));
+  "</span>;
+<span class="keyword">in</span>
+  <span class="function">html</span> [
+    <span class="component">h2</span> { <span class="property">text</span>: <span class="string">"JavaScript Integration Demo"</span> };
+    <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Math result: "</span> <span class="operator">+</span> <span class="function">toString</span>(mathResult) };
+    <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Array sum: "</span> <span class="operator">+</span> <span class="function">toString</span>(arrayResult) };
+    createInteractiveDemo;
+    <span class="component">button</span> {
+      <span class="property">id</span>: <span class="string">"demo-button"</span>;
+      <span class="property">class</span>: <span class="string">"demo-button"</span>;
+      <span class="property">text</span>: <span class="string">"Click Me!"</span>
+    }
+  ]</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">Complete Web Application</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Full-stack web app with HTML, CSS, and JavaScript</span>
+<span class="keyword">let</span>
+  <span class="comment"># Define styles</span>
+  _ = <span class="keyword">css</span> <span class="string">".app-container"</span> {
+    <span class="property">max-width</span>: <span class="string">"800px"</span>;
+    <span class="property">margin</span>: <span class="string">"0 auto"</span>;
+    <span class="property">padding</span>: <span class="string">"2rem"</span>;
+    <span class="property">font-family</span>: <span class="string">"'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"</span>
+  };
+  
+  _ = <span class="keyword">css</span> <span class="string">".todo-item"</span> {
+    <span class="property">display</span>: <span class="string">"flex"</span>;
+    <span class="property">align-items</span>: <span class="string">"center"</span>;
+    <span class="property">padding</span>: <span class="string">"1rem"</span>;
+    <span class="property">margin</span>: <span class="string">"0.5rem 0"</span>;
+    <span class="property">background</span>: <span class="string">"#f8f9fa"</span>;
+    <span class="property">border-radius</span>: <span class="string">"8px"</span>;
+    <span class="property">border-left</span>: <span class="string">"4px solid #007bff"</span>;
+    <span class="property">transition</span>: <span class="string">"all 0.2s ease"</span>
+  };
+  
+  _ = <span class="keyword">css</span> <span class="string">".todo-item:hover"</span> {
+    <span class="property">background</span>: <span class="string">"#e9ecef"</span>;
+    <span class="property">transform</span>: <span class="string">"translateX(5px)"</span>
+  };
+  
+  <span class="comment"># JavaScript application logic</span>
+  appLogic = <span class="string">"
+    class TodoApp {
+      constructor() {
+        this.todos = [
+          { id: 1, text: 'Learn Nixi HTML support', completed: true },
+          { id: 2, text: 'Master CSS integration', completed: false },
+          { id: 3, text: 'Build JavaScript apps', completed: false }
+        ];
+        this.nextId = 4;
+        this.init();
+      }
+      
+      init() {
+        this.render();
+        this.setupEventListeners();
+      }
+      
+      render() {
+        const container = document.getElementById('todo-app');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        const header = document.createElement('div');
+        header.className = 'app-header';
+        header.innerHTML = '<h1>📝 Nixi Todo App</h1><p>Powered by HTML, CSS & JavaScript integration</p>';
+        container.appendChild(header);
+        
+        const inputContainer = document.createElement('div');
+        inputContainer.className = 'input-container';
+        inputContainer.innerHTML = \`
+          <input type="text" id="todo-input" placeholder="Add a new todo..." />
+          <button id="add-todo">Add Todo</button>
+        \`;
+        container.appendChild(inputContainer);
+        
+        const todoList = document.createElement('div');
+        todoList.className = 'todo-list';
+        
+        this.todos.forEach(todo => {
+          const todoItem = document.createElement('div');
+          todoItem.className = 'todo-item';
+          todoItem.innerHTML = \`
+            <input type="checkbox" \${todo.completed ? 'checked' : ''} 
+                   onchange="todoApp.toggleTodo(\${todo.id})" />
+            <span class="\${todo.completed ? 'completed' : ''}">\${todo.text}</span>
+            <button onclick="todoApp.deleteTodo(\${todo.id})" class="delete-btn">Delete</button>
+          \`;
+          todoList.appendChild(todoItem);
+        });
+        
+        container.appendChild(todoList);
+        
+        const stats = document.createElement('div');
+        stats.className = 'app-stats';
+        const completed = this.todos.filter(t => t.completed).length;
+        const total = this.todos.length;
+        stats.innerHTML = \`<p>Completed: \${completed}/\${total} todos</p>\`;
+        container.appendChild(stats);
+      }
+      
+      setupEventListeners() {
+        const input = document.getElementById('todo-input');
+        const addButton = document.getElementById('add-todo');
+        
+        if (addButton) {
+          addButton.addEventListener('click', () => this.addTodo());
+        }
+        
+        if (input) {
+          input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.addTodo();
+          });
+        }
+      }
+      
+      addTodo() {
+        const input = document.getElementById('todo-input');
+        const text = input.value.trim();
+        
+        if (text) {
+          this.todos.push({
+            id: this.nextId++,
+            text: text,
+            completed: false
+          });
+          input.value = '';
+          this.render();
+        }
+      }
+      
+      toggleTodo(id) {
+        const todo = this.todos.find(t => t.id === id);
+        if (todo) {
+          todo.completed = !todo.completed;
+          this.render();
+        }
+      }
+      
+      deleteTodo(id) {
+        this.todos = this.todos.filter(t => t.id !== id);
+        this.render();
+      }
+    }
+    
+    // Global instance for event handlers
+    let todoApp;
+    
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      todoApp = new TodoApp();
+    });
+  "</span>;
+  
+  <span class="comment"># Execute the application</span>
+  _ = <span class="function">js</span>(appLogic);
+  
+  <span class="comment"># HTML structure</span>
+  todoApp = <span class="component">html</span> {
+    <span class="component">head</span> {
+      <span class="component">title</span> <span class="string">"Nixi Todo App"</span>;
+      <span class="component">meta</span> { <span class="property">charset</span>: <span class="string">"UTF-8"</span> };
+      <span class="component">meta</span> { 
+        <span class="property">name</span>: <span class="string">"viewport"</span>;
+        <span class="property">content</span>: <span class="string">"width=device-width, initial-scale=1.0"</span>
+      }
+    };
+    <span class="component">body</span> {
+      <span class="component">div</span> {
+        <span class="property">id</span>: <span class="string">"todo-app"</span>;
+        <span class="property">class</span>: <span class="string">"app-container"</span>
+      }
+    }
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(todoApp, <span class="string">"todo-app.html"</span>, <span class="string">"Nixi Todo Application"</span>)</pre>
                     </div>
                 </div>
             </div>

@@ -245,7 +245,132 @@ const builtins = {
   a: (props) => NixiValue.fromNative({
     type: 'a',
     props: props.toNative()
-  })
+  }),
+  
+  // HTML generation functions
+  html: (content) => {
+    const htmlContent = content.toNative ? content.toNative() : content;
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nixi Generated HTML</title>
+</head>
+<body>
+  ${htmlContent}
+</body>
+</html>`;
+    return new NixiValue('string', html);
+  },
+  
+  tag: (tagName, attributes, children) => {
+    const tag = tagName.toNative();
+    const attrs = attributes.toNative ? attributes.toNative() : attributes;
+    const kids = children.toNative ? children.toNative() : children;
+    
+    const attrStr = Object.entries(attrs || {})
+      .map(([key, value]) => {
+        if (value === true) return key;
+        return `${key}="${value}"`;
+      })
+      .join(' ');
+    
+    const kidsStr = Array.isArray(kids) ? kids.join('') : (kids || '');
+    
+    const html = `<${tag}${attrStr ? ' ' + attrStr : ''}>${kidsStr}</${tag}>`;
+    return new NixiValue('string', html);
+  },
+  
+  // CSS functions
+  css: (selector, properties) => {
+    const sel = selector.toNative();
+    const props = properties.toNative ? properties.toNative() : properties;
+    
+    const cssText = Object.entries(props)
+      .map(([prop, value]) => `  ${prop}: ${value};`)
+      .join('\n');
+    
+    const css = `${sel} {\n${cssText}\n}`;
+    getGUIRenderer().addCSS(css);
+    return new NixiValue('string', css);
+  },
+  
+  // JavaScript functions
+  js: (code) => {
+    const jsCode = code.toNative ? code.toNative() : code;
+    try {
+      const result = eval(jsCode);
+      return NixiValue.fromNative(result);
+    } catch (error) {
+      return new NixiValue('error', error.message);
+    }
+  },
+  
+  eval: (expression) => {
+    const expr = expression.toNative ? expression.toNative() : expression;
+    try {
+      const result = eval(expr);
+      return NixiValue.fromNative(result);
+    } catch (error) {
+      return new NixiValue('error', error.message);
+    }
+  },
+  
+  // DOM manipulation functions
+  getElementById: (id) => {
+    const element = document.getElementById(id.toNative());
+    return NixiValue.fromNative(element);
+  },
+  
+  querySelector: (selector) => {
+    const element = document.querySelector(selector.toNative());
+    return NixiValue.fromNative(element);
+  },
+  
+  querySelectorAll: (selector) => {
+    const elements = document.querySelectorAll(selector.toNative());
+    return NixiValue.fromNative(Array.from(elements));
+  },
+  
+  // Event handling
+  addEventListener: (element, event, handler) => {
+    const el = element.toNative();
+    const evt = event.toNative();
+    const hdl = handler.toNative ? handler.toNative() : handler;
+    
+    if (el && el.addEventListener) {
+      el.addEventListener(evt, hdl);
+      return new NixiValue('boolean', true);
+    }
+    return new NixiValue('boolean', false);
+  },
+  
+  // File I/O for web
+  readFile: (file) => {
+    const f = file.toNative();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(NixiValue.fromNative(e.target.result));
+      reader.onerror = (e) => reject(new NixiValue('error', e.target.error));
+      reader.readAsText(f);
+    });
+  },
+  
+  writeFile: (filename, content) => {
+    const name = filename.toNative();
+    const cont = content.toNative ? content.toNative() : content;
+    
+    const blob = new Blob([cont], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    return new NixiValue('boolean', true);
+  }
 };
 
 let guiRenderer = null;
@@ -315,6 +440,14 @@ builtins.addStyle = (selector, properties) => {
         return this.generateComponentInstantiation(node);
       case 'StyleDefinition':
         return this.generateStyleDefinition(node);
+      case 'HTMLTag':
+        return this.generateHTMLTag(node);
+      case 'HTMLComment':
+        return this.generateHTMLComment(node);
+      case 'CSSRule':
+        return this.generateCSSRule(node);
+      case 'JSCode':
+        return this.generateJSCode(node);
       default:
         throw new Error(`Unknown node type: ${node.type}`);
     }
@@ -336,7 +469,9 @@ builtins.addStyle = (selector, properties) => {
     const builtinFunctions = [
       'add', 'multiply', 'subtract', 'divide', 'echo', 'concat', 'toString',
       'map', 'length', 'ls', 'cd', 'pwd', 'div', 'span', 'button', 'input',
-      'h1', 'h2', 'h3', 'p', 'a', 'renderHTML', 'saveHTML', 'addStyle'
+      'h1', 'h2', 'h3', 'p', 'a', 'renderHTML', 'saveHTML', 'addStyle',
+      'html', 'tag', 'css', 'js', 'eval', 'getElementById', 'querySelector',
+      'querySelectorAll', 'addEventListener', 'readFile', 'writeFile'
     ];
     
     // Check if it's a builtin
@@ -564,6 +699,75 @@ builtins.addStyle = (selector, properties) => {
     this.styles.set(node.selector, properties);
     
     return styleCode;
+  }
+
+  generateHTMLTag(node) {
+    const tagName = node.tagName;
+    const attributes = node.attributes || {};
+    const children = node.children || [];
+    
+    // Generate attributes
+    const attrStr = Object.entries(attributes)
+      .map(([key, value]) => {
+        if (value === true) return key;
+        return `${key}="${value}"`;
+      })
+      .join(' ');
+    
+    // Generate children
+    const childrenCode = children.map(child => this.generateNode(child)).join(', ');
+    
+    return `(function() {
+  const children = [${childrenCode}];
+  const html = '<${tagName}${attrStr ? ' ' + attrStr : ''}>' + 
+    children.map(child => child.toNative ? child.toNative() : child).join('') + 
+    '</${tagName}>';
+  return new NixiValue('string', html);
+})()`;
+  }
+
+  generateHTMLComment(node) {
+    return `new NixiValue('string', '${node.content}')`;
+  }
+
+  generateCSSRule(node) {
+    const selector = node.selector;
+    const propertiesOrRules = node.propertiesOrRules;
+    
+    if (selector === 'stylesheet') {
+      // Multiple rules
+      const rulesCode = propertiesOrRules.map(rule => this.generateCSSRule({ selector: rule.selector, propertiesOrRules: rule.propertiesOrRules }));
+      return `(function() {
+  ${rulesCode.join(';\n  ')}
+  return new NixiValue('null', null);
+})()`;
+    }
+    
+    // Single rule
+    const properties = propertiesOrRules;
+    const cssText = Object.entries(properties)
+      .map(([prop, value]) => `  ${prop}: ${value};`)
+      .join('\n');
+    
+    return `(function() {
+  const css = '${selector} {\\n${cssText}\\n}';
+  getGUIRenderer().addCSS(css);
+  return new NixiValue('null', null);
+})()`;
+  }
+
+  generateJSCode(node) {
+    const code = node.code;
+    
+    return `(function() {
+  try {
+    ${code}
+    return new NixiValue('null', null);
+  } catch (error) {
+    console.error('JavaScript error:', error);
+    return new NixiValue('error', error.message);
+  }
+})()`;
   }
 
   indent() {

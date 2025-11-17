@@ -1,0 +1,849 @@
+# JavaScript Integration Demo
+# Demonstrates JavaScript code execution, DOM manipulation, and web APIs in Nixi
+
+let
+  # Initialize JavaScript environment and utilities
+  initJS = js "
+    // Global Nixi JavaScript utilities
+    window.NixiJS = {
+      // State management
+      state: {
+        counter: 0,
+        todos: [],
+        theme: 'light',
+        notifications: []
+      },
+      
+      // Utility functions
+      utils: {
+        // Generate unique ID
+        generateId: () => '_' + Math.random().toString(36).substr(2, 9),
+        
+        // Format date
+        formatDate: (date) => new Date(date).toLocaleString(),
+        
+        // Debounce function
+        debounce: (func, wait) => {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        },
+        
+        // Throttle function
+        throttle: (func, limit) => {
+          let inThrottle;
+          return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+              func.apply(context, args);
+              inThrottle = true;
+              setTimeout(() => inThrottle = false, limit);
+            }
+          };
+        }
+      },
+      
+      // DOM utilities
+      dom: {
+        // Create element with attributes and children
+        createElement: (tag, attributes = {}, children = []) => {
+          const element = document.createElement(tag);
+          
+          Object.entries(attributes).forEach(([key, value]) => {
+            if (key === 'className') {
+              element.className = value;
+            } else if (key === 'textContent') {
+              element.textContent = value;
+            } else if (key === 'innerHTML') {
+              element.innerHTML = value;
+            } else if (key.startsWith('data-')) {
+              element.setAttribute(key, value);
+            } else {
+              element[key] = value;
+            }
+          });
+          
+          children.forEach(child => {
+            if (typeof child === 'string') {
+              element.appendChild(document.createTextNode(child));
+            } else if (child instanceof HTMLElement) {
+              element.appendChild(child);
+            }
+          });
+          
+          return element;
+        },
+        
+        // Query selector with error handling
+        safeQuerySelector: (selector) => {
+          try {
+            return document.querySelector(selector);
+          } catch (error) {
+            console.error('Invalid selector:', selector, error);
+            return null;
+          }
+        },
+        
+        // Query selector all
+        safeQuerySelectorAll: (selector) => {
+          try {
+            return document.querySelectorAll(selector);
+          } catch (error) {
+            console.error('Invalid selector:', selector, error);
+            return [];
+          }
+        },
+        
+        // Add event listeners with cleanup
+        addEventListenerWithCleanup: (element, event, handler, options = {}) => {
+          element.addEventListener(event, handler, options);
+          return () => element.removeEventListener(event, handler, options);
+        }
+      },
+      
+      // Notification system
+      notifications: {
+        show: (message, type = 'info', duration = 3000) => {
+          const notification = window.NixiJS.dom.createElement('div', {
+            className: `notification notification-${type}`,
+            innerHTML: `
+              <div class="notification-content">
+                <span class="notification-message">${message}</span>
+                <button class="notification-close">&times;</button>
+              </div>
+            `
+          });
+          
+          document.body.appendChild(notification);
+          
+          // Auto remove
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, duration);
+          
+          // Manual close
+          const closeBtn = notification.querySelector('.notification-close');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+              if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+              }
+            });
+          }
+        }
+      },
+      
+      // Theme manager
+      theme: {
+        toggle: () => {
+          const currentTheme = window.NixiJS.state.theme;
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          window.NixiJS.state.theme = newTheme;
+          document.body.setAttribute('data-theme', newTheme);
+          localStorage.setItem('nixi-theme', newTheme);
+          window.NixiJS.notifications.show(`Theme changed to ${newTheme}`, 'success');
+        },
+        
+        init: () => {
+          const savedTheme = localStorage.getItem('nixi-theme') || 'light';
+          window.NixiJS.state.theme = savedTheme;
+          document.body.setAttribute('data-theme', savedTheme);
+        }
+      },
+      
+      // API utilities
+      api: {
+        // Fetch with error handling
+        safeFetch: async (url, options = {}) => {
+          try {
+            const response = await fetch(url, {
+              headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+              },
+              ...options
+            });
+            
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+          } catch (error) {
+            console.error('Fetch error:', error);
+            window.NixiJS.notifications.show(`API Error: ${error.message}`, 'error');
+            throw error;
+          }
+        },
+        
+        // GitHub API example
+        getGitHubRepo: async (owner, repo) => {
+          return await window.NixiJS.api.safeFetch(
+            `https://api.github.com/repos/${owner}/${repo}`
+          );
+        }
+      }
+    };
+    
+    // Initialize theme
+    window.NixiJS.theme.init();
+    
+    console.log('Nixi JavaScript environment initialized');
+  ";
+
+  # Define styles for our JavaScript demo
+  _ = css ".js-demo-container" {
+    max-width: "1200px";
+    margin: "0 auto";
+    padding: "2rem";
+    font-family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  };
+
+  _ = css ".counter-section" {
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    padding: "2rem";
+    border-radius: "15px";
+    color: "white";
+    text-align: "center";
+    margin: "2rem 0";
+    box-shadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
+  };
+
+  _ = css ".counter-display" {
+    font-size: "3rem";
+    font-weight: "bold";
+    margin: "1rem 0";
+    text-shadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
+  };
+
+  _ = css ".counter-buttons" {
+    display: "flex";
+    gap: "1rem";
+    justify-content: "center";
+    flex-wrap: "wrap"
+  };
+
+  _ = css ".btn" {
+    padding: "0.75rem 1.5rem";
+    border: "none";
+    border-radius: "8px";
+    font-size: "1rem";
+    font-weight: "600";
+    cursor: "pointer";
+    transition: "all 0.3s ease";
+    text-transform: "uppercase";
+    letter-spacing: "0.5px"
+  };
+
+  _ = css ".btn-primary" {
+    background: "#28a745";
+    color: "white"
+  };
+
+  _ = css ".btn-danger" {
+    background: "#dc3545";
+    color: "white"
+  };
+
+  _ = css ".btn-warning" {
+    background: "#ffc107";
+    color: "#212529"
+  };
+
+  _ = css ".btn:hover" {
+    transform: "translateY(-2px)";
+    box-shadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
+  };
+
+  _ = css ".todo-section" {
+    background: "white";
+    padding: "2rem";
+    border-radius: "15px";
+    box-shadow: "0 4px 6px rgba(0, 0, 0, 0.1)";
+    margin: "2rem 0"
+  };
+
+  _ = css ".todo-input-group" {
+    display: "flex";
+    gap: "1rem";
+    margin-bottom: "2rem"
+  };
+
+  _ = css ".todo-input" {
+    flex: "1";
+    padding: "0.75rem";
+    border: "2px solid #e9ecef";
+    border-radius: "8px";
+    font-size: "1rem";
+    transition: "border-color 0.3s ease"
+  };
+
+  _ = css ".todo-input:focus" {
+    outline: "none";
+    border-color: "#667eea"
+  };
+
+  _ = css ".todo-list" {
+    list-style: "none";
+    padding: "0"
+  };
+
+  _ = css ".todo-item" {
+    display: "flex";
+    align-items: "center";
+    padding: "1rem";
+    margin: "0.5rem 0";
+    background: "#f8f9fa";
+    border-radius: "8px";
+    border-left: "4px solid #667eea";
+    transition: "all 0.3s ease"
+  };
+
+  _ = css ".todo-item:hover" {
+    background: "#e9ecef";
+    transform: "translateX(5px)"
+  };
+
+  _ = css ".todo-checkbox" {
+    margin-right: "1rem";
+    transform: "scale(1.2)"
+  };
+
+  _ = css ".todo-text" {
+    flex: "1";
+    font-size: "1rem";
+    transition: "all 0.3s ease"
+  };
+
+  _ = css ".todo-completed .todo-text" {
+    text-decoration: "line-through";
+    opacity: "0.6"
+  };
+
+  _ = css ".todo-delete" {
+    background: "#dc3545";
+    color: "white";
+    border: "none";
+    padding: "0.5rem 1rem";
+    border-radius: "5px";
+    cursor: "pointer";
+    transition: "background 0.3s ease"
+  };
+
+  _ = css ".todo-delete:hover" {
+    background: "#c82333"
+  };
+
+  _ = css ".api-section" {
+    background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)";
+    padding: "2rem";
+    border-radius: "15px";
+    color: "white";
+    text-align: "center";
+    margin: "2rem 0"
+  };
+
+  _ = css ".theme-toggle" {
+    position: "fixed";
+    top: "20px";
+    right: "20px";
+    background: "#667eea";
+    color: "white";
+    border: "none";
+    padding: "1rem";
+    border-radius: "50%";
+    cursor: "pointer";
+    font-size: "1.2rem";
+    box-shadow: "0 4px 6px rgba(0, 0, 0, 0.1)";
+    transition: "all 0.3s ease";
+    z-index: "1000"
+  };
+
+  _ = css ".theme-toggle:hover" {
+    transform: "scale(1.1)";
+    background: "#764ba2"
+  };
+
+  _ = css "[data-theme='dark']" {
+    background: "#1a1a1a";
+    color: "#ffffff"
+  };
+
+  _ = css "[data-theme='dark'] .todo-section" {
+    background: "#2d2d2d";
+    color: "#ffffff"
+  };
+
+  _ = css "[data-theme='dark'] .todo-item" {
+    background: "#3d3d3d";
+    color: "#ffffff"
+  };
+
+  _ = css "[data-theme='dark'] .todo-input" {
+    background: "#3d3d3d";
+    color: "#ffffff";
+    border-color: "#555"
+  };
+
+  # Notification styles
+  _ = css ".notification" {
+    position: "fixed";
+    top: "20px";
+    right: "20px";
+    max-width: "300px";
+    z-index: "9999";
+    animation: "slideInRight 0.3s ease-out"
+  };
+
+  _ = css ".notification-content" {
+    background: "white";
+    padding: "1rem";
+    border-radius: "8px";
+    box-shadow: "0 4px 12px rgba(0, 0, 0, 0.15)";
+    display: "flex";
+    align-items: "center";
+    justify-content: "space-between"
+  };
+
+  _ = css ".notification-info" { border-left: "4px solid #17a2b8" };
+  _ = css ".notification-success" { border-left: "4px solid #28a745" };
+  _ = css ".notification-warning" { border-left: "4px solid #ffc107" };
+  _ = css ".notification-error" { border-left: "4px solid #dc3545" };
+
+  _ = css ".notification-close" {
+    background: "none";
+    border: "none";
+    font-size: "1.2rem";
+    cursor: "pointer";
+    margin-left: "1rem";
+    color: "#666"
+  };
+
+  _ = css "@keyframes slideInRight" {
+    "0%": { transform: "translateX(100%)"; opacity: "0" };
+    "100%": { transform: "translateX(0)"; opacity: "1" }
+  };
+
+  # Interactive counter application
+  counterApp = js "
+    class CounterApp {
+      constructor() {
+        this.counter = 0;
+        this.init();
+      }
+      
+      init() {
+        this.render();
+        this.setupEventListeners();
+      }
+      
+      render() {
+        const container = document.getElementById('counter-app');
+        if (!container) return;
+        
+        container.innerHTML = \`
+          <h2>🔢 Interactive Counter</h2>
+          <div class='counter-display'>\${this.counter}</div>
+          <div class='counter-buttons'>
+            <button class='btn btn-primary' id='increment'>+ Increment</button>
+            <button class='btn btn-warning' id='decrement'>- Decrement</button>
+            <button class='btn btn-danger' id='reset'>Reset</button>
+          </div>
+        \`;
+      }
+      
+      setupEventListeners() {
+        const incrementBtn = document.getElementById('increment');
+        const decrementBtn = document.getElementById('decrement');
+        const resetBtn = document.getElementById('reset');
+        
+        if (incrementBtn) {
+          incrementBtn.addEventListener('click', () => this.increment());
+        }
+        
+        if (decrementBtn) {
+          decrementBtn.addEventListener('click', () => this.decrement());
+        }
+        
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => this.reset());
+        }
+      }
+      
+      increment() {
+        this.counter++;
+        this.updateDisplay();
+        window.NixiJS.notifications.show('Counter incremented!', 'success', 1000);
+      }
+      
+      decrement() {
+        this.counter--;
+        this.updateDisplay();
+        window.NixiJS.notifications.show('Counter decremented!', 'info', 1000);
+      }
+      
+      reset() {
+        this.counter = 0;
+        this.updateDisplay();
+        window.NixiJS.notifications.show('Counter reset!', 'warning', 1000);
+      }
+      
+      updateDisplay() {
+        const display = document.querySelector('.counter-display');
+        if (display) {
+          display.textContent = this.counter;
+          // Add animation effect
+          display.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            display.style.transform = 'scale(1)';
+          }, 200);
+        }
+      }
+    }
+    
+    // Initialize counter app
+    new CounterApp();
+  ";
+
+  # Todo application
+  todoApp = js "
+    class TodoApp {
+      constructor() {
+        this.todos = [
+          { id: 1, text: 'Learn Nixi JavaScript integration', completed: true },
+          { id: 2, text: 'Build interactive applications', completed: false },
+          { id: 3, text: 'Master web APIs', completed: false }
+        ];
+        this.nextId = 4;
+        this.init();
+      }
+      
+      init() {
+        this.render();
+        this.setupEventListeners();
+      }
+      
+      render() {
+        const container = document.getElementById('todo-app');
+        if (!container) return;
+        
+        container.innerHTML = \`
+          <h2>📝 Todo Application</h2>
+          <div class='todo-input-group'>
+            <input type='text' id='todo-input' class='todo-input' placeholder='Add a new todo...' />
+            <button class='btn btn-primary' id='add-todo'>Add Todo</button>
+          </div>
+          <ul class='todo-list' id='todo-list'>
+            \${this.todos.map(todo => this.renderTodoItem(todo)).join('')}
+          </ul>
+          <div style='margin-top: 2rem; text-align: center; opacity: 0.7;'>
+            <p>Total: \${this.todos.length} | Completed: \${this.todos.filter(t => t.completed).length}</p>
+          </div>
+        \`;
+      }
+      
+      renderTodoItem(todo) {
+        return \`
+          <li class='todo-item \${todo.completed ? 'todo-completed' : ''}' data-id='\${todo.id}'>
+            <input type='checkbox' class='todo-checkbox' \${todo.completed ? 'checked' : ''} 
+                   onchange='todoApp.toggleTodo(\${todo.id})' />
+            <span class='todo-text'>\${todo.text}</span>
+            <button class='todo-delete' onclick='todoApp.deleteTodo(\${todo.id})'>Delete</button>
+          </li>
+        \`;
+      }
+      
+      setupEventListeners() {
+        const input = document.getElementById('todo-input');
+        const addButton = document.getElementById('add-todo');
+        
+        if (addButton) {
+          addButton.addEventListener('click', () => this.addTodo());
+        }
+        
+        if (input) {
+          input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.addTodo();
+          });
+        }
+      }
+      
+      addTodo() {
+        const input = document.getElementById('todo-input');
+        const text = input.value.trim();
+        
+        if (text) {
+          this.todos.push({
+            id: this.nextId++,
+            text: text,
+            completed: false
+          });
+          input.value = '';
+          this.render();
+          window.NixiJS.notifications.show('Todo added successfully!', 'success');
+        }
+      }
+      
+      toggleTodo(id) {
+        const todo = this.todos.find(t => t.id === id);
+        if (todo) {
+          todo.completed = !todo.completed;
+          this.render();
+          const status = todo.completed ? 'completed' : 'marked as incomplete';
+          window.NixiJS.notifications.show(\`Todo \${status}!\`, 'info');
+        }
+      }
+      
+      deleteTodo(id) {
+        this.todos = this.todos.filter(t => t.id !== id);
+        this.render();
+        window.NixiJS.notifications.show('Todo deleted!', 'warning');
+      }
+    }
+    
+    // Initialize todo app
+    window.todoApp = new TodoApp();
+  ";
+
+  # API data fetching
+  apiDemo = js "
+    class APIDemo {
+      constructor() {
+        this.init();
+      }
+      
+      async init() {
+        this.render();
+        await this.loadGitHubData();
+      }
+      
+      render() {
+        const container = document.getElementById('api-demo');
+        if (!container) return;
+        
+        container.innerHTML = \`
+          <h2>🌐 API Integration</h2>
+          <div id='api-content'>
+            <p>Loading GitHub repository data...</p>
+            <div class='loader'></div>
+          </div>
+        \`;
+      }
+      
+      async loadGitHubData() {
+        try {
+          const data = await window.NixiJS.api.getGitHubRepo('ijadux2', 'nixi');
+          const content = document.getElementById('api-content');
+          
+          if (content) {
+            content.innerHTML = \`
+              <div style='background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;'>
+                <h3>📊 Nixi Repository Stats</h3>
+                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;'>
+                  <div style='text-align: center;'>
+                    <div style='font-size: 2rem; font-weight: bold;'>\${data.stargazers_count || 0}</div>
+                    <div>⭐ Stars</div>
+                  </div>
+                  <div style='text-align: center;'>
+                    <div style='font-size: 2rem; font-weight: bold;'>\${data.forks_count || 0}</div>
+                    <div>🍴 Forks</div>
+                  </div>
+                  <div style='text-align: center;'>
+                    <div style='font-size: 2rem; font-weight: bold;'>\${data.open_issues_count || 0}</div>
+                    <div>🐛 Issues</div>
+                  </div>
+                  <div style='text-align: center;'>
+                    <div style='font-size: 2rem; font-weight: bold;'>\${data.language || 'Nixi'}</div>
+                    <div>💻 Language</div>
+                  </div>
+                </div>
+                <p style='margin-top: 1rem; opacity: 0.8;'>
+                  Last updated: \${new Date(data.updated_at).toLocaleDateString()}
+                </p>
+              </div>
+            \`;
+          }
+          
+          window.NixiJS.notifications.show('GitHub data loaded successfully!', 'success');
+        } catch (error) {
+          console.error('API Error:', error);
+          const content = document.getElementById('api-content');
+          if (content) {
+            content.innerHTML = \`
+              <div style='background: rgba(220, 53, 69, 0.1); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(220, 53, 69, 0.3);'>
+                <h3>❌ API Error</h3>
+                <p>Failed to load GitHub data: \${error.message}</p>
+                <button class='btn btn-primary' onclick='location.reload()'>Retry</button>
+              </div>
+            \`;
+          }
+        }
+      }
+    }
+    
+    // Initialize API demo
+    new APIDemo();
+  ";
+
+  # Theme toggle functionality
+  themeToggle = js "
+    // Add theme toggle button to the page
+    const themeButton = document.createElement('button');
+    themeButton.className = 'theme-toggle';
+    themeButton.innerHTML = '🌙';
+    themeButton.title = 'Toggle theme';
+    themeButton.addEventListener('click', () => {
+      window.NixiJS.theme.toggle();
+      themeButton.innerHTML = window.NixiJS.state.theme === 'dark' ? '☀️' : '🌙';
+    });
+    
+    document.body.appendChild(themeButton);
+  ";
+
+  # Execute all JavaScript components
+  _ = initJS;
+  _ = counterApp;
+  _ = todoApp;
+  _ = apiDemo;
+  _ = themeToggle;
+
+  # Create the main HTML structure
+  jsDemo = html {
+    head {
+      title "JavaScript Integration Demo";
+      meta { charset: "UTF-8" };
+      meta { 
+        name: "viewport"; 
+        content: "width=device-width, initial-scale=1.0" 
+      };
+      style "
+        body {
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          min-height: 100vh;
+          transition: all 0.3s ease;
+        }
+        .loader {
+          width: 40px;
+          height: 40px;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-top: 3px solid white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 2rem auto;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      "
+    };
+    body {
+      div {
+        class: "js-demo-container";
+        
+        header {
+          text-align: "center";
+          margin: "2rem 0";
+          h1 { 
+            style: "color: #667eea; font-size: 2.5rem; margin-bottom: 1rem;";
+            text: "⚡ JavaScript Integration Showcase" 
+          };
+          p { 
+            style: "font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;";
+            text: "Complete JavaScript integration with DOM manipulation, API calls, state management, and interactive components"
+          }
+        };
+
+        # Counter application section
+        section {
+          id: "counter-app";
+          class: "counter-section"
+        };
+
+        # Todo application section
+        section {
+          id: "todo-app";
+          class: "todo-section"
+        };
+
+        # API demonstration section
+        section {
+          id: "api-demo";
+          class: "api-section"
+        };
+
+        footer {
+          text-align: "center";
+          padding: "2rem";
+          margin: "2rem 0";
+          background: "white";
+          border-radius: "15px";
+          box-shadow: "0 4px 6px rgba(0, 0, 0, 0.1)";
+          
+          h3 { style: "color: #667eea; margin-bottom: 1rem;"; text: "🚀 JavaScript Features Demonstrated" };
+          
+          div {
+            style: "display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;";
+            
+            div {
+              style: "text-align: left; padding: 1rem; background: #f8f9fa; border-radius: 8px;";
+              children: [
+                h4 { style: "color: #764ba2; margin-top: 0;"; text: "🔧 Core Features" };
+                ul { style: "list-style: none; padding: 0;"; children: [
+                  li { "✅ ES6+ JavaScript support" };
+                  li { "✅ DOM manipulation utilities" };
+                  li { "✅ Event handling system" };
+                  li { "✅ State management" }
+                ] }
+              ]
+            };
+            
+            div {
+              style: "text-align: left; padding: 1rem; background: #f8f9fa; border-radius: 8px;";
+              children: [
+                h4 { style: "color: #667eea; margin-top: 0;"; text: "🌐 Web APIs" };
+                ul { style: "list-style: none; padding: 0;"; children: [
+                  li { "✅ Fetch API integration" };
+                  li { "✅ Local storage usage" };
+                  li { "✅ GitHub API example" };
+                  li { "✅ Error handling" }
+                ] }
+              ]
+            };
+            
+            div {
+              style: "text-align: left; padding: 1rem; background: #f8f9fa; border-radius: 8px;";
+              children: [
+                h4 { style: "color: #f093fb; margin-top: 0;"; text: "🎨 UI Features" };
+                ul { style: "list-style: none; padding: 0;"; children: [
+                  li { "✅ Theme switching" };
+                  li { "✅ Notification system" };
+                  li { "✅ Interactive components" };
+                  li { "✅ Responsive design" }
+                ] }
+              ]
+            }
+          };
+          
+          p { 
+            style: "margin-top: 2rem; color: #666; font-style: italic;";
+            text: "Powered by Nixi's seamless JavaScript integration"
+          }
+        }
+      }
+    }
+  }
+
+in
+  saveHTML(jsDemo, "javascript-integration-demo.html", "JavaScript Integration Demo")

@@ -20,6 +20,10 @@ const {
   ComponentDefinition,
   ComponentInstantiation,
   StyleDefinition,
+  HTMLTag,
+  HTMLComment,
+  CSSRule,
+  JSCode,
   Program
 } = require('./ast');
 
@@ -93,6 +97,27 @@ class Parser {
       const stmt = this.styleDefinition();
       this.match('SEMICOLON'); // Optional semicolon
       return stmt;
+    }
+    if (this.match('HTML')) {
+      return this.htmlDocument();
+    }
+    if (this.match('CSS')) {
+      return this.cssBlock();
+    }
+    if (this.match('JS')) {
+      return this.jsBlock();
+    }
+    if (this.match('HTML_TAG')) {
+      return this.htmlTag();
+    }
+    if (this.match('HTML_COMMENT')) {
+      return this.htmlComment();
+    }
+    if (this.match('CSS_RULE')) {
+      return this.cssRule();
+    }
+    if (this.match('JS_CODE')) {
+      return this.jsCode();
     }
     if (this.match('IF')) return this.conditionalExpression();
     
@@ -375,6 +400,22 @@ class Parser {
       return new Identifier(this.previous().value);
     }
     
+    if (this.match('HTML_TAG')) {
+      return this.htmlTag();
+    }
+    
+    if (this.match('HTML_COMMENT')) {
+      return this.htmlComment();
+    }
+    
+    if (this.match('CSS_RULE')) {
+      return this.cssRule();
+    }
+    
+    if (this.match('JS_CODE')) {
+      return this.jsCode();
+    }
+    
     if (this.match('LPAREN')) {
       const expr = this.expression();
       this.consume('RPAREN', 'Expected ) after expression');
@@ -461,6 +502,170 @@ class Parser {
     this.consume('RBRACKET', 'Expected ] after array elements');
     
     return new ArrayLiteral(elements);
+  }
+
+  htmlDocument() {
+    const children = [];
+    
+    while (!this.isAtEnd() && !this.check('EOF')) {
+      if (this.match('HTML_TAG') || this.match('HTML_COMMENT')) {
+        children.push(this.htmlContent());
+      } else {
+        break;
+      }
+    }
+    
+    return new HTMLTag('html', {}, children);
+  }
+
+  htmlTag() {
+    const token = this.previous();
+    const tagContent = token.value;
+    
+    // Parse tag name and attributes
+    const tagMatch = tagContent.match(/^<(\w+)([^>]*)/);
+    if (!tagMatch) {
+      throw new Error(`Invalid HTML tag: ${tagContent} at line ${token.line}`);
+    }
+    
+    const tagName = tagMatch[1];
+    const attributesStr = tagMatch[2];
+    const attributes = this.parseHTMLAttributes(attributesStr);
+    
+    // Check if self-closing
+    const isSelfClosing = tagContent.endsWith('/>');
+    
+    if (isSelfClosing) {
+      return new HTMLTag(tagName, attributes, []);
+    }
+    
+    // Parse children
+    const children = [];
+    while (!this.isAtEnd() && !this.check('HTML_TAG')) {
+      if (this.check('HTML_COMMENT')) {
+        children.push(this.htmlComment());
+      } else if (this.check('STRING')) {
+        children.push(new StringLiteral(this.advance().value));
+      } else if (this.check('IDENTIFIER')) {
+        children.push(new Identifier(this.advance().value));
+      } else {
+        children.push(this.expression());
+      }
+      
+      // Look ahead for closing tag
+      if (this.check('HTML_TAG') && this.peek().value.startsWith(`</${tagName}>`)) {
+        break;
+      }
+    }
+    
+    // Consume closing tag
+    if (this.check('HTML_TAG') && this.peek().value.startsWith(`</${tagName}>`)) {
+      this.advance();
+    }
+    
+    return new HTMLTag(tagName, attributes, children);
+  }
+
+  htmlComment() {
+    const token = this.previous();
+    return new HTMLComment(token.value);
+  }
+
+  htmlContent() {
+    if (this.match('HTML_TAG')) {
+      return this.htmlTag();
+    }
+    if (this.match('HTML_COMMENT')) {
+      return this.htmlComment();
+    }
+    return this.expression();
+  }
+
+  parseHTMLAttributes(attrStr) {
+    const attributes = {};
+    
+    // Simple regex-based attribute parsing
+    const attrRegex = /(\w+)(?:=["']([^"']*)["'])?/g;
+    let match;
+    
+    while ((match = attrRegex.exec(attrStr)) !== null) {
+      const name = match[1];
+      const value = match[2] !== undefined ? match[2] : true;
+      attributes[name] = value;
+    }
+    
+    return attributes;
+  }
+
+  cssBlock() {
+    const rules = [];
+    
+    while (!this.isAtEnd() && !this.check('EOF')) {
+      if (this.match('CSS_RULE')) {
+        rules.push(this.cssRule());
+      } else {
+        break;
+      }
+    }
+    
+    return new CSSRule('stylesheet', rules);
+  }
+
+  cssRule() {
+    const token = this.previous();
+    const ruleContent = token.value;
+    
+    // Parse selector and properties
+    const parts = ruleContent.split('{');
+    if (parts.length < 2) {
+      throw new Error(`Invalid CSS rule: ${ruleContent}`);
+    }
+    
+    const selector = parts[0].trim();
+    const propertiesStr = parts.slice(1).join('{').replace('}', '');
+    
+    const properties = this.parseCSSProperties(propertiesStr);
+    
+    return new CSSRule(selector, properties);
+  }
+
+  parseCSSProperties(propStr) {
+    const properties = {};
+    
+    // Split by semicolons
+    const declarations = propStr.split(';');
+    
+    for (const declaration of declarations) {
+      const colonIndex = declaration.indexOf(':');
+      if (colonIndex > 0) {
+        const property = declaration.substring(0, colonIndex).trim();
+        const value = declaration.substring(colonIndex + 1).trim();
+        if (property && value) {
+          properties[property] = value;
+        }
+      }
+    }
+    
+    return properties;
+  }
+
+  jsBlock() {
+    const code = [];
+    
+    while (!this.isAtEnd() && !this.check('EOF')) {
+      if (this.match('JS_CODE')) {
+        code.push(this.jsCode());
+      } else {
+        break;
+      }
+    }
+    
+    return new JSCode(code.join('\n'));
+  }
+
+  jsCode() {
+    const token = this.previous();
+    return new JSCode(token.value);
   }
 }
 

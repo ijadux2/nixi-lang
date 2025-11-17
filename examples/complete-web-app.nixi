@@ -1,0 +1,613 @@
+# Complete Web Application Demo
+# Demonstrates the full power of Nixi with HTML, CSS, and JavaScript integration
+
+let
+  # Comprehensive styling for the complete application
+  _ = css ".app-wrapper" {
+    min-height: "100vh";
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    font-family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  };
+
+  _ = css ".app-header" {
+    background: "rgba(255, 255, 255, 0.1)";
+    backdrop-filter: "blur(10px)";
+    padding: "1rem 2rem";
+    display: "flex";
+    justify-content: "space-between";
+    align-items: "center";
+    border-bottom: "1px solid rgba(255, 255, 255, 0.2)"
+  };
+
+  _ = css ".app-title" {
+    color: "white";
+    font-size: "1.5rem";
+    font-weight: "bold";
+    text-decoration: "none";
+    display: "flex";
+    align-items: "center";
+    gap: "0.5rem"
+  };
+
+  _ = css ".nav-menu" {
+    display: "flex";
+    list-style: "none";
+    gap: "2rem";
+    margin: "0";
+    padding: "0"
+  };
+
+  _ = css ".nav-link" {
+    color: "white";
+    text-decoration: "none";
+    padding: "0.5rem 1rem";
+    border-radius: "8px";
+    transition: "all 0.3s ease";
+    font-weight: "500"
+  };
+
+  _ = css ".nav-link:hover" {
+    background: "rgba(255, 255, 255, 0.2)";
+    transform: "translateY(-2px)"
+  };
+
+  _ = css ".nav-link.active" {
+    background: "rgba(255, 255, 255, 0.3)"
+  };
+
+  _ = css ".app-main" {
+    max-width: "1200px";
+    margin: "0 auto";
+    padding: "2rem"
+  };
+
+  _ = css ".dashboard-grid" {
+    display: "grid";
+    grid-template-columns: "repeat(auto-fit, minmax(350px, 1fr))";
+    gap: "2rem";
+    margin: "2rem 0"
+  };
+
+  _ = css ".dashboard-card" {
+    background: "rgba(255, 255, 255, 0.95)";
+    border-radius: "20px";
+    padding: "2rem";
+    box-shadow: "0 20px 40px rgba(0, 0, 0, 0.1)";
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+    position: "relative";
+    overflow: "hidden"
+  };
+
+  _ = css ".dashboard-card::before" {
+    content: "''";
+    position: "absolute";
+    top: "0";
+    left: "0";
+    right: "0";
+    height: "4px";
+    background: "linear-gradient(90deg, #667eea, #764ba2, #f093fb)";
+    background-size: "200% 100%";
+    animation: "gradient-flow 3s ease infinite"
+  };
+
+  _ = css "@keyframes gradient-flow" {
+    "0%": { background-position: "0% 50%" };
+    "50%": { background-position: "100% 50%" };
+    "100%": { background-position: "0% 50%" }
+  };
+
+  _ = css ".dashboard-card:hover" {
+    transform: "translateY(-10px) scale(1.02)";
+    box-shadow: "0 30px 60px rgba(0, 0, 0, 0.15)"
+  };
+
+  _ = css ".card-header" {
+    display: "flex";
+    align-items: "center";
+    gap: "1rem";
+    margin-bottom: "1.5rem"
+  };
+
+  _ = css ".card-icon" {
+    width: "50px";
+    height: "50px";
+    background: "linear-gradient(135deg, #667eea, #764ba2)";
+    border-radius: "15px";
+    display: "flex";
+    align-items: "center";
+    justify-content: "center";
+    font-size: "1.5rem";
+    color: "white"
+  };
+
+  _ = css ".card-title" {
+    font-size: "1.3rem";
+    font-weight: "bold";
+    color: "#333";
+    margin: "0"
+  };
+
+  _ = css ".metric-value" {
+    font-size: "2.5rem";
+    font-weight: "bold";
+    color: "#667eea";
+    margin: "1rem 0"
+  };
+
+  _ = css ".metric-label" {
+    color: "#666";
+    font-size: "0.9rem";
+    text-transform: "uppercase";
+    letter-spacing: "0.5px"
+  };
+
+  _ = css ".progress-bar-container" {
+    width: "100%";
+    height: "20px";
+    background: "#e9ecef";
+    border-radius: "10px";
+    overflow: "hidden";
+    margin: "1rem 0"
+  };
+
+  _ = css ".progress-bar-fill" {
+    height: "100%";
+    background: "linear-gradient(90deg, #667eea, #764ba2)";
+    border-radius: "10px";
+    transition: "width 1s ease-out";
+    position: "relative";
+    overflow: "hidden"
+  };
+
+  _ = css ".progress-bar-fill::after" {
+    content: "''";
+    position: "absolute";
+    top: "0";
+    left: "0";
+    right: "0";
+    bottom: "0";
+    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)";
+    animation: "shimmer 2s infinite"
+  };
+
+  _ = css "@keyframes shimmer" {
+    "0%": { transform: "translateX(-100%)" };
+    "100%": { transform: "translateX(100%)" }
+  };
+
+  _ = css ".activity-list" {
+    list-style: "none";
+    padding: "0";
+    margin: "1rem 0"
+  };
+
+  _ = css ".activity-item" {
+    display: "flex";
+    align-items: "center";
+    padding: "1rem";
+    margin: "0.5rem 0";
+    background: "#f8f9fa";
+    border-radius: "10px";
+    border-left: "4px solid #667eea";
+    transition: "all 0.3s ease"
+  };
+
+  _ = css ".activity-item:hover" {
+    background: "#e9ecef";
+    transform: "translateX(5px)"
+  };
+
+  _ = css ".activity-icon" {
+    width: "40px";
+    height: "40px";
+    background: "#667eea";
+    border-radius: "10px";
+    display: "flex";
+    align-items: "center";
+    justify-content: "center";
+    color: "white";
+    margin-right: "1rem";
+    font-size: "1.2rem"
+  };
+
+  _ = css ".activity-content" {
+    flex: "1"
+  };
+
+  _ = css ".activity-title" {
+    font-weight: "600";
+    color: "#333";
+    margin: "0 0 0.25rem 0"
+  };
+
+  _ = css ".activity-time" {
+    font-size: "0.8rem";
+    color: "#666"
+  };
+
+  _ = css ".chart-container" {
+    height: "200px";
+    display: "flex";
+    align-items: "end";
+    justify-content: "space-around";
+    margin: "1rem 0";
+    padding: "1rem";
+    background: "#f8f9fa";
+    border-radius: "10px"
+  };
+
+  _ = css ".chart-bar" {
+    width: "30px";
+    background: "linear-gradient(135deg, #667eea, #764ba2)";
+    border-radius: "5px 5px 0 0";
+    transition: "all 0.3s ease";
+    position: "relative"
+  };
+
+  _ = css ".chart-bar:hover" {
+    transform: "scaleY(1.05)";
+    filter: "brightness(1.1)"
+  };
+
+  _ = css ".chart-bar::after" {
+    content: "attr(data-value)";
+    position: "absolute";
+    top: "-25px";
+    left: "50%";
+    transform: "translateX(-50%)";
+    background: "#333";
+    color: "white";
+    padding: "4px 8px";
+    border-radius: "4px";
+    font-size: "0.8rem";
+    font-weight: "bold";
+    opacity: "0";
+    transition: "opacity 0.3s ease"
+  };
+
+  _ = css ".chart-bar:hover::after" {
+    opacity: "1"
+  };
+
+  # Initialize complete application with JavaScript
+  initApp = js "
+    class CompleteNixiApp {
+      constructor() {
+        this.state = {
+          activeSection: 'dashboard',
+          metrics: {
+            users: 1234,
+            revenue: 45678,
+            orders: 789,
+            growth: 23.5
+          },
+          activities: [
+            { icon: '👤', title: 'New user registered', time: '2 minutes ago' },
+            { icon: '💰', title: 'New order received', time: '5 minutes ago' },
+            { icon: '📊', title: 'Report generated', time: '10 minutes ago' },
+            { icon: '🔧', title: 'System updated', time: '1 hour ago' },
+            { icon: '📧', title: 'Email campaign sent', time: '2 hours ago' }
+          ],
+          chartData: [
+            { label: 'Mon', value: 65 },
+            { label: 'Tue', value: 80 },
+            { label: 'Wed', value: 45 },
+            { label: 'Thu', value: 90 },
+            { label: 'Fri', value: 75 },
+            { label: 'Sat', value: 60 },
+            { label: 'Sun', value: 85 }
+          ]
+        };
+        this.init();
+      }
+      
+      init() {
+        this.setupNavigation();
+        this.renderDashboard();
+        this.startRealTimeUpdates();
+        this.setupKeyboardShortcuts();
+      }
+      
+      setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.getAttribute('data-section');
+            this.switchSection(section);
+          });
+        });
+      }
+      
+      switchSection(section) {
+        // Update active nav
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+        });
+        document.querySelector(\`[data-section=\"\${section}\"]\`).classList.add('active');
+        
+        // Update content (for demo, just show notification)
+        window.NixiJS.notifications.show(\`Switched to \${section} section\`, 'info');
+      }
+      
+      renderDashboard() {
+        this.updateMetrics();
+        this.renderChart();
+        this.renderActivities();
+      }
+      
+      updateMetrics() {
+        // Animate metric values
+        Object.keys(this.state.metrics).forEach(key => {
+          const element = document.getElementById(\`metric-\${key}\`);
+          if (element) {
+            this.animateValue(element, 0, this.state.metrics[key], 2000);
+          }
+        });
+      }
+      
+      animateValue(element, start, end, duration) {
+        const startTime = performance.now();
+        
+        const updateValue = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          const currentValue = start + (end - start) * easeOutQuart;
+          
+          if (typeof end === 'number') {
+            element.textContent = Math.round(currentValue).toLocaleString();
+          } else {
+            element.textContent = currentValue.toFixed(1) + '%';
+          }
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateValue);
+          }
+        };
+        
+        requestAnimationFrame(updateValue);
+      }
+      
+      renderChart() {
+        const chartContainer = document.getElementById('chart-container');
+        if (!chartContainer) return;
+        
+        const maxValue = Math.max(...this.state.chartData.map(d => d.value));
+        
+        chartContainer.innerHTML = this.state.chartData.map(data => {
+          const height = (data.value / maxValue) * 150;
+          return \`
+            <div class='chart-bar' 
+                 style='height: \${height}px' 
+                 data-value='\${data.value}'
+                 title='\${data.label}: \${data.value}'>
+            </div>
+          \`;
+        }).join('');
+      }
+      
+      renderActivities() {
+        const activitiesContainer = document.getElementById('activities-list');
+        if (!activitiesContainer) return;
+        
+        activitiesContainer.innerHTML = this.state.activities.map(activity => \`
+          <li class='activity-item'>
+            <div class='activity-icon'>\${activity.icon}</div>
+            <div class='activity-content'>
+              <div class='activity-title'>\${activity.title}</div>
+              <div class='activity-time'>\${activity.time}</div>
+            </div>
+          </li>
+        \`).join('');
+      }
+      
+      startRealTimeUpdates() {
+        // Simulate real-time updates
+        setInterval(() => {
+          this.updateRandomMetric();
+        }, 5000);
+      }
+      
+      updateRandomMetric() {
+        const metrics = Object.keys(this.state.metrics);
+        const randomMetric = metrics[Math.floor(Math.random() * metrics.length);
+        const currentValue = this.state.metrics[randomMetric];
+        
+        if (typeof currentValue === 'number') {
+          const change = Math.floor(Math.random() * 10) - 5;
+          this.state.metrics[randomMetric] = Math.max(0, currentValue + change);
+          
+          const element = document.getElementById(\`metric-\${randomMetric}\`);
+          if (element) {
+            this.animateValue(element, currentValue, this.state.metrics[randomMetric], 500);
+          }
+        }
+      }
+      
+      setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+          // Ctrl/Cmd + K for quick navigation
+          if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            this.showQuickNavigation();
+          }
+          
+          // Ctrl/Cmd + / for help
+          if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+            e.preventDefault();
+            window.NixiJS.notifications.show('Keyboard shortcuts: Ctrl+K (navigation), Ctrl+/ (help)', 'info');
+          }
+        });
+      }
+      
+      showQuickNavigation() {
+        const sections = ['dashboard', 'analytics', 'reports', 'settings'];
+        const section = sections[Math.floor(Math.random() * sections.length)];
+        this.switchSection(section);
+      }
+    }
+    
+    // Initialize the complete application
+    window.completeApp = new CompleteNixiApp();
+    
+    console.log('Complete Nixi Application initialized');
+  ";
+
+  # Execute initialization
+  _ = initJS;  # From previous example, includes NixiJS utilities
+  _ = initApp;
+
+  # Create the complete application HTML
+  completeApp = html {
+    head {
+      title "Complete Nixi Web Application";
+      meta { charset: "UTF-8" };
+      meta { 
+        name: "viewport"; 
+        content: "width=device-width, initial-scale=1.0" 
+      };
+      style "
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        body {
+          overflow-x: hidden;
+        }
+      "
+    };
+    body {
+      div {
+        class: "app-wrapper";
+        
+        # Application header
+        header {
+          class: "app-header";
+          
+          a {
+            class: "app-title";
+            href: "#";
+            text: "🚀 Complete Nixi App"
+          };
+          
+          nav {
+            ul {
+              class: "nav-menu";
+              children: [
+                li { a { class: "nav-link active"; href: "#"; "data-section": "dashboard"; text: "📊 Dashboard" } };
+                li { a { class: "nav-link"; href: "#"; "data-section": "analytics"; text: "📈 Analytics" } };
+                li { a { class: "nav-link"; href: "#"; "data-section": "reports"; text: "📋 Reports" } };
+                li { a { class: "nav-link"; href: "#"; "data-section": "settings"; text: "⚙️ Settings" } }
+              ]
+            }
+          }
+        };
+
+        # Main application content
+        main {
+          class: "app-main";
+          
+          # Dashboard grid
+          div {
+            class: "dashboard-grid";
+            
+            # Users card
+            div {
+              class: "dashboard-card";
+              div {
+                class: "card-header";
+                div { class: "card-icon"; text: "👥" };
+                h3 { class: "card-title"; text: "Total Users" }
+              };
+              div { class: "metric-value"; id: "metric-users"; text: "0" };
+              div { class: "metric-label"; text: "Active users this month" };
+              div { class: "progress-bar-container"; div { class: "progress-bar-fill"; style: "width: 75%;" } }
+            };
+
+            # Revenue card
+            div {
+              class: "dashboard-card";
+              div {
+                class: "card-header";
+                div { class: "card-icon"; text: "💰" };
+                h3 { class: "card-title"; text: "Revenue" }
+              };
+              div { class: "metric-value"; id: "metric-revenue"; text: "$0" };
+              div { class: "metric-label"; text: "Total revenue generated" };
+              div { class: "progress-bar-container"; div { class: "progress-bar-fill"; style: "width: 60%;" } }
+            };
+
+            # Orders card
+            div {
+              class: "dashboard-card";
+              div {
+                class: "card-header";
+                div { class: "card-icon"; text: "📦" };
+                h3 { class: "card-title"; text: "Orders" }
+              };
+              div { class: "metric-value"; id: "metric-orders"; text: "0" };
+              div { class: "metric-label"; text: "Orders this week" };
+              div { class: "progress-bar-container"; div { class: "progress-bar-fill"; style: "width: 85%;" } }
+            };
+
+            # Growth card
+            div {
+              class: "dashboard-card";
+              div {
+                class: "card-header";
+                div { class: "card-icon"; text: "📈" };
+                h3 { class: "card-title"; text: "Growth Rate" }
+              };
+              div { class: "metric-value"; id: "metric-growth"; text: "0%" };
+              div { class: "metric-label"; text: "Monthly growth rate" };
+              div { class: "progress-bar-container"; div { class: "progress-bar-fill"; style: "width: 45%;" } }
+            }
+          };
+
+          # Chart section
+          div {
+            class: "dashboard-card";
+            div {
+              class: "card-header";
+              div { class: "card-icon"; text: "📊" };
+              h3 { class: "card-title"; text: "Weekly Performance" }
+            };
+            div {
+              class: "chart-container";
+              id: "chart-container"
+            }
+          };
+
+          # Recent activities
+          div {
+            class: "dashboard-card";
+            div {
+              class: "card-header";
+              div { class: "card-icon"; text: "🔔" };
+              h3 { class: "card-title"; text: "Recent Activities" }
+            };
+            ul {
+              class: "activity-list";
+              id: "activities-list"
+            }
+          }
+        };
+
+        # Footer
+        footer {
+          class: "app-header";
+          style: "margin-top: 3rem; text-align: center;";
+          p { 
+            style: "color: white; margin: 0;";
+            text: "🎯 Powered by Nixi: HTML + CSS + JavaScript Integration"
+          }
+        }
+      }
+    }
+  }
+
+in
+  saveHTML(complete_app, "complete-web-app.html", "Complete Nixi Web Application")

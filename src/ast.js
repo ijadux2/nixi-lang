@@ -136,6 +136,33 @@ class StyleDefinition extends ASTNode {
   }
 }
 
+// HTML-related nodes
+class HTMLTag extends ASTNode {
+  constructor(tagName, attributes, children) {
+    super('HTMLTag', { tagName, attributes, children });
+  }
+}
+
+class HTMLComment extends ASTNode {
+  constructor(content) {
+    super('HTMLComment', { content });
+  }
+}
+
+// CSS-related nodes
+class CSSRule extends ASTNode {
+  constructor(selector, propertiesOrRules) {
+    super('CSSRule', { selector, propertiesOrRules });
+  }
+}
+
+// JavaScript-related nodes
+class JSCode extends ASTNode {
+  constructor(code) {
+    super('JSCode', { code });
+  }
+}
+
 // Program root
 class Program extends ASTNode {
   constructor(body) {
@@ -165,5 +192,9 @@ module.exports = {
   ComponentDefinition,
   ComponentInstantiation,
   StyleDefinition,
+  HTMLTag,
+  HTMLComment,
+  CSSRule,
+  JSCode,
   Program
 };

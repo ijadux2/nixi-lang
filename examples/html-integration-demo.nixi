@@ -1,0 +1,307 @@
+# HTML Integration Demo
+# Demonstrates direct HTML embedding and generation in Nixi
+
+let
+  # Define styles for our HTML demo
+  _ = css ".html-demo" {
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    padding: "2rem";
+    border-radius: "15px";
+    color: "white";
+    font-family: "Arial, sans-serif";
+    text-align: "center";
+    box-shadow: "0 10px 30px rgba(0, 0, 0, 0.2)";
+    transition: "transform 0.3s ease";
+  };
+
+  _ = css ".html-demo:hover" {
+    transform: "translateY(-5px)";
+  };
+
+  _ = css ".semantic-html" {
+    background: "white";
+    color: "#333";
+    padding: "2rem";
+    border-radius: "10px";
+    margin: "1rem 0";
+    box-shadow: "0 4px 6px rgba(0, 0, 0, 0.1)";
+  };
+
+  _ = css ".nav-menu" {
+    display: "flex";
+    justify-content: "center";
+    list-style: "none";
+    padding: "0";
+    margin: "1rem 0";
+  };
+
+  _ = css ".nav-menu li" {
+    margin: "0 1rem";
+    background: "#007bff";
+    color: "white";
+    padding: "0.5rem 1rem";
+    border-radius: "5px";
+    cursor: "pointer";
+    transition: "background 0.3s ease";
+  };
+
+  _ = css ".nav-menu li:hover" {
+    background: "#0056b3";
+  };
+
+  # Direct HTML embedding example
+  htmlPage = html {
+    head {
+      title "HTML Integration Demo";
+      meta { charset: "UTF-8" };
+      meta { 
+        name: "viewport"; 
+        content: "width=device-width, initial-scale=1.0" 
+      };
+      style "
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          margin: 0;
+          padding: 2rem;
+          background: #f5f5f5;
+        }
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+      "
+    };
+    body {
+      div {
+        class: "container";
+        
+        # Semantic HTML5 elements
+        header {
+          class: "html-demo";
+          h1 "🌐 HTML5 Integration in Nixi";
+          p "Full support for semantic HTML5 elements embedded directly in Nixi code"
+        };
+
+        nav {
+          class: "semantic-html";
+          h2 "Navigation Menu";
+          ul {
+            class: "nav-menu";
+            children: [
+              li { a { href: "#home"; text: "Home" } };
+              li { a { href: "#about"; text: "About" } };
+              li { a { href: "#services"; text: "Services" } };
+              li { a { href: "#contact"; text: "Contact" } }
+            ]
+          }
+        };
+
+        main {
+          class: "semantic-html";
+          
+          section {
+            h2 "📝 Article Section";
+            article {
+              h3 "Understanding HTML Integration";
+              p "Nixi now supports direct HTML embedding with full HTML5 semantic elements. This includes headers, navigation, sections, articles, and more.";
+              
+              blockquote {
+                style: "border-left: 4px solid #007bff; padding-left: 1rem; margin: 1rem 0; font-style: italic;";
+                "The best way to learn is by doing. Start with simple HTML and gradually add complexity."
+              }
+            }
+          };
+
+          section {
+            h2 "📊 Data Display";
+            
+            # Table example
+            table {
+              class: "data-table";
+              style: "width: 100%; border-collapse: collapse; margin: 1rem 0;";
+              thead {
+                tr {
+                  style: "background: #007bff; color: white;";
+                  children: [
+                    th { text: "Feature"; style: "padding: 0.75rem; text-align: left;" };
+                    th { text: "Status"; style: "padding: 0.75rem; text-align: left;" };
+                    th { text: "Description"; style: "padding: 0.75rem; text-align: left;" }
+                  ]
+                }
+              };
+              tbody {
+                children: [
+                  tr {
+                    style: "border-bottom: 1px solid #ddd;";
+                    children: [
+                      td { text: "HTML Tags"; style: "padding: 0.75rem;" };
+                      td { text: "✅ Supported"; style: "padding: 0.75rem; color: green;" };
+                      td { text: "All HTML5 elements"; style: "padding: 0.75rem;" }
+                    ]
+                  };
+                  tr {
+                    style: "border-bottom: 1px solid #ddd;";
+                    children: [
+                      td { text: "CSS Styling"; style: "padding: 0.75rem;" };
+                      td { text: "✅ Supported"; style: "padding: 0.75rem; color: green;" };
+                      td { text: "Full CSS3 support"; style: "padding: 0.75rem;" }
+                    ]
+                  };
+                  tr {
+                    style: "border-bottom: 1px solid #ddd;";
+                    children: [
+                      td { text: "JavaScript"; style: "padding: 0.75rem;" };
+                      td { text: "✅ Supported"; style: "padding: 0.75rem; color: green;" };
+                      td { text: "Complete JS integration"; style: "padding: 0.75rem;" }
+                    ]
+                  }
+                ]
+              }
+            }
+          };
+
+          section {
+            h2 "🎨 Media Elements";
+            
+            # Image and figure
+            figure {
+              style: "margin: 1rem 0; text-align: center;";
+              img {
+                src: "https://via.placeholder.com/400x200/667eea/ffffff?text=HTML+Image";
+                alt: "Placeholder image";
+                style: "max-width: 100%; height: auto; border-radius: 8px;";
+              };
+              figcaption {
+                style: "margin-top: 0.5rem; font-size: 0.9rem; color: #666;";
+                "Figure caption for the image"
+              }
+            };
+
+            # Video element
+            video {
+              controls: true;
+              style: "width: 100%; max-width: 400px; border-radius: 8px; margin: 1rem 0;";
+              source {
+                src: "demo-video.mp4";
+                type: "video/mp4"
+              };
+              "Your browser does not support the video tag."
+            }
+          };
+
+          section {
+            h2 "📝 Form Elements";
+            
+            form {
+              style: "background: #f8f9fa; padding: 2rem; border-radius: 8px;";
+              
+              fieldset {
+                style: "border: 1px solid #ddd; padding: 1rem; margin: 1rem 0; border-radius: 5px;";
+                legend { 
+                  style: "padding: 0 0.5rem; font-weight: bold;";
+                  text: "User Information" 
+                };
+                
+                div {
+                  style: "margin: 1rem 0;";
+                  label { 
+                    for: "username";
+                    style: "display: block; margin-bottom: 0.5rem; font-weight: bold;";
+                    text: "Username:" 
+                  };
+                  input {
+                    type: "text";
+                    id: "username";
+                    name: "username";
+                    placeholder: "Enter your username";
+                    style: "width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;"
+                  }
+                };
+                
+                div {
+                  style: "margin: 1rem 0;";
+                  label { 
+                    for: "email";
+                    style: "display: block; margin-bottom: 0.5rem; font-weight: bold;";
+                    text: "Email:" 
+                  };
+                  input {
+                    type: "email";
+                    id: "email";
+                    name: "email";
+                    placeholder: "Enter your email";
+                    style: "width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;"
+                  }
+                };
+                
+                div {
+                  style: "margin: 1rem 0;";
+                  label { 
+                    for: "message";
+                    style: "display: block; margin-bottom: 0.5rem; font-weight: bold;";
+                    text: "Message:" 
+                  };
+                  textarea {
+                    id: "message";
+                    name: "message";
+                    rows: "4";
+                    placeholder: "Enter your message";
+                    style: "width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"
+                  }
+                }
+              };
+              
+              div {
+                style: "text-align: center; margin-top: 1rem;";
+                button {
+                  type: "submit";
+                  style: "background: #007bff; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;";
+                  text: "Submit Form"
+                };
+                button {
+                  type: "reset";
+                  style: "background: #6c757d; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-left: 0.5rem;";
+                  text: "Reset"
+                }
+              }
+            }
+          }
+        };
+
+        footer {
+          class: "html-demo";
+          h3 "🎯 HTML Integration Features";
+          ul {
+            style: "text-align: left; max-width: 600px; margin: 0 auto;";
+            children: [
+              li { "✅ Semantic HTML5 elements" };
+              li { "✅ Form elements and validation" };
+              li { "✅ Media elements (img, video, audio)" };
+              li { "✅ Table elements for data display" };
+              li { "✅ Interactive elements with event handlers" };
+              li { "✅ Responsive design support" };
+              li { "✅ Accessibility features (ARIA, semantic markup)" }
+            ]
+          };
+          p "Generated by Nixi with full HTML5 support"
+        }
+      }
+    }
+  };
+
+  # HTML generation using tag function
+  generatedContent = tag "div" { 
+    class: "generated-content";
+    style: "background: linear-gradient(45deg, #ff6b6b, #4ecdc4); padding: 2rem; border-radius: 15px; color: white; text-align: center;"
+  } [
+    tag "h2" {} ["Generated HTML"];
+    tag "p" {} ["This content was generated using Nixi's tag function"];
+    tag "button" { 
+      onclick: "alert('Generated button clicked!')";
+      style: "background: white; color: #333; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; font-weight: bold;"
+    } ["Click Me!"]
+  ];
+
+in
+  saveHTML(htmlPage, "html-integration-demo.html", "HTML Integration Demo")

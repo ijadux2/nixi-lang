@@ -1,0 +1,438 @@
+# CSS Integration Demo
+# Demonstrates advanced CSS features and styling in Nixi
+
+let
+  # Modern CSS with animations, gradients, and responsive design
+  _ = css ".css-showcase" {
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    padding: "3rem 2rem";
+    border-radius: "20px";
+    color: "white";
+    font-family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+    text-align: "center";
+    box-shadow: "0 20px 40px rgba(0, 0, 0, 0.2)";
+    position: "relative";
+    overflow: "hidden"
+  };
+
+  _ = css ".css-showcase::before" {
+    content: "''";
+    position: "absolute";
+    top: "0";
+    left: "-100%";
+    width: "100%";
+    height: "100%";
+    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)";
+    animation: "shimmer 3s infinite"
+  };
+
+  # Keyframe animations
+  _ = css "@keyframes shimmer" {
+    "0%": { left: "-100%" };
+    "100%": { left: "100%" }
+  };
+
+  _ = css "@keyframes fadeInUp" {
+    "0%": {
+      opacity: "0";
+      transform: "translateY(30px)"
+    };
+    "100%": {
+      opacity: "1";
+      transform: "translateY(0)"
+    }
+  };
+
+  _ = css "@keyframes bounce" {
+    "0%, 20%, 50%, 80%, 100%": { transform: "translateY(0)" };
+    "40%": { transform: "translateY(-30px)" };
+    "60%": { transform: "translateY(-15px)" }
+  };
+
+  _ = css "@keyframes pulse" {
+    "0%": { transform: "scale(1)" };
+    "50%": { transform: "scale(1.05)" };
+    "100%": { transform: "scale(1)" }
+  };
+
+  # Grid and Flexbox layouts
+  _ = css ".grid-container" {
+    display: "grid";
+    grid-template-columns: "repeat(auto-fit, minmax(300px, 1fr))";
+    gap: "2rem";
+    padding: "2rem 0";
+    animation: "fadeInUp 0.8s ease-out"
+  };
+
+  _ = css ".flex-card" {
+    display: "flex";
+    flex-direction: "column";
+    background: "white";
+    color: "#333";
+    padding: "2rem";
+    border-radius: "15px";
+    box-shadow: "0 10px 25px rgba(0, 0, 0, 0.1)";
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+    position: "relative";
+    overflow: "hidden"
+  };
+
+  _ = css ".flex-card::before" {
+    content: "''";
+    position: "absolute";
+    top: "0";
+    left: "0";
+    right: "0";
+    height: "4px";
+    background: "linear-gradient(90deg, #667eea, #764ba2, #667eea)";
+    background-size: "200% 100%";
+    animation: "gradient-shift 3s ease infinite"
+  };
+
+  _ = css "@keyframes gradient-shift" {
+    "0%": { background-position: "0% 50%" };
+    "50%": { background-position: "100% 50%" };
+    "100%": { background-position: "0% 50%" }
+  };
+
+  _ = css ".flex-card:hover" {
+    transform: "translateY(-10px) scale(1.02)";
+    box-shadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
+  };
+
+  # Advanced button styles
+  _ = css ".btn-modern" {
+    display: "inline-block";
+    padding: "12px 30px";
+    border: "none";
+    border-radius: "50px";
+    font-weight: "600";
+    font-size: "16px";
+    text-decoration: "none";
+    text-align: "center";
+    cursor: "pointer";
+    transition: "all 0.3s ease";
+    position: "relative";
+    overflow: "hidden";
+    z-index: "1"
+  };
+
+  _ = css ".btn-primary" {
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    color: "white";
+    box-shadow: "0 4px 15px rgba(102, 126, 234, 0.4)"
+  };
+
+  _ = css ".btn-primary:hover" {
+    transform: "translateY(-2px)";
+    box-shadow: "0 6px 20px rgba(102, 126, 234, 0.6)"
+  };
+
+  _ = css ".btn-secondary" {
+    background: "transparent";
+    color: "#667eea";
+    border: "2px solid #667eea"
+  };
+
+  _ = css ".btn-secondary:hover" {
+    background: "#667eea";
+    color: "white";
+    transform: "translateY(-2px)"
+  };
+
+  # Glass morphism effect
+  _ = css ".glass-card" {
+    background: "rgba(255, 255, 255, 0.1)";
+    backdrop-filter: "blur(10px)";
+    border-radius: "20px";
+    border: "1px solid rgba(255, 255, 255, 0.2)";
+    padding: "2rem";
+    color: "white";
+    box-shadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
+  };
+
+  # Responsive design with media queries
+  _ = css "@media (max-width: 768px)" {
+    ".grid-container": {
+      grid-template-columns: "1fr";
+      gap: "1rem";
+      padding: "1rem 0"
+    };
+    ".flex-card": {
+      padding: "1.5rem"
+    };
+    ".css-showcase": {
+      padding: "2rem 1rem"
+    }
+  };
+
+  _ = css "@media (max-width: 480px)" {
+    ".btn-modern": {
+      padding: "10px 20px";
+      font-size: "14px"
+    };
+    ".flex-card": {
+      padding: "1rem"
+    }
+  };
+
+  # Typography and text effects
+  _ = css ".gradient-text" {
+    background: "linear-gradient(135deg, #667eea, #764ba2, #f093fb)";
+    background-size: "200% 200%";
+    background-clip: "text";
+    "-webkit-background-clip": "text";
+    "-webkit-text-fill-color": "transparent";
+    animation: "gradient-text 3s ease infinite";
+    font-size: "2.5rem";
+    font-weight: "bold";
+    margin: "1rem 0"
+  };
+
+  _ = css "@keyframes gradient-text" {
+    "0%": { background-position: "0% 50%" };
+    "50%": { background-position: "100% 50%" };
+    "100%": { background-position: "0% 50%" }
+  };
+
+  _ = css ".neon-text" {
+    color: "#fff";
+    text-shadow: 
+      "0 0 10px #fff",
+      "0 0 20px #fff",
+      "0 0 30px #667eea",
+      "0 0 40px #667eea",
+      "0 0 50px #667eea",
+      "0 0 60px #667eea",
+      "0 0 70px #667eea";
+    font-size: "2rem";
+    font-weight: "bold";
+    animation: "pulse 2s infinite"
+  };
+
+  # Loading animations
+  _ = css ".loader" {
+    width: "50px";
+    height: "50px";
+    border: "3px solid rgba(255, 255, 255, 0.3)";
+    border-top: "3px solid white";
+    border-radius: "50%";
+    animation: "spin 1s linear infinite";
+    margin: "2rem auto"
+  };
+
+  _ = css "@keyframes spin" {
+    "0%": { transform: "rotate(0deg)" };
+    "100%": { transform: "rotate(360deg)" }
+  };
+
+  # Progress bar
+  _ = css ".progress-container" {
+    width: "100%";
+    height: "30px";
+    background: "rgba(255, 255, 255, 0.2)";
+    border-radius: "15px";
+    overflow: "hidden";
+    margin: "1rem 0"
+  };
+
+  _ = css ".progress-bar" {
+    height: "100%";
+    background: "linear-gradient(90deg, #667eea, #764ba2)";
+    border-radius: "15px";
+    width: "0%";
+    animation: "progress-fill 3s ease-out forwards";
+    position: "relative";
+    overflow: "hidden"
+  };
+
+  _ = css ".progress-bar::after" {
+    content: "''";
+    position: "absolute";
+    top: "0";
+    left: "0";
+    right: "0";
+    bottom: "0";
+    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)";
+    animation: "shimmer 2s infinite"
+  };
+
+  _ = css "@keyframes progress-fill" {
+    "0%": { width: "0%" };
+    "100%": { width: "85%" }
+  };
+
+  # Tooltip
+  _ = css ".tooltip-container" {
+    position: "relative";
+    display: "inline-block"
+  };
+
+  _ = css ".tooltip" {
+    visibility: "hidden";
+    background: "rgba(0, 0, 0, 0.9)";
+    color: "white";
+    text-align: "center";
+    padding: "8px 12px";
+    border-radius: "6px";
+    position: "absolute";
+    z-index: "1";
+    bottom: "125%";
+    left: "50%";
+    transform: "translateX(-50%)";
+    opacity: "0";
+    transition: "opacity 0.3s, visibility 0.3s";
+    font-size: "14px";
+    white-space: "nowrap"
+  };
+
+  _ = css ".tooltip-container:hover .tooltip" {
+    visibility: "visible";
+    opacity: "1"
+  };
+
+  # Badge styles
+  _ = css ".badge" {
+    display: "inline-block";
+    padding: "4px 8px";
+    font-size: "12px";
+    font-weight: "bold";
+    border-radius: "12px";
+    text-transform: "uppercase";
+    letter-spacing: "0.5px"
+  };
+
+  _ = css ".badge-success" {
+    background: "#28a745";
+    color: "white"
+  };
+
+  _ = css ".badge-warning" {
+    background: "#ffc107";
+    color: "#212529"
+  };
+
+  _ = css ".badge-danger" {
+    background: "#dc3545";
+    color: "white"
+  };
+
+  # Create the main page
+  cssShowcase = html {
+    head {
+      title "CSS Integration Demo";
+      meta { charset: "UTF-8" };
+      meta { 
+        name: "viewport"; 
+        content: "width=device-width, initial-scale=1.0" 
+      };
+      style "
+        body {
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          min-height: 100vh;
+        }
+      "
+    };
+    body {
+      div {
+        class: "css-showcase";
+        
+        h1 { class: "gradient-text"; text: "🎨 CSS Integration Showcase" };
+        p { 
+          style: "font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;";
+          text: "Advanced CSS features including animations, gradients, grid layouts, and responsive design"
+        };
+
+        # Grid layout showcase
+        div {
+          class: "grid-container";
+          
+          div {
+            class: "flex-card";
+            h2 { style: "color: #667eea; margin-top: 0;"; text: "🎯 Modern Animations" };
+            p { text: "Smooth keyframe animations with hardware acceleration" };
+            div { class: "loader" };
+            div {
+              style: "margin-top: 1rem;";
+              children: [
+                span { class: "badge badge-success"; text: "CSS3" };
+                span { class: "badge badge-warning"; text: "Animation"; style: "margin-left: 0.5rem;" }
+              ]
+            }
+          };
+
+          div {
+            class: "flex-card";
+            h2 { style: "color: #764ba2; margin-top: 0;"; text: "📱 Responsive Design" };
+            p { text: "Fluid layouts that adapt to any screen size" };
+            div { class: "progress-container"; div { class: "progress-bar" } };
+            p { 
+              style: "font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;";
+              text: "Responsive grid with media queries"
+            }
+          };
+
+          div {
+            class: "flex-card glass-card";
+            h2 { style: "margin-top: 0;"; text: "✨ Glass Morphism" };
+            p { text: "Modern frosted glass effect with backdrop filters" };
+            div {
+              class: "tooltip-container";
+              style: "margin: 1rem 0;";
+              button {
+                class: "btn-modern btn-primary";
+                text: "Hover me";
+                style: "margin-right: 1rem;"
+              };
+              span { class: "tooltip"; text: "This is a tooltip!" }
+            };
+            button {
+              class: "btn-modern btn-secondary";
+              text: "Secondary Action"
+            }
+          }
+        };
+
+        # Typography showcase
+        div {
+          style: "margin: 3rem 0;";
+          h2 { class: "neon-text"; text: "Neon Effects" };
+          p { 
+            style: "font-size: 1.1rem; opacity: 0.8;";
+            text: "Advanced text effects with shadows and animations"
+          }
+        };
+
+        # Interactive elements
+        div {
+          class: "glass-card";
+          style: "margin: 2rem 0; text-align: left;";
+          h3 { style: "margin-top: 0;"; text: "🎪 Interactive CSS Features" };
+          ul {
+            style: "list-style: none; padding: 0;";
+            children: [
+              li { style: "margin: 0.5rem 0;"; text: "✅ CSS Grid and Flexbox layouts" };
+              li { style: "margin: 0.5rem 0;"; text: "✅ Custom animations and transitions" };
+              li { style: "margin: 0.5rem 0;"; text: "✅ Responsive design with media queries" };
+              li { style: "margin: 0.5rem 0;"; text: "✅ Modern effects (glass, neon, gradients)" };
+              li { style: "margin: 0.5rem 0;"; text: "✅ Interactive tooltips and badges" };
+              li { style: "margin: 0.5rem 0;"; text: "✅ Loading animations and progress bars" }
+            ]
+          }
+        };
+
+        footer {
+          style: "margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2);";
+          p { 
+            style: "opacity: 0.8; font-size: 0.9rem;";
+            text: "Generated by Nixi with advanced CSS integration"
+          }
+        }
+      }
+    }
+  }
+
+in
+  saveHTML(cssShowcase, "css-integration-demo.html", "CSS Integration Demo")
