@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const Lexer = require('./lexer');
-const Parser = require('./parser');
-const Interpreter = require('./interpreter');
+const fs = require("fs");
+const path = require("path");
+const Lexer = require("./lexer");
+const Parser = require("./parser");
+const Interpreter = require("./interpreter");
 
 class NixiCLI {
   constructor() {
@@ -13,7 +13,7 @@ class NixiCLI {
 
   runFile(filePath) {
     try {
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fs.readFileSync(filePath, "utf8");
       this.run(content, filePath);
     } catch (error) {
       console.error(`Error reading file ${filePath}:`, error.message);
@@ -22,57 +22,57 @@ class NixiCLI {
   }
 
   runRepl() {
-    console.log('Nixi REPL v0.1.0');
+    console.log("Nixi REPL v0.1.0");
     console.log('Type "exit" to quit');
-    
-    const readline = require('readline');
+
+    const readline = require("readline");
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: 'nixi> '
+      prompt: "nixi> ",
     });
-    
+
     rl.prompt();
-    
-    rl.on('line', (line) => {
-      if (line.trim() === 'exit') {
+
+    rl.on("line", (line) => {
+      if (line.trim() === "exit") {
         rl.close();
         return;
       }
-      
-      if (line.trim() === '') {
+
+      if (line.trim() === "") {
         rl.prompt();
         return;
       }
-      
+
       try {
         const result = this.run(line);
         if (result) {
           console.log(result.toString());
         }
       } catch (error) {
-        console.error('Error:', error.message);
+        console.error("Error:", error.message);
       }
-      
+
       rl.prompt();
     });
-    
-    rl.on('close', () => {
-      console.log('Goodbye!');
+
+    rl.on("close", () => {
+      console.log("Goodbye!");
       process.exit(0);
     });
   }
 
-  run(source, filename = '<stdin>') {
+  run(source, filename = "<stdin>") {
     try {
       const lexer = new Lexer(source);
       const tokens = lexer.tokenize();
-      
+
       const parser = new Parser(tokens);
       const ast = parser.parse();
-      
+
       const result = this.interpreter.evaluate(ast);
-      
+
       return result;
     } catch (error) {
       throw new Error(`${filename}:${error.message}`);
@@ -96,23 +96,23 @@ Examples:
   }
 
   showVersion() {
-    console.log('Nixi v0.1.0');
+    console.log("Nixi v0.1.0");
   }
 }
 
 function main() {
   const cli = new NixiCLI();
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0) {
     cli.runRepl();
-  } else if (args[0] === '--help' || args[0] === '-h') {
+  } else if (args[0] === "--help" || args[0] === "-h") {
     cli.showHelp();
-  } else if (args[0] === '--version' || args[0] === '-v') {
+  } else if (args[0] === "--version" || args[0] === "-v") {
     cli.showVersion();
-  } else if (args[0].startsWith('-')) {
+  } else if (args[0].startsWith("-")) {
     console.error(`Unknown option: ${args[0]}`);
-    console.log('Use --help for available options');
+    console.log("Use --help for available options");
     process.exit(1);
   } else {
     cli.runFile(args[0]);

@@ -250,18 +250,8 @@ const builtins = {
   // HTML generation functions
   html: (content) => {
     const htmlContent = content.toNative ? content.toNative() : content;
-    const html = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nixi Generated HTML</title>
-</head>
-<body>
-  ${htmlContent}
-</body>
-</html>`;
-    return new NixiValue('string', html);
+    const htmlOutput = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Nixi Generated HTML</title>\n</head>\n<body>\n  ' + htmlContent + '\n</body>\n</html>';
+    return new NixiValue('string', htmlOutput);
   },
   
   tag: (tagName, attributes, children) => {
@@ -272,13 +262,13 @@ const builtins = {
     const attrStr = Object.entries(attrs || {})
       .map(([key, value]) => {
         if (value === true) return key;
-        return `${key}="${value}"`;
+        return key + '="' + value + '"';
       })
       .join(' ');
     
     const kidsStr = Array.isArray(kids) ? kids.join('') : (kids || '');
     
-    const html = `<${tag}${attrStr ? ' ' + attrStr : ''}>${kidsStr}</${tag}>`;
+    const html = '<' + tag + (attrStr ? ' ' + attrStr : '') + '>' + kidsStr + '</' + tag + '>';
     return new NixiValue('string', html);
   },
   
@@ -288,10 +278,10 @@ const builtins = {
     const props = properties.toNative ? properties.toNative() : properties;
     
     const cssText = Object.entries(props)
-      .map(([prop, value]) => `  ${prop}: ${value};`)
+      .map(([prop, value]) => '  ' + prop + ': ' + value + ';')
       .join('\n');
     
-    const css = `${sel} {\n${cssText}\n}`;
+    const css = sel + ' {\n' + cssText + '\n}';
     getGUIRenderer().addCSS(css);
     return new NixiValue('string', css);
   },
@@ -397,7 +387,7 @@ builtins.addStyle = (selector, properties) => {
   return new NixiValue('null', null);
 };
 
-`;
+};`;
   }
 
   generateNode(node) {
