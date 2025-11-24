@@ -5,6 +5,7 @@ This guide covers installing Nixi language support for various code editors.
 ## 📋 Table of Contents
 
 - [Neovim](#neovim)
+- [Vim](#vim)
 - [VS Code](#vs-code)
 - [Cursor](#cursor)
 - [Other Editors](#other-editors)
@@ -80,6 +81,74 @@ use {
 
 " Check file detection
 :echo expand('~/.config/nvim')
+```
+
+---
+
+## 📝 Vim
+
+### Installation Options
+
+#### Option 1: Quick Install Script
+```bash
+# Run the installation script
+./install-vim.sh
+```
+
+#### Option 2: Manual Installation
+```bash
+# Create directories if they don't exist
+mkdir -p ~/.vim/syntax
+mkdir -p ~/.vim/ftdetect
+mkdir -p ~/.vim/indent
+
+# Copy the files
+cp vim/syntax/nixi.vim ~/.vim/syntax/
+cp vim/ftdetect/nixi.vim ~/.vim/ftdetect/
+cp vim/indent/nixi.vim ~/.vim/indent/
+
+# Restart Vim or run:
+:syntax on
+:filetype on
+```
+
+#### Option 3: Plugin Manager
+
+**Using vim-plug:**
+```vim
+call plug#begin('~/.vim/plugged')
+Plug 'path/to/nixi', {'rtp': 'vim/'}
+call plug#end()
+```
+
+**Using Vundle:**
+```vim
+Plugin 'path/to/nixi', {'rtp': 'vim/'}
+```
+
+**Using dein.vim:**
+```vim
+call dein#add('path/to/nixi', {'rtp': 'vim/'})
+```
+
+### Features
+- ✅ Syntax highlighting for keywords, built-ins, components, HTML, and JavaScript blocks
+- ✅ Smart indentation for let blocks, components, styles, and HTML structures
+- ✅ File type detection for `.nixi` files
+- ✅ Customizable colors and highlighting
+- ✅ Support for JavaScript (`js "..."`) and HTML (`html { ... }`) blocks
+
+### Troubleshooting
+```vim
+" Check if syntax is working
+:syntax on
+:set filetype=nixi
+
+" Check file detection
+:echo expand('~/.vim')
+
+" Check if indent function is loaded
+:echo exists('GetNixiIndent')
 ```
 
 ---

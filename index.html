@@ -2258,6 +2258,17 @@ nixi --compile examples/simple-components.nixi</pre>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📝</div>
+                    <h3>Vim</h3>
+                    <p>Classic Vim support with syntax highlighting, smart indentation, and file detection for .nixi files.</p>
+                    <div style="margin-top: 1rem;">
+                        <div style="background: var(--code-bg); padding: 0.8rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem;">
+                            ./install-vim.sh
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
                     <h3>Other Editors</h3>
                     <p>TextMate grammar support for Sublime Text, Atom, and other editors. Basic syntax highlighting available.</p>
                     <div style="margin-top: 1rem;">
@@ -2292,6 +2303,32 @@ Plug 'path/to/nixi', {'rtp': 'neovim'}
   'path/to/nixi',
   rtp = 'neovim'
 }</pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">
+                        <div class="code-title">📝 Vim Installation</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Quick install script</span>
+./install-vim.sh
+
+<span class="comment"># Manual installation</span>
+mkdir -p ~/.vim/{syntax,ftdetect,indent}
+cp vim/syntax/nixi.vim ~/.vim/syntax/
+cp vim/ftdetect/nixi.vim ~/.vim/ftdetect/
+cp vim/indent/nixi.vim ~/.vim/indent/
+
+<span class="comment"># Using vim-plug</span>
+Plug 'path/to/nixi', {'rtp': 'vim/'}
+
+<span class="comment"># Using Vundle</span>
+Plugin 'path/to/nixi', {'rtp': 'vim/'}
+
+<span class="comment"># Test installation</span>
+vim examples/simple-gui.nixi</pre>
                     </div>
                 </div>
 

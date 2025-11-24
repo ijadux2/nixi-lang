@@ -17,7 +17,8 @@
     "example:config": "node src/compiler.js config/simple-working.nixi",
     "example:math": "node src/compiler.js config/math-demo.nixi",
     "example:dashboard": "node src/compiler.js config/dashboard.nixi",
-    "setup:editor": "./install-neovim.sh"
+    "setup:editor": "./install-neovim.sh",
+    "install:vim": "./install-vim.sh"
   },
   "keywords": [
     "programming-language",

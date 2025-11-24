@@ -423,6 +423,26 @@ cp neovim/ftdetect/nixi.vim ~/.config/nvim/ftdetect/
 cp neovim/indent/nixi.vim ~/.config/nvim/indent/
 ```
 
+#### 📝 Vim
+Classic Vim support with syntax highlighting and indentation:
+```bash
+./install-vim.sh
+```
+
+**Features:**
+- Syntax highlighting for keywords, built-ins, components, HTML, and JavaScript blocks
+- Smart indentation for let blocks, components, styles, and HTML structures
+- File type detection for `.nixi` files
+- Support for JavaScript (`js "..."`) and HTML (`html { ... }`) blocks
+
+**Manual Installation:**
+```bash
+mkdir -p ~/.vim/{syntax,ftdetect,indent}
+cp vim/syntax/nixi.vim ~/.vim/syntax/
+cp vim/ftdetect/nixi.vim ~/.vim/ftdetect/
+cp vim/indent/nixi.vim ~/.vim/indent/
+```
+
 #### 💻 VS Code
 Complete language support with integrated compilation:
 1. Open VS Code
