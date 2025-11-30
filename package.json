@@ -34,6 +34,7 @@
     "url": "https://github.com/ijadux2/nixi.git"
   },
   "homepage": "https://github.com/ijadux2/nixi",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@vercel/analytics": "^1.5.0"
+  }
 }
