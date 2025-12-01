@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compiler Usage - Nixi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="code-styles.css">
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">🚀 Nixi</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="language-reference.html">Language Reference</a></li>
+        <li><a href="examples.html">Examples</a></li>
+        <li><a href="html-css-js-support.html">HTML/CSS/JS Support</a></li>
+        <li><a href="#compiler-usage">Compiler Usage</a></li>
+        <li><a href="testing-results.html">Testing Results</a></li>
+        <li><a href="documentation.html">Documentation</a></li>
+        <li><a href="editor-support.html">Editor Support</a></li>
+        <li><a href="installation.html">Installation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <h1>🚀 Compiler Usage</h1>
+      <p>How to use the Nixi compiler, REPL, and build tools effectively.</p>
+    </section>
+
+    <section class="code-section">
+      <h2>Running Nixi Files</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Direct Execution</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Run a Nixi file directly</span>
+nixi examples/simple-gui.nixi
+
+<span class="comment"># Using npm scripts</span>
+npm run example:gui
+npm run example:math
+npm run example:dashboard
+
+<span class="comment"># Start interactive REPL</span>
+nixi
+npm start</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Legacy CLI</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Run a GUI example</span>
+node src/cli.js examples/simple-gui.nixi
+
+<span class="comment"># Run a config example</span>
+node src/cli.js config/simple-working.nixi
+
+<span class="comment"># Compile to JavaScript</span>
+node src/cli.js --compile examples/simple-gui.nixi > compiled.js</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>Interactive REPL</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">REPL Mode</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Start REPL mode</span>
+nixi
+
+<span class="comment"># Example REPL session</span>
+nixi> <span class="keyword">let</span> x = <span class="number">42</span>; y = <span class="number">23</span>; <span class="keyword">in</span> <span class="function">add</span>(x, y)
+<span class="number">65</span>
+
+nixi> <span class="function">echo</span> <span class="string">"Hello from REPL"</span>
+Hello from REPL
+
+nixi> <span class="component">div</span> { <span class="property">text</span>: <span class="string">"Hello World"</span> }
+{ <span class="property">type</span>: <span class="string">'div'</span>, <span class="property">props</span>: { <span class="property">text</span>: <span class="string">'Hello World'</span> } }
+
+nixi> exit
+Goodbye!</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">REPL Features</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># REPL Capabilities</span>
+✅ Expression evaluation
+✅ Variable binding
+✅ Function definition and calling
+✅ Component creation
+✅ Built-in function access
+✅ Error handling and debugging
+✅ Multi-line expressions
+✅ Command history (arrow keys)
+✅ Tab completion (basic)
+✅ Clear screen (Ctrl+L or 'clear')</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>Compilation to JavaScript</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">JavaScript Compilation</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Compile to JavaScript and save to file</span>
+nixi --compile examples/simple-gui.nixi > compiled.js
+
+<span class="comment"># Compile and view output</span>
+nixi --compile config/math-demo.nixi
+
+<span class="comment"># The compiler automatically writes debug output to debug_output.js</span>
+<span class="comment"># This helps with debugging and understanding generated code</span>
+
+<span class="comment"># Run compiled JavaScript</span>
+node compiled.js</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Generated JavaScript Structure</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment">// Generated JavaScript structure</span>
+<span class="keyword">function</span> <span class="function">createNixiComponent</span>(type, props, children = []) {
+  <span class="keyword">return</span> {
+    type,
+    props: props || {},
+    children
+  };
+}
+
+<span class="keyword">function</span> <span class="function">renderHTML</span>(component, title) {
+  <span class="comment">// HTML generation logic</span>
+  <span class="keyword">let</span> html = <span class="string">'<!DOCTYPE html>'</span>;
+  html += <span class="string">'<html>'</span>;
+  html += <span class="string">'<head>'</span>;
+  html += <span class="string">'<title>'</span> + title + <span class="string">'</title>'</span>;
+  html += <span class="string">'</head>'</span>;
+  html += <span class="string">'<body>'</span>;
+  html += renderComponent(component);
+  html += <span class="string">'</body>'</span>;
+  html += <span class="string">'</html>'</span>;
+  <span class="keyword">return</span> html;
+}
+
+<span class="comment">// Main compiled code</span>
+<span class="keyword">const</span> app = createNixiComponent(<span class="string">'div'</span>, {
+  <span class="property">class</span>: <span class="string">'container'</span>,
+  <span class="property">text</span>: <span class="string">'Hello World'</span>
+});
+
+console.log(renderHTML(app, <span class="string">'Nixi App'</span>));</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>Component Definitions</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Reusable Components</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Define reusable components</span>
+<span class="keyword">component</span> Card = { title, content }:
+  <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"card"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h3</span> { <span class="property">text</span>: title };
+      <span class="component">p</span> { <span class="property">text</span>: content }
+    ]
+  };
+
+<span class="keyword">component</span> App = {}:
+  <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"app"</span>;
+    <span class="property">children</span>: [
+      Card { <span class="property">title</span>: <span class="string">"Welcome"</span>; <span class="property">content</span>: <span class="string">"This is a card component"</span> };
+      Card { <span class="property">title</span>: <span class="string">"Features"</span>; <span class="property">content</span>: <span class="string">"Reusable components work!"</span> }
+    ]
+  };
+
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(App {}, <span class="string">"components.html"</span>, <span class="string">"Component Example"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Component with Props</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Component with destructured props</span>
+<span class="keyword">component</span> Button = { text, variant, onClick }:
+  <span class="component">button</span> {
+    <span class="property">class</span>: <span class="string">"btn btn-"</span> <span class="operator">+</span> variant;
+    <span class="property">text</span>: text;
+    <span class="property">onClick</span>: onClick
+  };
+
+<span class="comment"># Usage with different variants</span>
+<span class="keyword">let</span>
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"app"</span>;
+    <span class="property">children</span>: [
+      Button {
+        <span class="property">text</span>: <span class="string">"Primary"</span>;
+        <span class="property">variant</span>: <span class="string">"primary"</span>;
+        <span class="property">onClick</span>: <span class="function">echo</span> <span class="string">"Primary clicked"</span>
+      };
+      Button {
+        <span class="property">text</span>: <span class="string">"Secondary"</span>;
+        <span class="property">variant</span>: <span class="string">"secondary"</span>;
+        <span class="property">onClick</span>: <span class="function">echo</span> <span class="string">"Secondary clicked"</span>
+      }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"buttons.html"</span>, <span class="string">"Button Variants"</span>)</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>Styling and CSS</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">CSS Integration</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="keyword">let</span>
+  <span class="comment"># Define styles using addStyle function</span>
+  _ = <span class="function">addStyle</span> <span class="string">".container"</span> {
+    <span class="property">background</span>: <span class="string">"#f0f0f0"</span>;
+    <span class="property">padding</span>: <span class="string">"20px"</span>;
+    <span class="property">border-radius</span>: <span class="string">"8px"</span>
+  };
+  
+  _ = <span class="function">addStyle</span> <span class="string">".button"</span> {
+    <span class="property">background</span>: <span class="string">"#007bff"</span>;
+    <span class="property">color</span>: <span class="string">"white"</span>;
+    <span class="property">padding</span>: <span class="string">"10px 20px"</span>;
+    <span class="property">border</span>: <span class="string">"none"</span>;
+    <span class="property">border-radius</span>: <span class="string">"4px"</span>
+  };
+  
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"container"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Styled App"</span> };
+      <span class="component">button</span> { <span class="property">class</span>: <span class="string">"button"</span>; <span class="property">text</span>: <span class="string">"Styled Button"</span> }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"styled.html"</span>, <span class="string">"Styled Nixi App"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Style Keyword Syntax</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># CSS-like style definitions</span>
+<span class="keyword">style</span> <span class="string">"card"</span> {
+  <span class="property">background</span>: <span class="string">"white"</span>;
+  <span class="property">border-radius</span>: <span class="string">"10px"</span>;
+  <span class="property">padding</span>: <span class="string">"20px"</span>;
+  <span class="property">margin</span>: <span class="string">"10px 0"</span>;
+  <span class="property">box-shadow</span>: <span class="string">"0 4px 6px rgba(0, 0, 0, 0.1)"</span>;
+  <span class="property">transition</span>: <span class="string">"transform 0.3s ease"</span>;
+}
+
+<span class="keyword">style</span> <span class="string">"card:hover"</span> {
+  <span class="property">transform</span>: <span class="string">"translateY(-5px)"</span>;
+  <span class="property">box-shadow</span>: <span class="string">"0 10px 20px rgba(0, 0, 0, 0.15)"</span>;
+}
+
+<span class="comment"># Media queries for responsive design</span>
+<span class="keyword">style</span> <span class="string">"@media (max-width: 768px)"</span> {
+  <span class="property">card</span>: {
+    <span class="property">padding</span>: <span class="string">"15px"</span>;
+    <span class="property">margin</span>: <span class="string">"5px 0"</span>;
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>File System Operations</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Built-in File Functions</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="keyword">let</span>
+  files = <span class="function">ls</span>(<span class="string">"."</span>);
+  currentDir = <span class="function">pwd</span>();
+  _ = <span class="function">echo</span> <span class="string">"Current directory: ${currentDir}"</span>;
+  _ = <span class="function">echo</span> <span class="string">"Files: ${files}"</span>;
+  
+  <span class="comment"># Change directory (if needed)</span>
+  _ = <span class="function">cd</span>(<span class="string">"src"</span>);
+  srcFiles = <span class="function">ls</span>(<span class="string">"."</span>);
+<span class="keyword">in</span>
+  <span class="string">"File operations completed"</span></pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">File I/O Operations</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="keyword">let</span>
+  <span class="comment"># Read file contents</span>
+  content = <span class="function">readFile</span>(<span class="string">"config.json"</span>);
+  
+  <span class="comment"># Write to file</span>
+  _ = <span class="function">writeFile</span>(<span class="string">"output.txt"</span>, <span class="string">"Hello from Nixi!"</span>);
+  
+  <span class="comment"># Check if file exists</span>
+  exists = <span class="function">fileExists</span>(<span class="string">"data.json"</span>);
+  
+  <span class="comment"># Safe file operations with error handling</span>
+  safeRead = filename:
+    <span class="keyword">let</span>
+      fileExists = <span class="function">fileExists</span>(filename);
+    <span class="keyword">in</span>
+      <span class="keyword">if</span> fileExists
+      <span class="keyword">then</span> <span class="function">readFile</span>(filename)
+      <span class="keyword">else</span> <span class="string">"File not found: "</span> <span class="operator">+</span> filename;
+  
+  result = safeRead <span class="string">"config.json"</span>;
+<span class="keyword">in</span>
+  <span class="function">echo</span> result</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>🔧 Compiler Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Compilation Features</h3>
+          <p>Compile to JavaScript, enhanced error messages, better debugging with automatic debug output generation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Interactive REPL</h3>
+          <p>Test expressions interactively, get immediate results, perfect for learning and debugging.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Component System</h3>
+          <p>Define reusable GUI components with props, children, and event handlers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>CSS Styling</h3>
+          <p>Integrated styling system with CSS-like syntax and automatic style injection.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-links">
+      <h2>🚀 Quick Commands</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>Create New Project</h3>
+          <div class="step-code">
+            <pre>mkdir my-nixi-app
+cd my-nixi-app
+echo <span class="keyword">let</span> app = <span class="component">div</span> { <span class="property">text</span>: <span class="string">"Hello World"</span> }; <span class="keyword">in</span> <span class="function">saveHTML</span>(app, <span class="string">"index.html"</span>, <span class="string">"My App"</span>) > app.nixi
+nixi app.nixi</pre>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Debug Mode</h3>
+          <div class="step-code">
+            <pre><span class="comment"># Enable verbose output</span>
+DEBUG=1 nixi app.nixi
+
+<span class="comment"># View generated JavaScript</span>
+cat debug_output.js
+
+<span class="comment"># Step-by-step compilation</span>
+nixi --verbose app.nixi</pre>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Build Workflow</h3>
+          <div class="step-code">
+            <pre><span class="comment"># Development with auto-reload</span>
+npm run dev
+
+<span class="comment"># Production build</span>
+nixi --compile --optimize app.nixi > dist/app.js
+
+<span class="comment"># Test before deployment</span>
+npm test
+nixi examples/test-app.nixi</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Nixi</h3>
+        <p>A hybrid programming language for the modern web</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="https://github.com/ijadux2/nixi">GitHub</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="examples.html">Examples</a></li>
+          <li><a href="editor-support.html">Editor Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Nixi Programming Language. MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>

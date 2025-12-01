@@ -1,0 +1,242 @@
+/* Code-specific styles for Nixi documentation */
+
+/* Code Sections */
+.code-section {
+  background: rgba(49, 50, 68, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.page-header {
+  background: rgba(49, 50, 68, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.code-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
+  color: var(--text-dark);
+}
+
+.code-examples {
+  display: grid;
+  gap: 2rem;
+}
+
+.code-example {
+  background: var(--bg-white);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.code-header {
+  background: linear-gradient(135deg, var(--mauve), var(--blue));
+  color: var(--crust);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.copy-btn {
+  background: rgba(24, 24, 37, 0.3);
+  border: none;
+  color: var(--crust);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(24, 24, 37, 0.5);
+}
+
+.code-content {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 1.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.code-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Syntax Highlighting */
+.keyword {
+  color: var(--mauve);
+  font-weight: 600;
+}
+
+.function {
+  color: var(--blue);
+}
+
+.string {
+  color: var(--green);
+}
+
+.comment {
+  color: var(--overlay0);
+  font-style: italic;
+}
+
+.number {
+  color: var(--peach);
+}
+
+.component {
+  color: var(--sky);
+}
+
+.operator {
+  color: var(--pink);
+}
+
+.property {
+  color: var(--text-dark);
+}
+
+/* Installation Section */
+.installation {
+  background: rgba(49, 50, 68, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin: 3rem 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.installation h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: var(--text-dark);
+}
+
+.install-steps {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+}
+
+.install-step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--mauve), var(--blue));
+  color: var(--crust);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-content h3 {
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.step-content p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.step-code {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 16px;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Responsive Design for Code */
+@media (max-width: 768px) {
+  .code-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .page-header {
+    padding: 2rem 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .code-content {
+    font-size: 14px;
+    padding: 1.2rem;
+  }
+
+  .install-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-number {
+    align-self: flex-start;
+  }
+
+  .step-code {
+    font-size: 14px;
+    padding: 0.8rem;
+  }
+}

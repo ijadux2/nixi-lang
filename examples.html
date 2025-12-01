@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examples - Nixi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="code-styles.css">
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">🚀 Nixi</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="language-reference.html">Language Reference</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="html-css-js-support.html">HTML/CSS/JS Support</a></li>
+        <li><a href="compiler-usage.html">Compiler Usage</a></li>
+        <li><a href="testing-results.html">Testing Results</a></li>
+        <li><a href="documentation.html">Documentation</a></li>
+        <li><a href="editor-support.html">Editor Support</a></li>
+        <li><a href="installation.html">Installation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <h1>📝 Code Examples</h1>
+      <p>Practical examples from Hello World to complete web applications.</p>
+    </section>
+
+    <section class="code-section">
+      <h2>Basic Examples</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Hello World</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Simple Hello World in Nixi</span>
+<span class="keyword">let</span>
+  app = <span class="component">div</span> { 
+    <span class="property">class</span>: <span class="string">"container"</span>; 
+    <span class="property">text</span>: <span class="string">"Hello Nixi World!"</span> 
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"hello.html"</span>, <span class="string">"Hello World App"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Math Operations</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Basic arithmetic with built-in functions</span>
+<span class="keyword">let</span>
+  x = <span class="number">42</span>;
+  y = <span class="number">23</span>;
+  sum = <span class="function">add</span>(x, y);
+  message = <span class="string">"The sum is: "</span> <span class="operator">+</span> sum;
+  
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"container"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Math Demo"</span> };
+      <span class="component">p</span> { <span class="property">text</span>: message }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"math.html"</span>, <span class="string">"Math Demo"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">GUI Components with Styling</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Define styles first</span>
+<span class="keyword">style</span> <span class="string">"app"</span> {
+  <span class="property">max-width</span>: <span class="string">"600px"</span>;
+  <span class="property">margin</span>: <span class="string">"0 auto"</span>;
+  <span class="property">padding</span>: <span class="string">"20px"</span>;
+  <span class="property">font-family</span>: <span class="string">"Arial, sans-serif"</span>;
+}
+
+<span class="keyword">style</span> <span class="string">"btn"</span> {
+  <span class="property">background</span>: <span class="string">"#007bff"</span>;
+  <span class="property">color</span>: <span class="string">"white"</span>;
+  <span class="property">border</span>: <span class="string">"none"</span>;
+  <span class="property">padding</span>: <span class="string">"10px 20px"</span>;
+  <span class="property">border-radius</span>: <span class="string">"5px"</span>;
+  <span class="property">cursor</span>: <span class="string">"pointer"</span>;
+}
+
+<span class="comment"># Main application</span>
+<span class="keyword">let</span>
+  app = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"app"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Styled App"</span> };
+      <span class="component">button</span> {
+        <span class="property">class</span>: <span class="string">"btn"</span>;
+        <span class="property">text</span>: <span class="string">"Click Me!"</span>;
+        <span class="property">onClick</span>: <span class="function">echo</span> <span class="string">"Button clicked!"</span>
+      }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(app, <span class="string">"styled.html"</span>, <span class="string">"Styled App"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Dashboard Example</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Professional dashboard with statistics</span>
+<span class="keyword">let</span>
+  appName = <span class="string">"Nixi Dashboard"</span>;
+  version = <span class="string">"v1.0.0"</span>;
+  
+  <span class="comment"># Statistics cards</span>
+  usersStat = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"stat-card"</span>;
+    <span class="property">children</span>: [
+      <span class="component">div</span> { <span class="property">class</span>: <span class="string">"stat-number"</span>; <span class="property">text</span>: <span class="string">"1,234"</span> };
+      <span class="component">div</span> { <span class="property">class</span>: <span class="string">"stat-label"</span>; <span class="property">text</span>: <span class="string">"Total Users"</span> }
+    ]
+  };
+  
+  <span class="comment"># Dashboard header</span>
+  Header = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"dashboard-header"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: appName };
+      <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Functional Programming Dashboard "</span> <span class="operator">+</span> version }
+    ]
+  };
+  
+  <span class="comment"># Complete dashboard</span>
+  Dashboard = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"dashboard"</span>;
+    <span class="property">children</span>: [ Header; usersStat ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(Dashboard, <span class="string">"dashboard.html"</span>, <span class="string">"Nixi Dashboard"</span>)</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <h2>Advanced Examples</h2>
+      
+      <div class="code-examples">
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">Todo Application</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># Complete todo application with state management</span>
+<span class="keyword">let</span>
+  <span class="comment"># Define styles</span>
+  _ = <span class="keyword">style</span> <span class="string">".todo-app"</span> {
+    <span class="property">max-width</span>: <span class="string">"400px"</span>;
+    <span class="property">margin</span>: <span class="string">"0 auto"</span>;
+    <span class="property">font-family</span>: <span class="string">"Arial"</span>;
+  };
+  
+  _ = <span class="keyword">style</span> <span class="string">".todo-item"</span> {
+    <span class="property">display</span>: <span class="string">"flex"</span>;
+    <span class="property">justify-content</span>: <span class="string">"space-between"</span>;
+    <span class="property">padding</span>: <span class="string">"10px"</span>;
+    <span class="property">border</span>: <span class="string">"1px solid #ccc"</span>;
+    <span class="property">margin</span>: <span class="string">"5px 0"</span>;
+  };
+  
+  <span class="comment"># Components</span>
+  TodoItem = { text, completed, onToggle }: <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"todo-item"</span>;
+    <span class="property">children</span>: [
+      <span class="component">span</span> {
+        <span class="property">text</span>: <span class="keyword">if</span> completed <span class="keyword">then</span> <span class="string">"✓ "</span> <span class="operator">+</span> text <span class="keyword">else</span> text;
+        <span class="property">onClick</span>: onToggle
+      };
+      <span class="component">button</span> { 
+        <span class="property">text</span>: <span class="string">"Delete"</span>; 
+        <span class="property">onClick</span>: <span class="function">echo</span> <span class="string">"Delete clicked"</span> 
+      }
+    ]
+  };
+  
+  TodoApp = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"todo-app"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Todo List"</span> };
+      <span class="component">input</span> { 
+        <span class="property">placeholder</span>: <span class="string">"Add todo"</span>; 
+        <span class="property">onChange</span>: val: <span class="function">echo</span> (<span class="string">"New todo: "</span> <span class="operator">+</span> val) 
+      };
+      TodoItem { 
+        <span class="property">text</span>: <span class="string">"Buy milk"</span>; 
+        <span class="property">completed</span>: <span class="keyword">false</span>; 
+        <span class="property">onToggle</span>: <span class="function">echo</span> <span class="string">"Toggled"</span> 
+      };
+      TodoItem { 
+        <span class="property">text</span>: <span class="string">"Walk dog"</span>; 
+        <span class="property">completed</span>: <span class="keyword">true</span>; 
+        <span class="property">onToggle</span>: <span class="function">echo</span> <span class="string">"Toggled"</span> 
+      }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(TodoApp, <span class="string">"todo.html"</span>, <span class="string">"Todo App"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">User Profile System</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># User profile system with reusable components</span>
+<span class="keyword">let</span>
+  <span class="comment"># User profile component</span>
+  UserProfile = { user }: <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"user-profile"</span>;
+    <span class="property">children</span>: [
+      <span class="component">img</span> {
+        <span class="property">src</span>: user.avatar;
+        <span class="property">alt</span>: <span class="string">"Avatar of "</span> <span class="operator">+</span> user.name;
+        <span class="property">class</span>: <span class="string">"avatar"</span>
+      };
+      <span class="component">div</span> {
+        <span class="property">class</span>: <span class="string">"user-info"</span>;
+        <span class="property">children</span>: [
+          <span class="component">h4</span> { <span class="property">text</span>: user.name };
+          <span class="component">p</span> { <span class="property">text</span>: user.email };
+          <span class="component">span</span> { <span class="property">text</span>: <span class="string">"Role: "</span> <span class="operator">+</span> user.role }
+        ]
+      }
+    ]
+  };
+  
+  <span class="comment"># User list component</span>
+  UserList = { users }: <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"user-list"</span>;
+    <span class="property">children</span>: <span class="function">map</span>(UserProfile, users)
+  };
+  
+  <span class="comment"># Sample data</span>
+  users = [
+    { 
+      <span class="property">name</span> = <span class="string">"Alice"</span>; 
+      <span class="property">email</span> = <span class="string">"alice@example.com"</span>; 
+      <span class="property">role</span> = <span class="string">"Developer"</span>; 
+      <span class="property">avatar</span> = <span class="string">"alice.jpg"</span> 
+    };
+    { 
+      <span class="property">name</span> = <span class="string">"Bob"</span>; 
+      <span class="property">email</span> = <span class="string">"bob@example.com"</span>; 
+      <span class="property">role</span> = <span class="string">"Designer"</span>; 
+      <span class="property">avatar</span> = <span class="string">"bob.jpg"</span> 
+    };
+    { 
+      <span class="property">name</span> = <span class="string">"Charlie"</span>; 
+      <span class="property">email</span> = <span class="string">"charlie@example.com"</span>; 
+      <span class="property">role</span> = <span class="string">"Manager"</span>; 
+      <span class="property">avatar</span> = <span class="string">"charlie.jpg"</span> 
+    }
+  ];
+  
+  <span class="comment"># Main application</span>
+  App = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"app"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"User Management System"</span> };
+      <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Total users: "</span> <span class="operator">+</span> <span class="function">toString</span>(<span class="function">length</span>(users)) };
+      UserList { <span class="property">users</span>: users }
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(App, <span class="string">"user-profiles.html"</span>, <span class="string">"User Profile System"</span>)</pre>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <div class="code-header">
+            <div class="code-title">E-commerce Product Card</div>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+          </div>
+          <div class="code-content">
+            <pre><span class="comment"># E-commerce product card with pricing</span>
+<span class="keyword">let</span>
+  <span class="comment"># Product card component</span>
+  ProductCard = { product }: <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"product-card"</span>;
+    <span class="property">children</span>: [
+      <span class="component">img</span> {
+        <span class="property">src</span>: product.image;
+        <span class="property">alt</span>: product.name;
+        <span class="property">class</span>: <span class="string">"product-image"</span>
+      };
+      <span class="component">div</span> {
+        <span class="property">class</span>: <span class="string">"product-info"</span>;
+        <span class="property">children</span>: [
+          <span class="component">h3</span> { <span class="property">text</span>: product.name };
+          <span class="component">p</span> { <span class="property">text</span>: product.description };
+          <span class="component">div</span> {
+            <span class="property">class</span>: <span class="string">"price-row"</span>;
+            <span class="property">children</span>: [
+              <span class="component">span</span> { 
+                <span class="property">class</span>: <span class="string">"price"</span>; 
+                <span class="property">text</span>: <span class="string">"$"</span> <span class="operator">+</span> <span class="function">toString</span>(product.price) 
+              };
+              <span class="keyword">if</span> product.originalPrice <span class="operator">></span> product.price
+              <span class="keyword">then</span> <span class="component">span</span> { 
+                <span class="property">class</span>: <span class="string">"original-price"</span>; 
+                <span class="property">text</span>: <span class="string">"$"</span> <span class="operator">+</span> <span class="function">toString</span>(product.originalPrice) 
+              }
+              <span class="keyword">else</span> <span class="component">span</span> {};
+              <span class="keyword">if</span> product.originalPrice <span class="operator">></span> product.price
+              <span class="keyword">then</span> <span class="component">span</span> { 
+                <span class="property">class</span>: <span class="string">"discount"</span>; 
+                <span class="property">text</span>: <span class="string">"Save $"</span> <span class="operator">+</span> <span class="function">toString</span>(product.originalPrice <span class="operator">-</span> product.price) 
+              }
+              <span class="keyword">else</span> <span class="component">span</span> {}
+            ]
+          };
+          <span class="component">button</span> {
+            <span class="property">class</span>: <span class="string">"add-to-cart"</span>;
+            <span class="property">text</span>: <span class="string">"Add to Cart"</span>;
+            <span class="property">onClick</span>: <span class="function">echo</span> (<span class="string">"Added to cart: "</span> <span class="operator">+</span> product.name)
+          }
+        ]
+      }
+    ]
+  };
+  
+  <span class="comment"># Sample products</span>
+  products = [
+    {
+      <span class="property">name</span> = <span class="string">"Wireless Headphones"</span>;
+      <span class="property">description</span> = <span class="string">"Premium noise-cancelling wireless headphones"</span>;
+      <span class="property">price</span> = <span class="number">199.99</span>;
+      <span class="property">originalPrice</span> = <span class="number">299.99</span>;
+      <span class="property">image</span> = <span class="string">"headphones.jpg"</span>
+    };
+    {
+      <span class="property">name</span> = <span class="string">"Smart Watch"</span>;
+      <span class="property">description</span> = <span class="string">"Fitness tracking smartwatch with heart rate monitor"</span>;
+      <span class="property">price</span> = <span class="number">149.99</span>;
+      <span class="property">originalPrice</span> = <span class="number">149.99</span>;
+      <span class="property">image</span> = <span class="string">"watch.jpg"</span>
+    }
+  ];
+  
+  <span class="comment"># Product grid</span>
+  ProductGrid = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"product-grid"</span>;
+    <span class="property">children</span>: <span class="function">map</span>(ProductCard, products)
+  };
+  
+  <span class="comment"># Main store page</span>
+  Store = <span class="component">div</span> {
+    <span class="property">class</span>: <span class="string">"store"</span>;
+    <span class="property">children</span>: [
+      <span class="component">h1</span> { <span class="property">text</span>: <span class="string">"Nixi Electronics Store"</span> };
+      <span class="component">p</span> { <span class="property">text</span>: <span class="string">"Featured products"</span> };
+      ProductGrid
+    ]
+  };
+<span class="keyword">in</span>
+  <span class="function">saveHTML</span>(Store, <span class="string">"store.html"</span>, <span class="string">"Nixi Store"</span>)</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-links">
+      <h2>🚀 Try These Examples</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Run Examples</h3>
+          <p>Execute these examples with the Nixi compiler.</p>
+          <div class="step-code">
+            <pre>npm run example:gui
+npm run example:math
+npm run example:dashboard</pre>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>Create Your Own</h3>
+          <p>Save any example as a .nixi file and run it.</p>
+          <div class="step-code">
+            <pre>nixi your-example.nixi
+node src/compiler.js your-example.nixi</pre>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>View Output</h3>
+          <p>Generated HTML files appear in your directory.</p>
+          <div class="step-code">
+            <pre># Open generated files
+open hello.html
+# Or view in browser</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Nixi</h3>
+        <p>A hybrid programming language for the modern web</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="https://github.com/ijadux2/nixi">GitHub</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="language-reference.html">Language Reference</a></li>
+          <li><a href="editor-support.html">Editor Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Nixi Programming Language. MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>
