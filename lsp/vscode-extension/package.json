@@ -1,0 +1,54 @@
+{
+  "name": "nixi-vscode-extension",
+  "displayName": "Nixi Language Support",
+  "description": "Language support for Nixi GUI language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Languages",
+    "Snippets",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:nixi"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "nixi",
+        "aliases": ["Nixi", "nixi"],
+        "extensions": [".nixi"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "nixi",
+        "scopeName": "source.nixi",
+        "path": "./syntaxes/nixi.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "nixi",
+        "path": "./snippets/nixi.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.1.0"
+  }
+}

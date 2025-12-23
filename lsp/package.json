@@ -1,0 +1,32 @@
+{
+  "name": "nixi-language-server",
+  "version": "1.0.0",
+  "description": "Language Server Protocol implementation for Nixi language",
+  "main": "src/server.js",
+  "bin": {
+    "nixi-lsp": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/test.js",
+    "dev": "node --inspect src/server.js"
+  },
+  "keywords": [
+    "lsp",
+    "language-server",
+    "nixi",
+    "gui",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Nixi Project",
+  "license": "MIT",
+  "dependencies": {
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

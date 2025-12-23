@@ -1,0 +1,148 @@
+{
+  "name": "Nixi",
+  "description": "Nixi Language Support",
+  "package_type": "lsp_server",
+  "language_server": {
+    "command": "node",
+    "args": ["/home/jadu/code/nixi/lsp/src/server.js"],
+    "settings": {
+      "nixi": {
+        "diagnostics": {
+          "enable": true
+        },
+        "completion": {
+          "enable": true
+        }
+      }
+    },
+    "initialization_options": {
+      "documentSelector": [
+        {
+          "scheme": "file",
+          "language": "nixi"
+        }
+      ]
+    },
+    "filetypes": ["nixi"],
+    "root_patterns": [".git", ".nixi", "package.json"],
+    "required_binary_version": "14.0.0"
+  },
+  "syntax_highlighting": {
+    "language_id": "nixi",
+    "extensions": [".nixi"],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["<", ">"]
+      ],
+      "autoClosingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["<", ">"],
+        ["\"", "\""],
+        ["'", "'"]
+      ],
+      "surroundingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["<", ">"],
+        ["\"", "\""],
+        ["'", "'"]
+      ]
+    }
+  },
+  "snippets": [
+    {
+      "prefix": "comp",
+      "body": [
+        "component ${1:name} { ${2:params} }:",
+        "  ${3:// component body}"
+      ],
+      "description": "Create a Nixi component"
+    },
+    {
+      "prefix": "let",
+      "body": [
+        "let",
+        "  ${1:name} = ${2:value};",
+        "in",
+        "  ${3:expression}"
+      ],
+      "description": "Create a let expression"
+    },
+    {
+      "prefix": "if",
+      "body": [
+        "if (${1:condition}) then",
+        "  ${2:thenBranch}",
+        "else",
+        "  ${3:elseBranch}"
+      ],
+      "description": "Create an if-then-else expression"
+    },
+    {
+      "prefix": "html",
+      "body": [
+        "html {",
+        "  head { title \"${1:Title}\" },",
+        "  body {",
+        "    ${2:// content}",
+        "  }",
+        "}"
+      ],
+      "description": "Create an HTML document structure"
+    },
+    {
+      "prefix": "div",
+      "body": [
+        "div {",
+        "  class \"${1:className}\";",
+        "  ${2:// content}",
+        "}"
+      ],
+      "description": "Create a div element"
+    }
+  ],
+  "semantic_tokens": {
+    "token_types": {
+      "keyword": "control",
+      "string": "string",
+      "number": "number",
+      "comment": "comment",
+      "identifier": "variable",
+      "function": "function",
+      "tag": "tag"
+    }
+  },
+  "configuration": {
+    "properties": {
+      "nixi.server.path": {
+        "type": "string",
+        "default": "/home/jadu/code/nixi/lsp/src/server.js",
+        "description": "Path to the Nixi LSP server executable"
+      },
+      "nixi.debug": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable debug logging for Nixi LSP"
+      },
+      "nixi.completion.enable": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable code completion"
+      },
+      "nixi.diagnostics.enable": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable error diagnostics"
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ Nixi is a programming language that combines:
 - React.js-like GUI components
 - CSS/QML styling capabilities
 - **Full HTML, CSS, and JavaScript support**
+- **Language Server Protocol (LSP) support** for all major editors
 
 ## 🚀 Quick Start
 
@@ -16,6 +17,49 @@ Nixi is a programming language that combines:
 # One-line installation for any platform
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/quick-install.sh | bash
 ```
+
+#### 📋 Platform-Specific Installation
+Choose your operating system:
+
+### 🔧 Language Server Setup
+
+Nixi includes a complete Language Server Protocol (LSP) implementation providing:
+
+- **Intelligent code completion** for keywords, HTML tags, and CSS properties
+- **Real-time error diagnostics** as you type
+- **Hover documentation** for language constructs
+- **Go to definition** and **find references**
+- **Refactoring support** with code actions
+- **Syntax highlighting** across all major editors
+
+#### 📝 Supported Editors
+
+- **Neovim** (with nvim-lspconfig)
+- **Cursor Editor** (built-in LSP support)
+- **Helix** (built-in LSP client)
+- **Emacs** (with lsp-mode)
+- **VS Code** (via extension)
+- **Kate/KDevelop** (with LSP Client plugin)
+- **Kakoune** (with kak-lsp)
+- **Sublime Text** (with LSP plugin)
+- **And more...**
+
+#### 🛠️ Quick LSP Setup
+
+```bash
+# Install LSP server
+cd lsp
+npm install
+
+# For specific editors, see:
+# lsp/editor-configs/[editor-name]/README.md
+
+# Example: Neovim setup
+cp lsp/editor-configs/neovim/nixi-lsp.lua ~/.config/nvim/lua/
+echo 'require("nixi-lsp")' >> ~/.config/nvim/init.lua
+```
+
+For detailed setup instructions for your favorite editor, see [lsp-installation.html](lsp-installation.html).
 
 #### 📋 Platform-Specific Installation
 Choose your operating system:

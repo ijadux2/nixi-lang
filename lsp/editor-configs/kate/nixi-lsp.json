@@ -1,0 +1,62 @@
+{
+  "servers": {
+    "nixi": {
+      "command": ["node", "/home/jadu/code/nixi/lsp/src/server.js"],
+      "rootIndicators": [".git", ".nixi", "package.json", "nixi.config.json"],
+      "initializationOptions": {
+        "nixi": {
+          "diagnostics": { "enable": true },
+          "completion": { "enable": true },
+          "hover": { "enable": true },
+          "definition": { "enable": true },
+          "references": { "enable": true },
+          "formatting": { "enable": true }
+        }
+      },
+      "settings": {
+        "nixi": {
+          "server": {
+            "path": "/home/jadu/code/nixi/lsp/src/server.js",
+            "debug": false,
+            "trace": {
+              "server": "off",
+              "lsp": "messages"
+            }
+          },
+          "completion": {
+            "enable": true,
+            "autoTrigger": true,
+            "triggerCharacters": [" ", "<", "{", ".", ":", "(", "["],
+            "maxItems": 50
+          },
+          "diagnostics": {
+            "enable": true,
+            "delay": 500,
+            "autoDisplay": true,
+            "displayInserter": true
+          },
+          "hover": {
+            "enable": true,
+            "showDocumentation": true
+          },
+          "definition": {
+            "enable": true,
+            "jumpToDefinition": true
+          },
+          "references": {
+            "enable": true,
+            "includeDeclaration": true
+          },
+          "formatting": {
+            "enable": true,
+            "formatOnSave": false,
+            "formatOnType": false
+          }
+        }
+      },
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

@@ -1,0 +1,358 @@
+# Nixi Language Support for Kakoune
+
+Kakoune has LSP support through the `kak-lsp` plugin and can use Nixi Language Server with proper configuration.
+
+## Installation
+
+### Prerequisites
+
+1. **Kakoune** (version 2022.10+ recommended)
+2. **Node.js 14+** (for running Nixi LSP server)
+3. **kak-lsp** plugin for LSP support
+
+### Quick Setup
+
+1. **Install kak-lsp**:
+   ```bash
+   # Using Cargo (recommended)
+   cargo install kak-lsp
+   
+   # Or download binary
+   wget https://github.com/kakoune-lsp/kak-lsp/releases/latest/download/kak-lsp
+   chmod +x kak-lsp
+   sudo mv kak-lsp /usr/local/bin/
+   ```
+
+2. **Configure kak-lsp** for Nixi:
+   ```bash
+   mkdir -p ~/.config/kak-lsp
+   cp lsp/editor-configs/kakoune/kak-lsp.toml ~/.config/kak-lsp/kak-lsp.toml
+   ```
+
+3. **Configure Kakoune**:
+   ```bash
+   # Add to your kakrc
+   echo 'eval "%opt{autoexec_lsp}"' >> ~/.config/kak/kakrc
+   ```
+
+### Manual Configuration
+
+Create `~/.config/kak-lsp/kak-lsp.toml`:
+
+```toml
+[language.nixi]
+filetypes = ["nixi"]
+roots = [".git", ".nixi", "package.json"]
+command = "node"
+args = ["/home/jadu/code/nixi/lsp/src/server.js"]
+settings_section = "nixi"
+
+[settings.nixi]
+completion.enable = true
+diagnostics.enable = true
+hover.enable = true
+```
+
+Add to your `~/.config/kak/kakrc`:
+
+```kak
+# LSP integration
+eval %sh{kak-lsp --kakoune -s $kak_session}
+hook global KakEnd .* %sh{ kill $kak_lsp_pid }
+
+# Auto-start LSP for Nixi files
+hook global WinSetOption filetype=nixi %{
+    lsp-enable-window
+}
+```
+
+## Features
+
+Once configured, Kakoune provides:
+
+### ✅ Core LSP Features
+- **Syntax Highlighting** for all Nixi constructs
+- **Code Completion** with `c-i` or `<c-x>`
+- **Hover Documentation** with `lsp-hover`
+- **Goto Definition** with `lsp-definition`
+- **Find References** with `lsp-references`
+- **Error Diagnostics** shown in gutter
+- **Rename Symbol** with `lsp-rename`
+
+### ✅ Kakoune-Specific Features
+- **Multiple Selections** with LSP support
+- **Modal Editing** optimized for LSP
+- **Selection-based Actions**
+- **Incremental Selections**
+- **Jump List Integration**
+
+## Key Bindings
+
+### LSP Commands
+
+Add these to your `kakrc` for optimal Nixi experience:
+
+```kak
+# LSP key bindings for Nixi mode
+hook global WinSetOption filetype=nixi %{
+    # LSP commands
+    map global user l ':enter-user-mode lsp<ret>' -docstring 'lsp commands'
+    
+    # LSP user mode
+    declare-user-mode lsp
+    map global lsp d ': lsp-definitions<ret>' -docstring 'goto definition'
+    map global lsp D ': lsp-type-definition<ret>' -docstring 'goto type definition'
+    map global lsp r ': lsp-references<ret>' -docstring 'find references'
+    map global lsp h ': lsp-hover<ret>' -docstring 'hover documentation'
+    map global lsp s ': lsp-document-symbol<ret>' -docstring 'document symbols'
+    map global lsp S ': lsp-workspace-symbol<ret>' -docstring 'workspace symbols'
+    map global lsp a ': lsp-code-action<ret>' -docstring 'code actions'
+    map global lsp f ': lsp-formatting<ret>' -docstring 'format buffer'
+    map global lsp R ': lsp-rename<ret>' -docstring 'rename symbol'
+    
+    # Completion
+    map global insert <c-x> '<a-;>: lsp-completion<ret>' -docstring 'lsp completion'
+    map global insert <tab> '<a-;>: lsp-completion<ret>' -docstring 'lsp completion'
+    
+    # Diagnostics
+    map global normal '[' ': lsp-previous-diagnostics<ret>' -docstring 'previous diagnostic'
+    map global normal ']' ': lsp-next-diagnostics<ret>' -docstring 'next diagnostic'
+    map global normal <a-[> ': lsp-previous-diagnostics-wrap<ret>' -docstring 'previous diagnostic wrap'
+    map global normal <a-]> ': lsp-next-diagnostics-wrap<ret>' -docstring 'next diagnostic wrap'
+    
+    # Error display
+    define-command lsp-show-error -docstring 'show error under cursor' %{
+        eval %sh{kak-lsp --handle-error --kakoune $kak_session}
+    }
+    map global normal e ': lsp-show-error<ret>' -docstring 'show error'
+}
+
+# File type detection
+hook global BufCreate .*\.nixi %{
+    set-option buffer filetype nixi
+}
+```
+
+### Completion Mappings
+
+```kak
+# Enhanced completion
+hook global WinSetOption filetype=nixi %{
+    # Auto-trigger completion after certain characters
+    hook global InsertChar [ \t\(\\[{<] %{
+        try %{
+            lsp-completion
+        } catch %{
+            # Fallback to word completion
+            eval -save-regs '/' '/'<ret>i<space>
+        }
+    }
+}
+```
+
+## Configuration Options
+
+### Advanced kak-lsp Configuration
+
+```toml
+[language.nixi]
+filetypes = ["nixi"]
+roots = [".git", ".nixi", "package.json", "nixi.config.json"]
+command = "node"
+args = ["/home/jadu/code/nixi/lsp/src/server.js"]
+initialization_options = { nixi = { 
+    diagnostics = { enable = true }, 
+    completion = { enable = true },
+    hover = { enable = true },
+    definition = { enable = true }
+}}
+
+[settings.nixi]
+completion.enable = true
+completion.trigger_characters = [" ", "<", "{", ".", ":", "(", "["]
+diagnostics.enable = true
+diagnostics.display_inserter = true
+diagnostics.auto_display = true
+hover.enable = true
+definition.enable = true
+references.enable = true
+formatting.enable = true
+
+# Performance settings
+server.document_sync = true
+server.incremental_sync = true
+highlight.enabled = true
+highlight.lsp_references = true
+```
+
+### Kakoune Settings
+
+```kak
+# LSP-specific settings for Nixi
+hook global WinSetOption filetype=nixi %{
+    # Enable LSP features
+    set-option buffer lsp_auto_show_diagnostics true
+    set-option buffer lsp_auto_show_code_actions true
+    set-option buffer lsp_show_hover true
+    set-option buffer lsp_insert_chars_enable true
+    
+    # Indentation
+    set-option buffer indentwidth 2
+    set-option buffer tabstop 2
+    set-option buffer expandtab true
+    
+    # Syntax highlighting (if using tree-sitter)
+    set-option buffer tree_sitter_lang 'nixi'
+}
+
+# Highlighting
+add-highlighter global/ show_matching
+add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ wrap -word -indent
+
+# Gutter for diagnostics
+add-highlighter global/ flag-lines Default flag_lines DiagnosticError
+add-highlighter global/ flag-lines Default flag_lines DiagnosticWarning
+add-highlighter global/ flag-lines Default flag_lines DiagnosticInformation
+add-highlighter global/ flag-lines Default flag_lines DiagnosticHint
+```
+
+## Usage
+
+### Working with Nixi Files
+
+1. **Open `.nixi` files** - Kakoune will auto-detect file type
+2. **Manual file type**: `set buffer filetype nixi` if not auto-detected
+3. **Enable LSP**: `lsp-enable-window` in a Nixi buffer
+
+### Code Editing Features
+
+1. **Auto-completion**: Insert mode with `<c-x>` or `<tab>`
+2. **Documentation**: Normal mode with `l h`
+3. **Navigation**: Normal mode with `l d` for definitions
+4. **Error checking**: Errors shown in gutter, `[` and `]` to navigate
+
+### Selection-based Actions
+
+```kak
+# These work on selections too
+"normal mode":
+l d    - Go to definition of selection
+l r    - Find references to selection
+l R    - Rename selection
+l a    - Code actions for selection
+
+"visual mode":
+l h    - Hover documentation for selection
+l d    - Go to definition of selection
+```
+
+## Troubleshooting
+
+### LSP Not Starting
+
+1. **Check kak-lsp**: Ensure it's in your PATH
+2. **Verify Node.js**: `node --version` should be 14+
+3. **Check config**: Validate `kak-lsp.toml` syntax
+4. **Test manually**: Run `node /path/to/server.js` directly
+
+### No Completion
+
+1. **Check filetype**: `print %opt{filetype}` should show "nixi"
+2. **Restart LSP**: `lsp-restart` in Kakoune
+3. **Check logs**: `lsp-show-debug` for error messages
+
+### Diagnostics Issues
+
+1. **Enable display**: `set buffer lsp_auto_show_diagnostics true`
+2. **Manual check**: `lsp-diagnostics` to show all errors
+3. **Gutter display**: Ensure gutter flags are enabled
+
+### Debug Mode
+
+```toml
+# In kak-lsp.toml
+[language.nixi]
+command = "node"
+args = ["/home/jadu/code/nixi/lsp/src/server.js", "--debug"]
+```
+
+```kak
+# In kakrc
+set-option global lsp_debug true
+```
+
+### Performance Optimization
+
+```toml
+# Optimize for performance
+[settings.nixi]
+completion.max_items = 50
+diagnostics.debounce_ms = 500
+server.max_file_size = "1MB"
+```
+
+## Advanced Features
+
+### Multiple Projects
+
+```toml
+# Workspace-specific configuration
+[language.nixi.workspace."/path/to/project"]
+roots = ["project.config.json", ".nixi"]
+command = "node"
+args = ["/path/to/project/lsp/src/server.js"]
+```
+
+### Custom Commands
+
+```kak
+# Custom Nixi commands in kakrc
+define-command nixi-build -docstring 'build nixi project' %{
+    evaluate-commands %sh{
+        if [ -f "nixi.config.json" ]; then
+            echo "nixi build -c nixi.config.json | kak -p $kak_session"
+        else
+            echo "nixi build | kak -p $kak_session"
+        fi
+    }
+}
+
+map global normal B ': nixi-build<ret>' -docstring 'build nixi project'
+
+define-command nixi-run -docstring 'run nixi project' %{
+    evaluate-commands %sh{
+        if [ -f "nixi.config.json" ]; then
+            echo "nixi run -c nixi.config.json | kak -p $kak_session"
+        else
+            echo "nixi run | kak -p $kak_session"
+        fi
+    }
+}
+
+map global normal X ': nixi-run<ret>' -docstring 'run nixi project'
+```
+
+### Integration with Tools
+
+```kak
+# Integration with git
+hook global WinSetOption filetype=nixi %{
+    # Git integration for Nixi files
+    map global normal g :!git add %val{buffile}<ret> -docstring 'git add file'
+    map global normal G :!git commit -m "update %val{buffile}"<ret> -docstring 'git commit file'
+}
+
+# Integration with make/build
+define-command nixi-make -docstring 'make nixi project' %{
+    evaluate-commands %sh{
+        if [ -f "Makefile" ]; then
+            echo "make | kak -p $kak_session"
+        else
+            echo "echo 'no Makefile found'"
+        fi
+    }
+}
+
+map global normal M ': nixi-make<ret>' -docstring 'make project'
+```

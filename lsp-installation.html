@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LSP Installation - Nixi Programming Language</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">🚀 Nixi</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="language-reference.html">Language Reference</a></li>
+        <li><a href="examples.html">Examples</a></li>
+        <li><a href="html-css-js-support.html">HTML/CSS/JS Support</a></li>
+        <li><a href="compiler-usage.html">Compiler Usage</a></li>
+        <li><a href="testing-results.html">Testing Results</a></li>
+        <li><a href="documentation.html">Documentation</a></li>
+        <li><a href="editor-support.html">Editor Support</a></li>
+        <li><a href="installation.html">Installation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>🔧 Language Server Protocol (LSP) Setup</h1>
+      <p>Complete LSP implementation for Nixi with intelligent code assistance across all major editors and IDEs.</p>
+      <div class="cta-buttons">
+        <a href="#installation" class="btn btn-primary">
+          <span>🚀</span> Quick Setup
+        </a>
+        <a href="#editors" class="btn btn-secondary">
+          <span>📝</span> Editor Guide
+        </a>
+      </div>
+    </section>
+
+    <section id="installation" class="content-section">
+      <h2>📦 Installation</h2>
+      
+      <div class="install-steps">
+        <div class="step">
+          <h3>Step 1: Install Prerequisites</h3>
+          <div class="requirements">
+            <div class="requirement">
+              <h4>Node.js 14+</h4>
+              <p>Required to run the LSP server</p>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard('node --version')">📋 Check</button>
+              </div>
+            </div>
+            <div class="requirement">
+              <h4>Your Favorite Editor</h4>
+              <p>See supported editors below</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <h3>Step 2: Install Nixi LSP</h3>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyToClipboard('cd lsp && npm install')">📋 Copy</button>
+            <pre><code>cd lsp
+npm install</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <h3>Step 3: Configure Your Editor</h3>
+          <p>Choose your editor below for detailed setup instructions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features-section">
+      <h2>✨ LSP Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Smart Code Completion</h3>
+          <p>Context-aware auto-completion for Nixi keywords, HTML tags, CSS properties, and JavaScript functions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚠️</div>
+          <h3>Real-time Diagnostics</h3>
+          <p>Instant error detection and highlighting as you type, with detailed error messages and suggestions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3>Hover Documentation</h3>
+          <p>Rich documentation on hover for language constructs, components, and CSS properties.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Go to Definition</h3>
+          <p>Navigate directly to component definitions, variable declarations, and function implementations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Find References</h3>
+          <p>Locate all uses of components, variables, and functions across your project.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Code Actions</h3>
+          <p>Automated refactoring suggestions, quick fixes, and code improvements.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="editors" class="editors-section">
+      <h2>📝 Supported Editors</h2>
+      
+      <div class="editors-grid">
+        <div class="editor-card">
+          <div class="editor-logo">🟦</div>
+          <h3>Neovim</h3>
+          <p>Built-in LSP support with nvim-lspconfig</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🎯 Modal</span>
+            <span class="feature-tag">⚡ Fast</span>
+          </div>
+          <a href="#neovim-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟨</div>
+          <h3>Cursor Editor</h3>
+          <p>AI-powered editor with native LSP support</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🤖 AI</span>
+            <span class="feature-tag">🎨 Modern</span>
+          </div>
+          <a href="#cursor-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟩</div>
+          <h3>Helix</h3>
+          <p>Modal editor with built-in LSP client</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🎯 Modal</span>
+            <span class="feature-tag">🌲 Tree-sitter</span>
+          </div>
+          <a href="#helix-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟣</div>
+          <h3>Emacs</h3>
+          <p>Extensible editor with lsp-mode</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🔧 Extensible</span>
+            <span class="feature-tag">📚 Org-mode</span>
+          </div>
+          <a href="#emacs-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟦</div>
+          <h3>VS Code</h3>
+          <p>Popular IDE with extension support</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🔌 Extensions</span>
+            <span class="feature-tag">🎨 Themes</span>
+          </div>
+          <a href="#vscode-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🔵</div>
+          <h3>Kate/KDevelop</h3>
+          <p>KDE editors with LSP Client plugin</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🖥️ KDE</span>
+            <span class="feature-tag">🔧 IDE</span>
+          </div>
+          <a href="#kate-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟠</div>
+          <h3>Kakoune</h3>
+          <p>Modal editor with kak-lsp plugin</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">🎯 Modal</span>
+            <span class="feature-tag">⚡ Minimal</span>
+          </div>
+          <a href="#kakoune-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+
+        <div class="editor-card">
+          <div class="editor-logo">🟠</div>
+          <h3>Sublime Text</h3>
+          <p>Lightweight editor with LSP plugin</p>
+          <div class="editor-features">
+            <span class="feature-tag">✅ Full LSP</span>
+            <span class="feature-tag">⚡ Fast</span>
+            <span class="feature-tag">🎨 Minimal</span>
+          </div>
+          <a href="#sublime-setup" class="btn btn-primary">Setup Guide</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="setup-guides" class="setup-section">
+      <h2>🛠️ Detailed Setup Guides</h2>
+      
+      <div id="neovim-setup" class="setup-guide">
+        <h3>🟦 Neovim Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('mkdir -p ~/.config/nvim/lua/nixi && cp lsp/editor-configs/neovim/nixi-lsp.lua ~/.config/nvim/lua/nixi/')">📋 Copy</button>
+          <pre><code># Install lspconfig if not already installed
+:Plug 'neovim/nvim-lspconfig'
+
+# Copy configuration
+mkdir -p ~/.config/nvim/lua/nixi
+cp lsp/editor-configs/neovim/nixi-lsp.lua ~/.config/nvim/lua/nixi/
+
+# Add to init.lua
+echo 'require("nixi.nixi-lsp")' >> ~/.config/nvim/init.lua</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Full LSP support, modal editing, fast performance, tree-sitter integration</p>
+      </div>
+
+      <div id="cursor-setup" class="setup-guide">
+        <h3>🟨 Cursor Editor Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('cp lsp/editor-configs/cursor/nixi-lsp.json ~/.cursor/extensions/')">📋 Copy</button>
+          <pre><code># Copy configuration
+mkdir -p ~/.cursor/extensions/
+cp lsp/editor-configs/cursor/nixi-lsp.json ~/.cursor/extensions/
+
+# Add to workspace settings
+echo '{
+  "language_servers": {
+    "nixi": {
+      "command": "node",
+      "args": ["/home/jadu/code/nixi/lsp/src/server.js"],
+      "filetypes": ["nixi"]
+    }
+  }
+}' > .cursor/settings.json</code></pre>
+        </div>
+        <p><strong>Key features:</strong> AI integration, modern UI, built-in LSP support, intelligent completion</p>
+      </div>
+
+      <div id="helix-setup" class="setup-guide">
+        <h3>🟩 Helix Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('mkdir -p ~/.config/helix/languages && cp lsp/editor-configs/helix/languages.toml ~/.config/helix/languages/')">📋 Copy</button>
+          <pre><code># Copy configuration
+mkdir -p ~/.config/helix/languages
+cp lsp/editor-configs/helix/languages.toml ~/.config/helix/languages/
+
+# Update server path in ~/.config/helix/languages.toml:
+# args = ["/your/path/to/nixi/lsp/src/server.js"]</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Modal editing, built-in LSP client, tree-sitter support, excellent performance</p>
+      </div>
+
+      <div id="emacs-setup" class="setup-guide">
+        <h3>🟣 Emacs Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('mkdir -p ~/.emacs.d/lisp && cp lsp/editor-configs/emacs/nixi-mode.el ~/.emacs.d/lisp/')">📋 Copy</button>
+          <pre><code># Install packages (use-package recommended)
+(use-package lsp-mode :ensure t)
+(use-package company :ensure t)
+(use-package flycheck :ensure t)
+
+# Copy configuration
+mkdir -p ~/.emacs.d/lisp
+cp lsp/editor-configs/emacs/nixi-mode.el ~/.emacs.d/lisp/
+
+# Add to init.el
+(echo '(add-to-list '"'"'load-path'"'"' "~/.emacs.d/lisp")
+(require '"'"'nixi-mode'"'"')
+(add-to-list '"'"'auto-mode-alist'"'"' '"'"'("\\.nixi\\'"'"' . nixi-mode))' >> ~/.emacs.d/init.el)</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Extensible, org-mode integration, evil-mode support, company completion</p>
+      </div>
+
+      <div id="vscode-setup" class="setup-guide">
+        <h3>🟦 VS Code Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick('copyToClipboard('code --install-extension lsp/vscode-extension')">📋 Copy</button>
+          <pre><code># Option 1: Install from source
+cd lsp/vscode-extension
+code --install-extension .
+
+# Option 2: Copy to extensions directory
+mkdir -p ~/.vscode/extensions/nixi-lsp
+cp -r lsp/vscode-extension/* ~/.vscode/extensions/nixi-lsp/</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Rich extension ecosystem, marketplace support, debugging tools, Git integration</p>
+      </div>
+
+      <div id="kate-setup" class="setup-guide">
+        <h3>🔵 Kate/KDevelop Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('cp lsp/editor-configs/kate/nixi-lsp.json ~/.config/kate/lspclient/')">📋 Copy</button>
+          <pre><code># For Kate
+mkdir -p ~/.config/kate/lspclient
+cp lsp/editor-configs/kate/nixi-lsp.json ~/.config/kate/lspclient/
+
+# For KDevelop  
+mkdir -p ~/.config/kdevlspclient
+cp lsp/editor-configs/kate/nixi-lsp.json ~/.config/kdevlspclient/
+
+# Configure in Settings → Configure Kate/KDevelop → LSP Client</code></pre>
+        </div>
+        <p><strong>Key features:</strong> KDE integration, project management, built-in debugging, Git support</p>
+      </div>
+
+      <div id="kakoune-setup" class="setup-guide">
+        <h3>🟠 Kakoune Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('mkdir -p ~/.config/kak-lsp && cp lsp/editor-configs/kakoune/kak-lsp.toml ~/.config/kak-lsp/')">📋 Copy</button>
+          <pre><code># Install kak-lsp
+cargo install kak-lsp
+
+# Copy configuration
+mkdir -p ~/.config/kak-lsp
+cp lsp/editor-configs/kakoune/kak-lsp.toml ~/.config/kak-lsp/
+
+# Add to kakrc
+echo 'eval %sh{kak-lsp --kakoune -s $kak_session}' >> ~/.config/kak/kakrc</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Modal editing, minimal dependencies, multiple selections, Vim-like keybindings</p>
+      </div>
+
+      <div id="sublime-setup" class="setup-guide">
+        <h3>🟠 Sublime Text Setup</h3>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyToClipboard('cp lsp/editor-configs/sublime/nixi-lsp.json ~/.config/sublime-text-3/Packages/LSP/')]">📋 Copy</button>
+          <pre><code># Install LSP plugin
+# Package Control → Install Package → "LSP"
+
+# Copy configuration
+mkdir -p ~/.config/sublime-text-3/Packages/LSP
+cp lsp/editor-configs/sublime/nixi-lsp.json ~/.config/sublime-text-3/Packages/LSP/
+
+# Configure in Preferences → Package Settings → LSP → Server Settings</code></pre>
+        </div>
+        <p><strong>Key features:</strong> Fast startup, minimal UI, command palette, multiple cursors, Goto Anything</p>
+      </div>
+    </section>
+
+    <section id="troubleshooting" class="troubleshooting-section">
+      <h2>🔧 Troubleshooting</h2>
+      
+      <div class="troubleshooting-grid">
+        <div class="trouble-item">
+          <h3>LSP Not Starting</h3>
+          <ul>
+            <li>Verify Node.js installation: <code>node --version</code></li>
+            <li>Check LSP server path in configuration</li>
+            <li>Ensure firewall allows localhost connections</li>
+            <li>Test server manually: <code>node lsp/src/server.js</code></li>
+          </ul>
+        </div>
+
+        <div class="trouble-item">
+          <h3>No Auto-completion</h3>
+          <ul>
+            <li>Check file type detection (should be "nixi")</li>
+            <li>Restart your editor</li>
+            <li>Verify LSP server is running</li>
+            <li>Check completion triggers in settings</li>
+          </ul>
+        </div>
+
+        <div class="trouble-item">
+          <h3>Syntax Highlighting Issues</h3>
+          <ul>
+            <li>Install syntax highlighting files</li>
+            <li>Restart editor to reload syntax files</li>
+            <li>Check file association settings</li>
+            <li>Consider tree-sitter if available</li>
+          </ul>
+        </div>
+
+        <div class="trouble-item">
+          <h3>Performance Issues</h3>
+          <ul>
+            <li>Limit completion items in settings</li>
+            <li>Disable unused LSP features</li>
+            <li>Check file size limits</li>
+            <li>Enable incremental sync if supported</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources-section">
+      <h2>📚 Additional Resources</h2>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>📖 Documentation</h3>
+          <p>Complete language reference and API documentation</p>
+          <a href="documentation.html" class="btn btn-secondary">Read Docs</a>
+        </div>
+        <div class="resource-card">
+          <h3>💻 Examples</h3>
+          <p>Practical examples and sample projects</p>
+          <a href="examples.html" class="btn btn-secondary">View Examples</a>
+        </div>
+        <div class="resource-card">
+          <h3>🔧 Editor Configs</h3>
+          <p>Detailed configuration files for each editor</p>
+          <a href="editor-support.html" class="btn btn-secondary">Editor Support</a>
+        </div>
+        <div class="resource-card">
+          <h3>🐛 Issues</h3>
+          <p>Report bugs and request features</p>
+          <a href="https://github.com/ijadux2/nixi/issues" class="btn btn-secondary">GitHub Issues</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Nixi</h3>
+        <p>A hybrid programming language for modern web</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="https://github.com/ijadux2/nixi">GitHub</a></li>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="examples.html">Examples</a></li>
+          <li><a href="lsp-installation.html">LSP Setup</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Created by</h3>
+        <p><a href="https://github.com/ijadux2" target="_blank" rel="noopener">Ijadux2</a></p>
+        <p><a href="https://portfolio-nine-virid-25.vercel.app/" target="_blank" rel="noopener">Portfolio</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Nixi Programming Language. Created by <a href="https://github.com/ijadux2/nixi" target="_blank"
+          rel="noopener">Ijadux2</a>. MIT License.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        // Show success feedback
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    // Smooth scrolling to sections
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

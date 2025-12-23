@@ -1,0 +1,144 @@
+{
+  "Component": {
+    "prefix": "comp",
+    "body": [
+      "component ${1:name} { ${2:params} }:",
+      "  ${3:// component body}"
+    ],
+    "description": "Create a Nixi component"
+  },
+  "Let Expression": {
+    "prefix": "let",
+    "body": [
+      "let",
+      "  ${1:name} = ${2:value};",
+      "in",
+      "  ${3:expression}"
+    ],
+    "description": "Create a let expression"
+  },
+  "If Expression": {
+    "prefix": "if",
+    "body": [
+      "if (${1:condition}) then",
+      "  ${2:thenBranch}",
+      "else",
+      "  ${3:elseBranch}"
+    ],
+    "description": "Create an if-then-else expression"
+  },
+  "Style Definition": {
+    "prefix": "style",
+    "body": [
+      "style \"${1:selector}\" {",
+      "  ${2:property}: \"${3:value}\";",
+      "}"
+    ],
+    "description": "Create a style definition"
+  },
+  "HTML Document": {
+    "prefix": "html",
+    "body": [
+      "html {",
+      "  head {",
+      "    title \"${1:Title}\";",
+      "  },",
+      "  body {",
+      "    ${2:// content}",
+      "  }",
+      "}"
+    ],
+    "description": "Create an HTML document structure"
+  },
+  "Div": {
+    "prefix": "div",
+    "body": [
+      "div {",
+      "  class \"${1:className}\";",
+      "  ${2:// content}",
+      "}"
+    ],
+    "description": "Create a div element"
+  },
+  "Button": {
+    "prefix": "button",
+    "body": [
+      "button {",
+      "  onclick ${1:handler};",
+      "  \"${2:Button Text}\"",
+      "}"
+    ],
+    "description": "Create a button element"
+  },
+  "Input": {
+    "prefix": "input",
+    "body": [
+      "input {",
+      "  type \"${1:text}\";",
+      "  placeholder \"${2:placeholder}\";",
+      "  value ${3:value};",
+      "}"
+    ],
+    "description": "Create an input element"
+  },
+  "CSS Rule": {
+    "prefix": "css",
+    "body": [
+      "css {",
+      "  \"${1:selector}\" {",
+      "    ${2:property}: \"${3:value}\";",
+      "  }",
+      "}"
+    ],
+    "description": "Create CSS rules"
+  },
+  "JavaScript Block": {
+    "prefix": "js",
+    "body": [
+      "js {",
+      "  ${1:// JavaScript code}",
+      "}"
+    ],
+    "description": "Create a JavaScript block"
+  },
+  "Form": {
+    "prefix": "form",
+    "body": [
+      "form {",
+      "  action \"${1:/submit}\";",
+      "  method \"${2:POST}\";",
+      "  ${3:// form fields}",
+      "}"
+    ],
+    "description": "Create a form element"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": [
+      "a {",
+      "  href \"${1:url}\";",
+      "  \"${2:link text}\"",
+      "}"
+    ],
+    "description": "Create a link element"
+  },
+  "Image": {
+    "prefix": "img",
+    "body": [
+      "img {",
+      "  src \"${1:url}\";",
+      "  alt \"${2:alt text}\";",
+      "}"
+    ],
+    "description": "Create an image element"
+  },
+  "Script": {
+    "prefix": "script",
+    "body": [
+      "script {",
+      "  src \"${1:url}\";",
+      "}"
+    ],
+    "description": "Create a script element"
+  }
+}

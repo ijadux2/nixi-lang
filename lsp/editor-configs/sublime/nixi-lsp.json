@@ -1,0 +1,63 @@
+{
+  "selector": "source.nixi",
+  "command": "node",
+  "args": ["/home/jadu/code/nixi/lsp/src/server.js"],
+  "languages": ["nixi"],
+  "initializationOptions": {
+    "nixi": {
+      "diagnostics": { "enable": true },
+      "completion": { "enable": true },
+      "hover": { "enable": true }
+    }
+  },
+  "settings": {
+    "nixi": {
+      "server": {
+        "path": "/home/jadu/code/nixi/lsp/src/server.js",
+        "debug": false
+      },
+      "completion": {
+        "enable": true,
+        "autoTrigger": true,
+        "triggerCharacters": [" ", "<", "{", ".", ":", "(", "["]
+      },
+      "diagnostics": {
+        "enable": true,
+        "delay": 500
+      },
+      "hover": {
+        "enable": true
+      }
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "capabilities": {
+    "completionProvider": {
+      "resolveProvider": false,
+      "triggerCharacters": [" ", "<", "{", ".", ":", "(", "["]
+    },
+    "hoverProvider": true,
+    "definitionProvider": true,
+    "referencesProvider": true,
+    "documentSymbolProvider": true,
+    "workspaceSymbolProvider": true,
+    "codeActionProvider": true,
+    "codeLensProvider": {
+      "resolveProvider": false
+    },
+    "documentFormattingProvider": true,
+    "documentRangeFormattingProvider": true,
+    "documentHighlightProvider": true,
+    "signatureHelpProvider": {
+      "triggerCharacters": ["(", "{", "["]
+    },
+    "renameProvider": true,
+    "colorProvider": true,
+    "foldingRangeProvider": true,
+    "declarationProvider": true,
+    "implementationProvider": true,
+    "typeDefinitionProvider": true
+  }
+}

@@ -1,0 +1,66 @@
+[language-server.nixi]
+command = "node"
+args = ["/home/jadu/code/nixi/lsp/src/server.js"]
+
+[language-server.nixi.config]
+nixi = { diagnostics = { enable = true }, completion = { enable = true } }
+
+[[language]]
+name = "nixi"
+scope = "source.nixi"
+injection-regex = "nixi"
+file-types = ["nixi"]
+roots = [".git", ".nixi", "package.json"]
+language-servers = ["nixi"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+
+# Grammar configuration for syntax highlighting
+[language.grammar]
+repository = "https://github.com/nixi-lang/tree-sitter-nixi"
+commit = "main"
+
+# Syntax highlighting rules
+[[language.highlights]]
+name = "keyword"
+scope = "keyword.control.nixi"
+modifiers = ["keyword"]
+
+[[language.highlights]]
+name = "function"
+scope = "entity.name.function.nixi"
+modifiers = ["function"]
+
+[[language.highlights]]
+name = "string"
+scope = "string.quoted.nixi"
+modifiers = ["string"]
+
+[[language.highlights]]
+name = "number"
+scope = "constant.numeric.nixi"
+modifiers = ["number"]
+
+[[language.highlights]]
+name = "comment"
+scope = "comment.line.number-sign.nixi"
+modifiers = ["comment"]
+
+[[language.highlights]]
+name = "tag"
+scope = "entity.name.tag.html.nixi"
+modifiers = ["type"]
+
+[[language.highlights]]
+name = "attribute"
+scope = "entity.other.attribute-name.html.nixi"
+modifiers = ["attribute"]
+
+# Auto-pairs configuration
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+"'" = "'"
+'<' = '>'

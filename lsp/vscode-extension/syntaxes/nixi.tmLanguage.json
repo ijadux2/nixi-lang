@@ -1,0 +1,192 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Nixi",
+  "scopeName": "source.nixi",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#html-tags"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#css-rules"
+    },
+    {
+      "include": "#js-code"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.nixi",
+          "begin": "#",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.html.nixi",
+          "begin": "<!--",
+          "end": "-->"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.nixi",
+          "match": "\\b(let|in|if|then|else|component|style|html|css|js|script|link|meta|head|body|title|header|footer|main|section|article|aside|nav|ul|ol|li|table|tr|td|th|thead|tbody|img|video|audio|canvas|svg|form|label|select|option|textarea|iframe)\\b"
+        },
+        {
+          "name": "constant.language.nixi",
+          "match": "\\b(true|false|null)\\b"
+        }
+      ]
+    },
+    "html-tags": {
+      "patterns": [
+        {
+          "name": "meta.tag.html.nixi",
+          "begin": "<\\s*(\\w+)",
+          "end": ">",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.html.nixi"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#html-attributes"
+            }
+          ]
+        },
+        {
+          "name": "meta.tag.html.nixi",
+          "match": "</\\s*\\w+\\s*>"
+        },
+        {
+          "name": "meta.tag.html.nixi",
+          "match": "<\\s*\\w+[^>]*?/>"
+        }
+      ]
+    },
+    "html-attributes": {
+      "patterns": [
+        {
+          "name": "entity.other.attribute-name.html.nixi",
+          "match": "\\s+(\\w+)"
+        },
+        {
+          "name": "string.quoted.double.html.nixi",
+          "begin": "="\\s*\"",
+          "end": "\""
+        },
+        {
+          "name": "string.quoted.single.html.nixi",
+          "begin": "="\\s*'",
+          "end": "'"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.nixi",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.nixi",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.nixi",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.nixi",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.nixi",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.nixi",
+          "match": "(==|!=|<=|>=|&&|\\|\\||\\+|-|\\*|/|=|:|;|,|\\.|\\(|\\)|\\{|\\}|\\[|\\]|@|#)"
+        }
+      ]
+    },
+    "css-rules": {
+      "patterns": [
+        {
+          "name": "meta.selector.css.nixi",
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "name": "support.type.property-name.css.nixi",
+              "match": "\\b([a-zA-Z-]+)\\s*:"
+            },
+            {
+              "name": "string.quoted.double.css.nixi",
+              "begin": "\"",
+              "end": "\""
+            },
+            {
+              "name": "constant.numeric.css.nixi",
+              "match": "\\b\\d+(px|em|rem|%|vh|vw|pt|pc|in|cm|mm|ex|ch|vmin|vmax)?\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "js-code": {
+      "patterns": [
+        {
+          "name": "source.embedded.js.nixi",
+          "begin": "<script[^>]*>",
+          "end": "</script>",
+          "patterns": [
+            {
+              "include": "source.js"
+            }
+          ]
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "variable.other.nixi",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_\\-]*\\b"
+        }
+      ]
+    }
+  }
+}
