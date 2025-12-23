@@ -1,0 +1,26 @@
+// Test file for Nixi LSP
+let x = 5;
+let y = 10;
+in x + y
+
+component Button = { text, onclick }:
+  button { 
+    onclick onclick; 
+    text 
+  }
+
+style ".btn" {
+  background-color: "blue";
+  color: "white";
+  padding: "10px 20px";
+}
+
+html {
+  head { title "Test Page" },
+  body {
+    div { class "container"; 
+      h1 "Welcome to Nixi"
+      Button { text "Click Me"; onclick alert("Hello!") }
+    }
+  }
+}

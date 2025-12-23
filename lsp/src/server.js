@@ -1,6 +1,4 @@
 const { createConnection, TextDocuments, ProposedFeatures, InitializeRequest, TextDocumentSyncKind, CompletionRequest, HoverRequest, SignatureHelpRequest, DefinitionRequest, TextDocumentPositionParams, CompletionItemKind, Hover, TextDocument } = require('vscode-languageserver');
-const { TextDocumentSyncKind, CompletionItemKind } = require('vscode-languageserver-protocol');
-const { TextDocument } = require('vscode-languageserver-textdocument');
 
 // Import Nixi language components
 const Lexer = require('../../src/lexer');
@@ -50,7 +48,7 @@ class NixiLanguageServer {
   setupConnectionHandlers() {
     // Set up connection event handlers
     connection.onInitialize((params) => {
-      console.log('Nixi LSP initialized');
+      // LSP server initialized
       return {
         capabilities: {
           textDocumentSync: TextDocumentSyncKind.Full,
@@ -134,7 +132,7 @@ class NixiLanguageServer {
     connection.sendDiagnostics({ uri, diagnostics });
   }
 
-  onCompletion(params: TextDocumentPositionParams): CompletionItem[] {
+  onCompletion(params) {
     const uri = params.textDocument.uri;
     const document = documents.get(uri);
     
@@ -185,7 +183,7 @@ class NixiLanguageServer {
     return completions;
   }
 
-  onHover(params: TextDocumentPositionParams): Hover | null {
+  onHover(params) {
     const uri = params.textDocument.uri;
     const document = this.documents.get(uri);
     
@@ -222,7 +220,7 @@ class NixiLanguageServer {
     return null;
   }
 
-  onDefinition(params: TextDocumentPositionParams): Location[] | null {
+  onDefinition(params) {
     const uri = params.textDocument.uri;
     const document = this.documents.get(uri);
     
@@ -270,12 +268,12 @@ class NixiLanguageServer {
     return locations.length > 0 ? locations : null;
   }
 
-  onSignatureHelp(params: TextDocumentPositionParams): SignatureHelp | null {
+  onSignatureHelp(params) {
     // TODO: Implement signature help for function calls
     return null;
   }
 
-  onDocumentSymbol(params: DocumentSymbolParams): SymbolInformation[] | null {
+  onDocumentSymbol(params) {
     const uri = params.textDocument.uri;
     const document = this.documents.get(uri);
     
@@ -288,7 +286,7 @@ class NixiLanguageServer {
     return symbols;
   }
 
-  shouldCompleteKeywords(prefix: string): boolean {
+  shouldCompleteKeywords(prefix) {
     // Complete keywords if we're at start of line or after certain characters
     return /^(\s*)$/.test(prefix) || 
            prefix.endsWith(' ') || 
@@ -298,7 +296,7 @@ class NixiLanguageServer {
            prefix.endsWith('}');
   }
 
-  getWordAtPosition(line: string, character: number): string | null {
+  getWordAtPosition(line, character) {
     // Extract word at cursor position
     const before = line.substring(0, character);
     const after = line.substring(character);
@@ -323,4 +321,5 @@ connection.listen();
 // Make the text document manager listen on the connection
 documents.listen(connection);
 
-console.log('Nixi Language Server started');
+// Handle command line arguments for LSP protocol
+// Using stdio for LSP communication (no print statements to avoid interfering with protocol)
