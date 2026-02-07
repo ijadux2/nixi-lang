@@ -1,24 +1,29 @@
 # Nixi - A Hybrid Programming Language
 
 Nixi is a programming language that combines:
+
 - Nix-like functional syntax and purity
-- Bash-like built-in functions and commands  
-- React.js-like GUI components
 - CSS/QML styling capabilities
 - **Full HTML, CSS, and JavaScript support**
 - **Language Server Protocol (LSP) support** for all major editors
+
+## notice
+
+everywhere in this language refrence , nixi is considered "cli.js" in src/ directory
 
 ## 🚀 Quick Start
 
 ### Installation
 
 #### 🚀 Quick Install (Recommended)
+
 ```bash
 # One-line installation for any platform
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/quick-install.sh | bash
 ```
 
 #### 📋 Platform-Specific Installation
+
 Choose your operating system:
 
 ### 🔧 Language Server Setup
@@ -36,12 +41,7 @@ Nixi includes a complete Language Server Protocol (LSP) implementation providing
 
 - **Neovim** (with nvim-lspconfig)
 - **Cursor Editor** (built-in LSP support)
-- **Helix** (built-in LSP client)
-- **Emacs** (with lsp-mode)
 - **VS Code** (via extension)
-- **Kate/KDevelop** (with LSP Client plugin)
-- **Kakoune** (with kak-lsp)
-- **Sublime Text** (with LSP plugin)
 - **And more...**
 
 #### 🛠️ Quick LSP Setup
@@ -62,9 +62,11 @@ echo 'require("nixi-lsp")' >> ~/.config/nvim/init.lua
 For detailed setup instructions for your favorite editor, see [lsp-installation.html](lsp-installation.html).
 
 #### 📋 Platform-Specific Installation
+
 Choose your operating system:
 
 #### Windows
+
 ```batch
 # Option 1: One-line installation (run in Command Prompt or PowerShell)
 powershell -Command "iwr -outf install-windows.bat https://raw.githubusercontent.com/ijadux2/nixi/main/install-windows.bat; ./install-windows.bat"
@@ -80,6 +82,7 @@ npm install
 ```
 
 #### macOS
+
 ```bash
 # Option 1: One-line installation (copy and paste this entire command)
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-macos.sh | bash
@@ -96,6 +99,7 @@ npm install
 ```
 
 #### Linux
+
 ```bash
 # Option 1: One-line installation (copy and paste this entire command)
 curl -fsSL https://raw.githubusercontent.com/ijadux2/nixi/main/install-linux.sh | bash
@@ -112,19 +116,23 @@ npm install
 ```
 
 #### Prerequisites
+
 - **Node.js** (version 14 or higher)
 - **Git** for cloning the repository
 - **npm** (comes with Node.js)
 
 #### Adding Nixi to PATH (Optional)
+
 After installation, you can add Nixi to your system PATH for easier access:
 
 **Windows (Command Prompt):**
+
 ```batch
 setx PATH "%PATH%;C:\path\to\nixi"
 ```
 
 **macOS/Linux (bash/zsh):**
+
 ```bash
 echo 'export PATH="$PATH:/path/to/nixi"' >> ~/.bashrc  # or ~/.zshrc
 source ~/.bashrc  # or source ~/.zshrc
@@ -133,6 +141,7 @@ source ~/.bashrc  # or source ~/.zshrc
 ### Running Nixi Programs
 
 #### Using the Compiler (Recommended)
+
 ```bash
 # Run a Nixi file directly
 nixi examples/simple-gui.nixi
@@ -151,11 +160,12 @@ npm start              # Start REPL
 ```
 
 #### Legacy CLI (Still Available)
+
 ```bash
 # Run a GUI example
 node src/cli.js examples/simple-gui.nixi
 
-# Run a config example  
+# Run a config example
 node src/cli.js config/simple-working.nixi
 ```
 
@@ -169,6 +179,7 @@ node src/cli.js config/simple-working.nixi
 ## 🎯 Language Features
 
 ### Nix-like Syntax
+
 ```nixi
 # Function definitions
 let
@@ -179,6 +190,7 @@ in
 ```
 
 ### Bash-like Functions
+
 ```nixi
 # Built-in commands
 ls "directory"
@@ -187,6 +199,7 @@ cd "/path/to/directory"
 ```
 
 ### GUI Components (React-like)
+
 ```nixi
 component Button = { text, onClick }:
   div {
@@ -203,6 +216,7 @@ component App = {}:
 ```
 
 ### CSS/QML Styling
+
 ```nixi
 style "button" {
   background: "#007bff";
@@ -219,6 +233,7 @@ style "app" {
 ```
 
 ### HTML Support
+
 ```nixi
 # Direct HTML embedding
 html {
@@ -243,6 +258,7 @@ in
 ```
 
 ### JavaScript Integration
+
 ```nixi
 # Inline JavaScript
 js "
@@ -261,6 +277,7 @@ in
 ```
 
 ### HTML Support
+
 ```nixi
 # Direct HTML tags
 html {
@@ -293,13 +310,14 @@ in
 ```
 
 ### JavaScript Integration
+
 ```nixi
 # Inline JavaScript
 js "
   function greet(name) {
     return 'Hello, ' + name + '!';
   }
-  
+
   console.log(greet('Nixi'));
 "
 
@@ -313,7 +331,7 @@ in
 # DOM manipulation
 let
   button = querySelector "#myButton";
-  _ = addEventListener button "click" (event: 
+  _ = addEventListener button "click" (event:
     echo "Button clicked!"
   );
 in
@@ -376,13 +394,15 @@ nixi/
 ## 🧪 Working Examples
 
 ### GUI Examples
+
 - `examples/simple-gui.nixi` - Basic GUI with buttons and styling
 - `examples/simple-components.nixi` - Component-based architecture demo
 - `examples/styling-demo.nixi` - Advanced styling capabilities
 - `examples/system-ops.nixi` - File system operations
 - `examples/advanced-demo.nixi` - Advanced language features
 
-### Configuration Examples  
+### Configuration Examples
+
 - `config/simple-working.nixi` - Minimal working example
 - `config/math-demo.nixi` - Mathematical operations
 - `config/complete-working.nixi` - Full feature demonstration
@@ -393,14 +413,16 @@ nixi/
 ## ✅ Testing Results
 
 ### Core Functionality Status
+
 - **✅ Compiler Examples**: All 4 example files compile and run successfully
-- **✅ REPL Mode**: Interactive mode works correctly  
+- **✅ REPL Mode**: Interactive mode works correctly
 - **✅ JavaScript Compilation**: `--compile` flag generates proper JS output
 - **✅ HTML Generation**: Components generate valid HTML with styling
 - **✅ npm Scripts**: All example scripts work as expected
 - **✅ Test Suite**: All tests pass (lexer, parser, interpreter, GUI)
 
 ### Verified Features
+
 - **✅ Component Creation**: Working with proper NixiValue objects
 - **✅ Styling System**: CSS-like styling with `style "selector" { ... }` syntax
 - **✅ File Operations**: ls, pwd, cd functions operational
@@ -414,6 +436,7 @@ nixi/
 - **✅ Web APIs**: File I/O, element manipulation, event handling
 
 ### Known Limitations
+
 - **⚠️ Component Parameters**: Parser doesn't fully support parameterized component definitions
 - **⚠️ Conditional Expressions**: if-then-else syntax has parsing issues
 - **⚠️ Array Access**: `array[index]` syntax causes runtime errors
@@ -425,18 +448,21 @@ nixi/
 ## 🛠️ Development
 
 ### Running Tests
+
 ```bash
 npm test              # Run test suite
 node tests/test.js    # Direct test execution
 ```
 
 ### Development Mode
+
 ```bash
 npm run dev           # Watch mode for development
 npm start             # Start REPL
 ```
 
 ### Compiler Features
+
 ```bash
 nixi --help           # Show help
 nixi --version        # Show version
@@ -448,18 +474,22 @@ nixi --compile file   # Compile to JavaScript
 Nixi provides comprehensive editor support for multiple development environments:
 
 #### 🔧 Neovim
+
 Full syntax highlighting, smart indentation, and file detection:
+
 ```bash
 ./install-neovim.sh
 ```
 
 **Features:**
+
 - Syntax highlighting for keywords, built-ins, components
-- Smart indentation for let blocks, components, styles  
+- Smart indentation for let blocks, components, styles
 - File type detection for `.nixi` files
 - Customizable colors and highlighting
 
 **Manual Installation:**
+
 ```bash
 mkdir -p ~/.config/nvim/{syntax,ftdetect,indent}
 cp neovim/syntax/nixi.vim ~/.config/nvim/syntax/
@@ -468,18 +498,22 @@ cp neovim/indent/nixi.vim ~/.config/nvim/indent/
 ```
 
 #### 📝 Vim
+
 Classic Vim support with syntax highlighting and indentation:
+
 ```bash
 ./install-vim.sh
 ```
 
 **Features:**
+
 - Syntax highlighting for keywords, built-ins, components, HTML, and JavaScript blocks
 - Smart indentation for let blocks, components, styles, and HTML structures
 - File type detection for `.nixi` files
 - Support for JavaScript (`js "..."`) and HTML (`html { ... }`) blocks
 
 **Manual Installation:**
+
 ```bash
 mkdir -p ~/.vim/{syntax,ftdetect,indent}
 cp vim/syntax/nixi.vim ~/.vim/syntax/
@@ -488,13 +522,16 @@ cp vim/indent/nixi.vim ~/.vim/indent/
 ```
 
 #### 💻 VS Code
+
 Complete language support with integrated compilation:
+
 1. Open VS Code
 2. Go to Extensions (Ctrl+Shift+X)
 3. Search "Nixi Language Support"
 4. Click Install
 
 **Features:**
+
 - Full syntax highlighting and code snippets
 - Integrated compilation commands (Compile, Run, Compile to JS)
 - Auto-completion and bracket matching
@@ -502,18 +539,22 @@ Complete language support with integrated compilation:
 - Configurable compiler path
 
 **Available Commands:**
+
 - `Nixi: Compile File` - Compile current .nixi file
-- `Nixi: Run File` - Run current .nixi file  
+- `Nixi: Run File` - Run current .nixi file
 - `Nixi: Compile to JavaScript` - Convert to JS
 
 #### 🤖 Cursor
+
 AI-powered editor with enhanced features:
+
 1. Open Cursor
 2. Go to Extensions (Ctrl+Shift+X)
 3. Search "Nixi Language Support for Cursor"
 4. Click Install
 
 **Features:**
+
 - All VS Code features plus AI integration
 - AI-powered code generation and explanation
 - Smart error analysis and suggestions
@@ -521,6 +562,7 @@ AI-powered editor with enhanced features:
 - Context-aware completions
 
 **AI Integration Examples:**
+
 ```
 "Create a Nixi component for a user profile card"
 "Explain how this let-in binding works"
@@ -529,12 +571,15 @@ AI-powered editor with enhanced features:
 ```
 
 #### 📝 Other Editors
+
 Basic TextMate grammar support for Sublime Text, Atom, and other editors:
+
 - Copy `vscode-extension/syntaxes/nixi.tmLanguage.json`
 - Install as TextMate grammar
 - Associate `.nixi` files with the grammar
 
 **Quick Setup:**
+
 ```bash
 # For detailed installation guides, see:
 cat EDITOR_INSTALLATION.md
@@ -543,6 +588,7 @@ cat EDITOR_INSTALLATION.md
 ---
 
 ### Neovim Support (Quick Install)
+
 ```bash
 ./install-neovim.sh
 ```
@@ -560,16 +606,17 @@ cat EDITOR_INSTALLATION.md
 **Editor Support**: ✅ Neovim, VS Code, Cursor  
 **Extensions**: ✅ Full language extensions available  
 **Lambda Functions**: ⚠️ Limited support  
-**Parameter Destructuring**: ⚠️ Limited support  
+**Parameter Destructuring**: ⚠️ Limited support
 
 ### New in Compiler
+
 - 🚀 **Compilation to JavaScript** - Export compiled code
 - 🔧 **Enhanced Error Messages** - Better debugging
-- 📦 **Component System** - Reusable GUI components  
+- 📦 **Component System** - Reusable GUI components
 - 🎨 **Improved Styling** - CSS-like styling support
 - 🔍 **Debug Output** - Automatic JavaScript generation
 - 💻 **Editor Extensions** - Full VS Code and Cursor support
-- 🔧 **Neovim Plugin** - Enhanced syntax highlighting and indentation  
+- 🔧 **Neovim Plugin** - Enhanced syntax highlighting and indentation
 
 ## 🤝 Contributing
 
@@ -595,4 +642,4 @@ MIT License - see LICENSE file for details
 
 ---
 
-*Nixi - Where functional programming meets GUI development*
+_Nixi - Where functional programming meets GUI development_
